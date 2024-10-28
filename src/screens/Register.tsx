@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -12,36 +12,27 @@ import {
   Platform,
   ScrollView,
 } from "react-native";
-import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 
-const Register = () => {
-  const [circleColors, setCircleColors] = useState([
-    "#8FE1D7",
-    "#8FE1D7",
-    "#8FE1D7",
-    "#8FE1D7",
-  ]);
-
-  // Function to handle circle press in
-  const handleCirclePressIn = (index) => {
-    const newColors = [...circleColors];
-    newColors[index] = "#5ED1C7"; // Darker color on press
-    setCircleColors(newColors);
-  };
-
-  // Function to handle circle press out
-  const handleCirclePressOut = (index) => {
-    const newColors = [...circleColors];
-    newColors[index] = "#8FE1D7"; // Reset color after press
-    setCircleColors(newColors);
-  };
-
+const Login = ({ navigation }: any) => {
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      behavior={Platform.OS === "ios" ? "padding" : "padding"}
     >
+      {/* Circle css */}
+      <TouchableWithoutFeedback>
+        <View style={[styles.circleTopLeft1]} />
+      </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback>
+        <View style={[styles.circleTopLeft2]} />
+      </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback>
+        <View style={[styles.circleBottomRight1]} />
+      </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback>
+        <View style={[styles.circleBottomRight2]} />
+      </TouchableWithoutFeedback>
       <StatusBar
         barStyle="dark-content"
         backgroundColor="transparent"
@@ -49,17 +40,39 @@ const Register = () => {
       />
 
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <Image
-          source={require("../assets/images/icon-v2.png")}
-          style={styles.logo}
-          resizeMode="contain"
-        />
-        <View style={{ marginBottom: 30, marginTop: 10 }}>
+        {/* Back Button*/}
+        <View style={styles.header}>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={styles.backButton}
+          >
+            <Image
+              source={require("../assets/images/backBtn.png")}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
+          <Image
+            source={require("../assets/images/icon.png")}
+            style={styles.logoMini}
+            resizeMode="contain"
+          />
+        </View>
+
+        <View style={{ marginBottom: 30 }}>
           <Text style={{ fontSize: 25, fontWeight: "bold" }}>
-            Welcome to Katenai
+            Create your account
           </Text>
         </View>
 
+        <View style={styles.inputField}>
+          <Text style={styles.label}>Name</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="ex: Nam Tran Hoang"
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+        </View>
         <View style={styles.inputField}>
           <Text style={styles.label}>Email</Text>
           <TextInput
@@ -78,13 +91,26 @@ const Register = () => {
             secureTextEntry
           />
         </View>
+        <View style={styles.inputField}>
+          <Text style={styles.label}>Confirm Password</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="*********"
+            secureTextEntry
+          />
+        </View>
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("HomeScreen")}
+        >
           <LinearGradient
-            colors={["#6D5FB2", "#7E60BF"]}
+            colors={["#03CC4C", "#27F0AA"]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
             style={styles.gradient}
           >
-            <Text style={styles.buttonText}>SIGN IN</Text>
+            <Text style={styles.buttonText}>SIGN UP</Text>
           </LinearGradient>
         </TouchableOpacity>
 
@@ -115,52 +141,12 @@ const Register = () => {
             />
           </TouchableOpacity>
         </View>
-
-        {/* Circle css */}
-        <TouchableWithoutFeedback
-          onPressIn={() => handleCirclePressIn(0)}
-          onPressOut={() => handleCirclePressOut(0)}
-        >
-          <View
-            style={[
-              styles.circleTopLeft1,
-              { backgroundColor: circleColors[0] },
-            ]}
-          />
-        </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback
-          onPressIn={() => handleCirclePressIn(1)}
-          onPressOut={() => handleCirclePressOut(1)}
-        >
-          <View
-            style={[
-              styles.circleTopLeft2,
-              { backgroundColor: circleColors[1] },
-            ]}
-          />
-        </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback
-          onPressIn={() => handleCirclePressIn(2)}
-          onPressOut={() => handleCirclePressOut(2)}
-        >
-          <View
-            style={[
-              styles.circleBottomRight1,
-              { backgroundColor: circleColors[2] },
-            ]}
-          />
-        </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback
-          onPressIn={() => handleCirclePressIn(3)}
-          onPressOut={() => handleCirclePressOut(3)}
-        >
-          <View
-            style={[
-              styles.circleBottomRight2,
-              { backgroundColor: circleColors[3] },
-            ]}
-          />
-        </TouchableWithoutFeedback>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Text style={styles.orText}>Have an account?</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+            <Text style={{ color: "#7160B5", marginLeft: 5 }}>SIGN IN</Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -178,10 +164,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 35,
   },
-  logo: {
-    marginLeft: 40,
-    width: "50%",
-    height: "30%",
+  header: {
+    display: "flex",
+    justifyContent: "space-between",
+    width: "100%",
+    flexDirection: "row",
+    paddingHorizontal: 5,
+    paddingVertical: 30,
   },
   inputField: {
     width: "100%",
@@ -217,10 +206,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
   },
-  buttonText: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
   orText: {
     fontSize: 13,
     color: "#888",
@@ -229,12 +214,25 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     width: "100%",
+    marginBottom: 25,
   },
   iconButton: {
     padding: 5,
     paddingHorizontal: 30,
     backgroundColor: "#F4F4F4",
     borderRadius: 10,
+  },
+  backButton: {
+    padding: 15,
+    margin: -15,
+    alignSelf: "flex-start",
+  },
+  logoMini: {
+    position: "absolute",
+    height: 25,
+    width: 25,
+    right: 0,
+    top: 22,
   },
   circleTopLeft1: {
     position: "absolute",
@@ -244,6 +242,7 @@ const styles = StyleSheet.create({
     height: 200,
     borderRadius: 500,
     opacity: 0.5,
+    backgroundColor: "#8FE1D7",
   },
   circleTopLeft2: {
     position: "absolute",
@@ -253,6 +252,7 @@ const styles = StyleSheet.create({
     height: 220,
     borderRadius: 500,
     opacity: 0.5,
+    backgroundColor: "#8FE1D7",
   },
   circleBottomRight1: {
     position: "absolute",
@@ -262,6 +262,7 @@ const styles = StyleSheet.create({
     height: 220,
     borderRadius: 500,
     opacity: 0.5,
+    backgroundColor: "#8FE1D7",
   },
   circleBottomRight2: {
     position: "absolute",
@@ -271,7 +272,8 @@ const styles = StyleSheet.create({
     height: 220,
     borderRadius: 500,
     opacity: 0.5,
+    backgroundColor: "#8FE1D7",
   },
 });
 
-export default Register;
+export default Login;

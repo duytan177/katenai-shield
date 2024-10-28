@@ -21,6 +21,19 @@ const Login = ({ navigation }: any) => {
       style={styles.container}
       behavior={Platform.OS === "ios" ? "padding" : "padding"}
     >
+      {/* Circle css */}
+      <TouchableWithoutFeedback>
+        <View style={[styles.circleTopLeft1]} />
+      </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback>
+        <View style={[styles.circleTopLeft2]} />
+      </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback>
+        <View style={[styles.circleBottomRight1]} />
+      </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback>
+        <View style={[styles.circleBottomRight2]} />
+      </TouchableWithoutFeedback>
       <StatusBar
         barStyle="dark-content"
         backgroundColor="transparent"
@@ -104,19 +117,6 @@ const Login = ({ navigation }: any) => {
           </TouchableOpacity>
         </View>
       </ScrollView>
-      {/* Circle css */}
-      <TouchableWithoutFeedback>
-        <View style={[styles.circleTopLeft1]} />
-      </TouchableWithoutFeedback>
-      <TouchableWithoutFeedback>
-        <View style={[styles.circleTopLeft2]} />
-      </TouchableWithoutFeedback>
-      <TouchableWithoutFeedback>
-        <View style={[styles.circleBottomRight1]} />
-      </TouchableWithoutFeedback>
-      <TouchableWithoutFeedback>
-        <View style={[styles.circleBottomRight2]} />
-      </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
 };
@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     width: "100%",
-    marginBottom: 15,
+    marginBottom: 25,
   },
   iconButton: {
     padding: 5,
