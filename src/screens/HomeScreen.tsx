@@ -3,7 +3,7 @@ import { theme } from "../constants/theme";
 import { hp } from "../helpers/common";
 import React from "react";
 
-const Home = () => {
+const HomeScreen = () => {
   return (
     <View style={styles.header}>
       <Pressable style={styles.startButton}>
@@ -38,4 +38,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default HomeScreen;

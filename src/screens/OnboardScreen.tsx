@@ -19,19 +19,19 @@ const COLORS = { primary: "#282534", white: "#fff" };
 const slides = [
   {
     id: "1",
-    image: require("../../assets/images/review1.jpg"),
+    image: require("../assets/images/review1.jpg"),
     title: "Always Here for You",
     subtitle: "We’re ready to listen and help whenever you need.",
   },
   {
     id: "2",
-    image: require("../../assets/images/review2.jpg"),
+    image: require("../assets/images/review2.jpg"),
     title: "Share with Everyone",
     subtitle: "Join others in building a safer, more supportive community.",
   },
   {
     id: "3",
-    image: require("../../assets/images/review3.jpg"),
+    image: require("../assets/images/review3.jpg"),
     title: "Strengthen Your Mind",
     subtitle:
       "Empower yourself to face adversity and navigate tough situations with courage.",
@@ -89,7 +89,7 @@ const OnboardingScreen = ({ navigation }) => {
         {currentSlideIndex === slides.length - 1 ? (
           <TouchableOpacity
             style={styles.btn}
-            onPress={() => navigation.navigate("HomeScreen")}
+            onPress={() => navigation.navigate("Login")}
           >
             <LinearGradient
               colors={["#6D5FB2", "#7E60BF"]} 
