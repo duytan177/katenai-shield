@@ -6,9 +6,8 @@ import React from "react";
 const Home = () => {
   return (
     <View style={styles.header}>
-      <Text style={styles.startText}>Hello Home</Text>
       <Pressable style={styles.startButton}>
-        <Text style={styles.startText}>Start</Text>
+        <Text style={styles.startText}>Tracking</Text>
       </Pressable>
     </View>
   );
