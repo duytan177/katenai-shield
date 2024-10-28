@@ -1,25 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-// import { Provider } from "react-redux";
+import React from "react";
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, SafeAreaView, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
-import KatenaiShield from './src/screens/KatenaiShield';
-
+import KatenaiShield from "./src/screens/KatenaiShield";
 
 export default function App() {
   return (
-    // <Provider store={store}``>
+    <View style={styles.container}>
+      <StatusBar style="auto" />
       <NavigationContainer>
         <KatenaiShield />
       </NavigationContainer>
-    // </Provider>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
   },
 });

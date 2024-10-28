@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../screens/Home';
-import Login from '../screens/Test';
+import Login from '../screens/Login';
 
 export type MainStackParamList = {
     HomeScreen: any;

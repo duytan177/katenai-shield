@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, Pressable } from 'react-native';
-import { theme } from '../constants/theme';
-import { hp } from '../helpers/common';
-const Home = () => {
+import { StyleSheet, View, Text, Pressable } from "react-native";
+import { theme } from "../constants/theme";
+import { hp } from "../helpers/common";
+import React from "react";
 
-    return (
-        <View>
-          <Text>Hello Home</Text>
-        </View>
-        
-    );
-}
+const Home = () => {
+  return (
+    <View style={styles.header}>
+      <Text style={styles.startText}>Hello Home</Text>
+      <Pressable style={styles.startButton}>
+        <Text style={styles.startText}>Start</Text>
+      </Pressable>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   header: {
