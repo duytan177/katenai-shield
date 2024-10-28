@@ -15,11 +15,32 @@ import {
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 
-const Login = ({ navigation }: any) => {
+const Register = () => {
+  const [circleColors, setCircleColors] = useState([
+    "#8FE1D7",
+    "#8FE1D7",
+    "#8FE1D7",
+    "#8FE1D7",
+  ]);
+
+  // Function to handle circle press in
+  const handleCirclePressIn = (index) => {
+    const newColors = [...circleColors];
+    newColors[index] = "#5ED1C7"; // Darker color on press
+    setCircleColors(newColors);
+  };
+
+  // Function to handle circle press out
+  const handleCirclePressOut = (index) => {
+    const newColors = [...circleColors];
+    newColors[index] = "#8FE1D7"; // Reset color after press
+    setCircleColors(newColors);
+  };
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
-      behavior={Platform.OS === "ios" ? "padding" : "padding"}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <StatusBar
         barStyle="dark-content"
@@ -58,10 +79,7 @@ const Login = ({ navigation }: any) => {
           />
         </View>
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate("HomeScreen")}
-        >
+        <TouchableOpacity style={styles.button}>
           <LinearGradient
             colors={["#6D5FB2", "#7E60BF"]}
             style={styles.gradient}
@@ -97,26 +115,53 @@ const Login = ({ navigation }: any) => {
             />
           </TouchableOpacity>
         </View>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Text style={styles.orText}>Don’t have an account?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-            <Text style={{ color: "#7160B5", marginLeft: 5 }}>SIGN UP</Text>
-          </TouchableOpacity>
-        </View>
+
+        {/* Circle css */}
+        <TouchableWithoutFeedback
+          onPressIn={() => handleCirclePressIn(0)}
+          onPressOut={() => handleCirclePressOut(0)}
+        >
+          <View
+            style={[
+              styles.circleTopLeft1,
+              { backgroundColor: circleColors[0] },
+            ]}
+          />
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback
+          onPressIn={() => handleCirclePressIn(1)}
+          onPressOut={() => handleCirclePressOut(1)}
+        >
+          <View
+            style={[
+              styles.circleTopLeft2,
+              { backgroundColor: circleColors[1] },
+            ]}
+          />
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback
+          onPressIn={() => handleCirclePressIn(2)}
+          onPressOut={() => handleCirclePressOut(2)}
+        >
+          <View
+            style={[
+              styles.circleBottomRight1,
+              { backgroundColor: circleColors[2] },
+            ]}
+          />
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback
+          onPressIn={() => handleCirclePressIn(3)}
+          onPressOut={() => handleCirclePressOut(3)}
+        >
+          <View
+            style={[
+              styles.circleBottomRight2,
+              { backgroundColor: circleColors[3] },
+            ]}
+          />
+        </TouchableWithoutFeedback>
       </ScrollView>
-      {/* Circle css */}
-      <TouchableWithoutFeedback>
-        <View style={[styles.circleTopLeft1]} />
-      </TouchableWithoutFeedback>
-      <TouchableWithoutFeedback>
-        <View style={[styles.circleTopLeft2]} />
-      </TouchableWithoutFeedback>
-      <TouchableWithoutFeedback>
-        <View style={[styles.circleBottomRight1]} />
-      </TouchableWithoutFeedback>
-      <TouchableWithoutFeedback>
-        <View style={[styles.circleBottomRight2]} />
-      </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
 };
@@ -184,7 +229,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     width: "100%",
-    marginBottom: 15,
   },
   iconButton: {
     padding: 5,
@@ -200,7 +244,6 @@ const styles = StyleSheet.create({
     height: 200,
     borderRadius: 500,
     opacity: 0.5,
-    backgroundColor: "#8FE1D7",
   },
   circleTopLeft2: {
     position: "absolute",
@@ -210,7 +253,6 @@ const styles = StyleSheet.create({
     height: 220,
     borderRadius: 500,
     opacity: 0.5,
-    backgroundColor: "#8FE1D7",
   },
   circleBottomRight1: {
     position: "absolute",
@@ -220,7 +262,6 @@ const styles = StyleSheet.create({
     height: 220,
     borderRadius: 500,
     opacity: 0.5,
-    backgroundColor: "#8FE1D7",
   },
   circleBottomRight2: {
     position: "absolute",
@@ -230,8 +271,7 @@ const styles = StyleSheet.create({
     height: 220,
     borderRadius: 500,
     opacity: 0.5,
-    backgroundColor: "#8FE1D7",
   },
 });
 
-export default Login;
+export default Register;
