@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, Pressable } from 'react-native';
-import { theme } from '../constants/theme';
-import { hp } from '../helpers/common';
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View, Text, Pressable } from "react-native";
+import { theme } from "../constants/theme";
+import { hp } from "../helpers/common";
 const Login = () => {
-    return (
-        <View>
-          <Text>Hello Login</Text>
-        </View>
-        
-    );
-}
+  return (
+    <View>
+      <Text>Hello Login</Text>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   header: {
