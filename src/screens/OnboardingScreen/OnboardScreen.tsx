@@ -1,15 +1,16 @@
 import React from "react";
 import {
-  SafeAreaView,
+  View,
   ImageBackground,
   StyleSheet,
   FlatList,
-  View,
   Text,
   StatusBar,
   TouchableOpacity,
   Dimensions,
+  Platform,
 } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
 const { width, height } = Dimensions.get("window");
 
@@ -19,20 +20,21 @@ const slides = [
   {
     id: "1",
     image: require("../../assets/images/review1.jpg"),
-    title: "Best Digital Solution",
-    subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    title: "Always Here for You",
+    subtitle: "We’re ready to listen and help whenever you need.",
   },
   {
     id: "2",
     image: require("../../assets/images/review2.jpg"),
-    title: "Achieve Your Goals",
-    subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    title: "Share with Everyone",
+    subtitle: "Join others in building a safer, more supportive community.",
   },
   {
     id: "3",
     image: require("../../assets/images/review3.jpg"),
-    title: "Increase Your Value",
-    subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    title: "Strengthen Your Mind",
+    subtitle:
+      "Empower yourself to face adversity and navigate tough situations with courage.",
   },
 ];
 
@@ -89,23 +91,25 @@ const OnboardingScreen = ({ navigation }) => {
             style={styles.btn}
             onPress={() => navigation.navigate("HomeScreen")}
           >
-            <Text style={{ fontWeight: "bold", fontSize: 15 }}>
-              GET STARTED
-            </Text>
+            <LinearGradient
+              colors={["#6D5FB2", "#7E60BF"]} 
+              style={styles.gradient}
+            >
+              <Text
+                style={{ fontWeight: "bold", fontSize: 15, color: "white" }}
+              >
+                GET STARTED
+              </Text>
+            </LinearGradient>
           </TouchableOpacity>
         ) : (
           <>
             <TouchableOpacity style={styles.skipButton} onPress={skip}>
               <Text style={styles.skipButtonText}>SKIP</Text>
             </TouchableOpacity>
-            <View style={styles.nextButtonContainer}>
-              <TouchableOpacity
-                onPress={goToNextSlide}
-                style={styles.nextButton}
-              >
-                <Text style={styles.nextButtonText}>NEXT</Text>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity onPress={goToNextSlide} style={styles.nextButton}>
+              <Text style={styles.nextButtonText}>NEXT</Text>
+            </TouchableOpacity>
           </>
         )}
       </View>
@@ -113,20 +117,66 @@ const OnboardingScreen = ({ navigation }) => {
   );
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor={COLORS.primary} />
+    <View style={styles.container}>
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor="transparent"
+        translucent
+      />
+      <View></View>
       <FlatList
         ref={ref}
         onMomentumScrollEnd={updateCurrentSlideIndex}
-        contentContainerStyle={styles.flatListContainer}
         showsHorizontalScrollIndicator={false}
         horizontal
         data={slides}
-        pagingEnabled
         renderItem={({ item }) => <Slide item={item} />}
+        keyExtractor={(item) => item.id}
+        snapToInterval={width}
+        decelerationRate="fast"
+        bounces={false}
       />
+      <View style={styles.welcome}>
+        <Text
+          style={{
+            color: "white",
+            marginBottom: 10,
+            fontSize: 20,
+            letterSpacing: 1,
+          }}
+        >
+          Welcome to
+        </Text>
+        <Text
+          style={{
+            color: "white",
+            fontSize: 40,
+            letterSpacing: 2,
+            fontWeight: "600",
+            marginBottom: -10,
+            textShadowColor: "rgba(0, 0, 0, 0.5)", // Màu sắc của bóng đổ
+            textShadowOffset: { width: 0, height: 2 }, // Độ lệch bóng
+            textShadowRadius: 5, // Độ mờ của bóng
+          }}
+        >
+          Katenai
+        </Text>
+        <Text
+          style={{
+            color: "white",
+            fontSize: 40,
+            letterSpacing: 2,
+            fontWeight: "600",
+            textShadowColor: "rgba(0, 0, 0, 0.5)", // Màu sắc của bóng đổ
+            textShadowOffset: { width: 0, height: 2 }, // Độ lệch bóng
+            textShadowRadius: 5, // Độ mờ của bóng
+          }}
+        >
+          Shield
+        </Text>
+      </View>
       <Footer />
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -135,13 +185,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "transparent",
   },
-  flatListContainer: {
-    height: height * 0.75,
-  },
   image: {
     width,
     height,
-    justifyContent: "center",
+    justifyContent: "flex-end",
+    resizeMode: "cover",
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
@@ -149,6 +197,9 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   textContainer: {
+    position: "absolute",
+    bottom: 200,
+    width,
     alignItems: "center",
     paddingHorizontal: 20,
   },
@@ -168,14 +219,15 @@ const styles = StyleSheet.create({
     lineHeight: 23,
   },
   footerContainer: {
-    height: height * 0.25,
-    justifyContent: "space-between",
+    position: "absolute",
+    bottom: 50,
+    width,
     paddingHorizontal: 20,
   },
   indicatorContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    marginTop: 20,
+    marginBottom: 20,
   },
   indicator: {
     height: 2.5,
@@ -189,7 +241,6 @@ const styles = StyleSheet.create({
     width: 25,
   },
   buttonContainer: {
-    marginBottom: 20,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -210,10 +261,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: COLORS.white,
   },
-  nextButtonContainer: {
-    flex: 1,
-  },
   nextButton: {
+    flex: 1,
     height: 50,
     borderRadius: 5,
     backgroundColor: COLORS.white,
@@ -223,14 +272,28 @@ const styles = StyleSheet.create({
   nextButtonText: {
     fontWeight: "bold",
     fontSize: 15,
+    color: COLORS.primary,
   },
   btn: {
     flex: 1,
     height: 50,
     borderRadius: 5,
-    backgroundColor: "#fff",
     justifyContent: "center",
     alignItems: "center",
+    width: "100%",
+  },
+  gradient: {
+    flex: 1,
+    borderRadius: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+  },
+  welcome: {
+    position: "absolute",
+    top: 100,
+    width: "100%",
+    paddingHorizontal: 50,
   },
 });
 
