@@ -4,6 +4,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   StyleSheet,
   Image,
   StatusBar,
@@ -19,44 +20,131 @@ const Login = ({ navigation }: any) => {
       style={styles.container}
       behavior={Platform.OS === "ios" ? "padding" : "padding"}
     >
-      <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
+      {/* Circle css */}
+      <TouchableWithoutFeedback>
+        <View style={[styles.circleTopLeft1]} />
+      </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback>
+        <View style={[styles.circleTopLeft2]} />
+      </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback>
+        <View style={[styles.circleBottomRight1]} />
+      </TouchableWithoutFeedback>
+      <TouchableWithoutFeedback>
+        <View style={[styles.circleBottomRight2]} />
+      </TouchableWithoutFeedback>
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor="transparent"
+        translucent
+      />
 
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        {/* Header */}
+        {/* Back Button*/}
         <View style={styles.header}>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-            <Image source={require("../assets/images/backBtn.png")} resizeMode="contain" />
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={styles.backButton}
+          >
+            <Image
+              source={require("../assets/images/backBtn.png")}
+              resizeMode="contain"
+            />
           </TouchableOpacity>
-          <Image source={require("../assets/images/icon.png")} style={styles.logoMini} resizeMode="contain" />
+          <Image
+            source={require("../assets/images/icon.png")}
+            style={styles.logoMini}
+            resizeMode="contain"
+          />
         </View>
 
-        <Text style={styles.title}>Create your account</Text>
+        <View style={{ marginBottom: 30 }}>
+          <Text style={{ fontSize: 25, fontWeight: "bold" }}>
+            Create your account
+          </Text>
+        </View>
 
-        <InputField label="Name" placeholder="ex: Nam Tran Hoang" keyboardType="default" />
-        <InputField label="Email" placeholder="ex: nam.deptrai@email.com" keyboardType="email-address" />
-        <InputField label="Password" placeholder="*********" secureTextEntry />
-        <InputField label="Confirm Password" placeholder="*********" secureTextEntry />
+        <View style={styles.inputField}>
+          <Text style={styles.label}>Name</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="ex: Nam Tran Hoang"
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+        </View>
+        <View style={styles.inputField}>
+          <Text style={styles.label}>Email</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="ex: nam.deptrai@email.com"
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
+        </View>
 
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("HomeScreen")}>
-          <LinearGradient colors={["#03CC4C", "#27F0AA"]} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} style={styles.gradient}>
+        <View style={styles.inputField}>
+          <Text style={styles.label}>Password</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="*********"
+            secureTextEntry
+          />
+        </View>
+        <View style={styles.inputField}>
+          <Text style={styles.label}>Confirm Password</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="*********"
+            secureTextEntry
+          />
+        </View>
+
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => navigation.navigate("HomeScreen")}
+        >
+          <LinearGradient
+            colors={["#03CC4C", "#27F0AA"]}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            style={styles.gradient}
+          >
             <Text style={styles.buttonText}>SIGN UP</Text>
           </LinearGradient>
         </TouchableOpacity>
 
-        <Text style={styles.orText}>or sign in with</Text>
-
-        <View style={styles.iconContainer}>
-          {["facebookIcon", "googleIcon", "twitterIcon"].map((icon) => (
-            <TouchableOpacity key={icon} style={styles.iconButton}>
-              <Image source={require(`../assets/images/${icon}.png`)} style={styles.icon} resizeMode="contain" />
-            </TouchableOpacity>
-          ))}
+        <View style={{ marginBottom: 20 }}>
+          <Text style={styles.orText}>or sign in with</Text>
         </View>
 
-        <View style={styles.footer}>
+        <View style={styles.iconContainer}>
+          <TouchableOpacity style={styles.iconButton}>
+            <Image
+              source={require("../assets/images/facebookIcon.png")}
+              style={{ width: 25 }}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.iconButton}>
+            <Image
+              source={require("../assets/images/googleIcon.png")}
+              style={{ width: 25 }}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.iconButton}>
+            <Image
+              source={require("../assets/images/twitterIcon.png")}
+              style={{ width: 25 }}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
           <Text style={styles.orText}>Have an account?</Text>
           <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-            <Text style={styles.signInText}>SIGN IN</Text>
+            <Text style={{ color: "#7160B5", marginLeft: 5 }}>SIGN IN</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -64,23 +152,11 @@ const Login = ({ navigation }: any) => {
   );
 };
 
-const InputField = ({ label, placeholder, keyboardType = "default", secureTextEntry = false }) => (
-  <View style={styles.inputField}>
-    <Text style={styles.label}>{label}</Text>
-    <TextInput
-      style={styles.input}
-      placeholder={placeholder}
-      keyboardType={keyboardType}
-      autoCapitalize="none"
-      secureTextEntry={secureTextEntry}
-    />
-  </View>
-);
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
+    position: "relative",
   },
   scrollContainer: {
     flexGrow: 1,
@@ -89,21 +165,18 @@ const styles = StyleSheet.create({
     padding: 35,
   },
   header: {
-    flexDirection: "row",
+    display: "flex",
     justifyContent: "space-between",
     width: "100%",
+    flexDirection: "row",
+    paddingHorizontal: 5,
     paddingVertical: 30,
-  },
-  title: {
-    fontSize: 25,
-    fontWeight: "bold",
-    marginBottom: 30,
   },
   inputField: {
     width: "100%",
-    marginBottom: 10,
   },
   label: {
+    alignSelf: "flex-start",
     marginBottom: 5,
     fontSize: 14,
     color: "#6F6F6F",
@@ -111,12 +184,14 @@ const styles = StyleSheet.create({
   },
   input: {
     width: "100%",
-    height: 50,
-    borderRadius: 15,
-    paddingHorizontal: 10,
-    backgroundColor: "#F0F0F0",
     color: "#433878",
     fontWeight: "500",
+    height: 50,
+    borderWidth: 0,
+    borderRadius: 15,
+    paddingHorizontal: 10,
+    marginBottom: 10,
+    backgroundColor: "#F0F0F0",
   },
   button: {
     borderRadius: 20,
@@ -131,14 +206,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
   },
-  buttonText: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
   orText: {
     fontSize: 13,
     color: "#888",
-    marginBottom: 20,
   },
   iconContainer: {
     flexDirection: "row",
@@ -152,16 +222,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#F4F4F4",
     borderRadius: 10,
   },
-  footer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  signInText: {
-    color: "#7160B5",
-    marginLeft: 5,
-  },
   backButton: {
     padding: 15,
+    margin: -15,
+    alignSelf: "flex-start",
   },
   logoMini: {
     position: "absolute",
@@ -169,6 +233,46 @@ const styles = StyleSheet.create({
     width: 25,
     right: 0,
     top: 22,
+  },
+  circleTopLeft1: {
+    position: "absolute",
+    top: -100,
+    left: 20,
+    width: 200,
+    height: 200,
+    borderRadius: 500,
+    opacity: 0.5,
+    backgroundColor: "#8FE1D7",
+  },
+  circleTopLeft2: {
+    position: "absolute",
+    top: -30,
+    left: -90,
+    width: 220,
+    height: 220,
+    borderRadius: 500,
+    opacity: 0.5,
+    backgroundColor: "#8FE1D7",
+  },
+  circleBottomRight1: {
+    position: "absolute",
+    bottom: -150,
+    right: -40,
+    width: 220,
+    height: 220,
+    borderRadius: 500,
+    opacity: 0.5,
+    backgroundColor: "#8FE1D7",
+  },
+  circleBottomRight2: {
+    position: "absolute",
+    bottom: -60,
+    right: -140,
+    width: 220,
+    height: 220,
+    borderRadius: 500,
+    opacity: 0.5,
+    backgroundColor: "#8FE1D7",
   },
 });
 
