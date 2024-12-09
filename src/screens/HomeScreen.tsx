@@ -5,37 +5,14 @@ import React from "react";
 
 const HomeScreen = () => {
   return (
-    <View style={styles.header}>
-      <Pressable style={styles.startButton}>
-        <Text style={styles.startText}>Tracking</Text>
+    <View>
+      <Pressable>
+        <Text>Tracking</Text>
       </Pressable>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  header: {
-    alignItems: "center",
-    justifyContent: "flex-start",
-  },
-  startButton: {
-    marginBottom: 15,
-    backgroundColor: theme.colors.neutral(0.9),
-    padding: 15,
-    paddingHorizontal: 25,
-    borderRadius: 35,
-    borderCurve: "continuous",
-  },
-  startText: {
-    color: theme.colors.white,
-    fontSize: hp(2),
-    fontWeight: theme.frontWeights.medium,
-    // letterSpacing: 1,
-  },
-  bottomTab: {
-    alignItems: "center",
-    justifyContent: "flex-end",
-  },
-});
+const styles = StyleSheet.create({});
 
 export default HomeScreen;

@@ -19,10 +19,11 @@ export default function App() {
         <StatusBar style="auto" />
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="OnboardingScreen" component={OnboardScreen} />
-          <Stack.Screen name="HomeScreen" component={Home} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Register" component={Register} />
+          <Stack.Screen name="HomeScreen" component={Home} />
         </Stack.Navigator>
+        
       </Container>
     </NavigationContainer>
   );
