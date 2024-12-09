@@ -72,7 +72,7 @@ const Header = () => {
         <Animated.Image
           source={bell}
           style={{
-            width: 30,
+            width: 27,
             height: 30,
             transform: [{ scale: scaleBell }], // Áp dụng animation scale
           }}
