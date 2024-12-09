@@ -20,6 +20,7 @@ const COLORS = {
   sosButtonInner: "#A590FB", // Màu lớp trong của nút SOS
   white: "#FFFFFF", // Màu trắng
 };
+import FakeCallScreen from "../screens/FakeCallScreen";
 
 export type MainStackParamList = {
   TestScreen: any;
@@ -78,8 +79,8 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Fakecall"
-        component={HomeScreen}
+        name="FakeCall"
+        component={FakeCallScreen}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
