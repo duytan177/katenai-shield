@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Image, View, TouchableOpacity } from "react-native"; // Thêm TouchableOpacity để tạo button tùy chỉnh
+import { Image, View, TouchableOpacity, Text } from "react-native"; // Thêm Text để tùy chỉnh label
 import HomeScreen from "../screens/HomeScreen";
 import Login from "../screens/Login";
 import OnboardingScreen from "../screens/OnboardScreen";
@@ -10,7 +10,16 @@ import track from "../assets/images/track.png";
 import fakecall from "../assets/images/fakecall.png";
 import record from "../assets/images/record.png";
 import profile from "../assets/images/profile.png";
-import sosImage from "../assets/images/sos.png"; // Đường dẫn tới hình ảnh chữ SOS
+import sosImage from "../assets/images/sos.png";
+
+// Định nghĩa màu sắc chung
+const COLORS = {
+  active: "#B287ED", // Màu khi tab được focus
+  inactive: "#433878", // Màu khi tab không được focus
+  sosButton: "#A9C0FF", // Màu nút SOS
+  sosButtonInner: "#A590FB", // Màu lớp trong của nút SOS
+  white: "#FFFFFF", // Màu trắng
+};
 
 export type MainStackParamList = {
   TestScreen: any;
@@ -29,17 +38,14 @@ const TabNavigator = () => {
     <Tab.Navigator
       screenOptions={{
         tabBarStyle: {
-          backgroundColor: "white", // Màu nền trắng
-          borderTopLeftRadius: 35, // Bo tròn góc trên trái
-          borderTopRightRadius: 35, // Bo tròn góc trên phải
-          height: 100, // Chiều cao của tab bar
-          paddingHorizontal: 4,
+          backgroundColor: COLORS.white,
+          borderTopLeftRadius: 35,
+          borderTopRightRadius: 35,
+          height: 100,
+          paddingHorizontal: 5,
         },
         tabBarItemStyle: {
-          flex: 1, // Mỗi item chiếm đều không gian trong tab bar
-          justifyContent: "center", // Căn giữa theo chiều dọc
-          alignItems: "center", // Căn giữa theo chiều ngang
-          paddingTop: 23, // Thêm khoảng cách dưới nếu cần
+          paddingTop: 23,
         },
       }}
     >
@@ -54,10 +60,15 @@ const TabNavigator = () => {
               style={{
                 width: 22,
                 height: 29,
-                tintColor: focused ? "blue" : "#433878",
-                marginBottom: 20,
+                tintColor: focused ? COLORS.active : COLORS.inactive,
+                marginBottom: 14,
               }}
             />
+          ),
+          tabBarLabel: ({ focused }) => (
+            <Text style={{ color: focused ? COLORS.active : COLORS.inactive, fontSize: 12 }}>
+              Track
+            </Text>
           ),
         }}
       />
@@ -72,10 +83,15 @@ const TabNavigator = () => {
               style={{
                 width: 22,
                 height: 30,
-                tintColor: focused ? "blue" : "#433878",
-                marginBottom: 20,
+                tintColor: focused ? COLORS.active : COLORS.inactive,
+                marginBottom: 14,
               }}
             />
+          ),
+          tabBarLabel: ({ focused }) => (
+            <Text style={{ color: focused ? COLORS.active : COLORS.inactive, fontSize: 12 }}>
+              Fakecall
+            </Text>
           ),
         }}
       />
@@ -89,12 +105,12 @@ const TabNavigator = () => {
               {...props}
               style={{
                 position: "absolute",
-                bottom: -25, // Đặt ở vị trí chính giữa của tab bar
+                bottom: -25,
                 left: "50%",
-                transform: [{ translateX: "-50%" }], // Đảm bảo nút nằm chính giữa
-                zIndex: 999, // Đảm bảo SOS có chỉ số z cao hơn các tab khác
-                width: 150, // Chiều rộng của nút
-                height: 150, // Chiều cao của nút
+                transform: [{ translateX: "-50%" }],
+                zIndex: 999,
+                width: 150,
+                height: 150,
                 justifyContent: "center",
                 alignItems: "center",
               }}
@@ -103,10 +119,10 @@ const TabNavigator = () => {
               <View
                 style={{
                   position: "absolute",
-                  backgroundColor: "white", // Lớp ngoài cùng màu trắng
+                  backgroundColor: COLORS.white,
                   width: 100,
                   height: 100,
-                  borderRadius: 100, // Để tạo hình tròn
+                  borderRadius: 100,
                   justifyContent: "center",
                   alignItems: "center",
                   zIndex: 1,
@@ -115,10 +131,10 @@ const TabNavigator = () => {
               <View
                 style={{
                   position: "absolute",
-                  backgroundColor: "#A9C0FF", // Lớp bên trong màu xanh
+                  backgroundColor: COLORS.sosButton,
                   width: 85,
                   height: 85,
-                  borderRadius: 100, // Để tạo hình tròn
+                  borderRadius: 100,
                   justifyContent: "center",
                   alignItems: "center",
                   zIndex: 2,
@@ -127,26 +143,30 @@ const TabNavigator = () => {
               <View
                 style={{
                   position: "absolute",
-                  backgroundColor: "#A590FB", // Lớp bên trong nữa màu vàng
+                  backgroundColor: COLORS.sosButtonInner,
                   width: 70,
                   height: 70,
-                  borderRadius: 100, // Để tạo hình tròn
+                  borderRadius: 100,
                   justifyContent: "center",
                   alignItems: "center",
                   zIndex: 3,
                 }}
               />
-              {/* Hình ảnh SOS */}
               <Image
-                source={sosImage} // Sử dụng hình ảnh chữ SOS
+                source={sosImage}
                 style={{
-                  width: 50, // Điều chỉnh kích thước của hình ảnh
+                  width: 50,
                   height: 22,
-                  zIndex: 4, // Đảm bảo hình ảnh SOS nằm trên cùng
-                  tintColor: undefined, // Loại bỏ tintColor để không thay đổi màu sắc của ảnh
+                  zIndex: 4,
+                  tintColor: undefined,
                 }}
               />
             </TouchableOpacity>
+          ),
+          tabBarLabel: ({ focused }) => (
+            <Text style={{ color: focused ? COLORS.active : COLORS.inactive, fontSize: 12 }}>
+              SOS
+            </Text>
           ),
         }}
       />
@@ -161,10 +181,15 @@ const TabNavigator = () => {
               style={{
                 width: 25,
                 height: 25,
-                tintColor: focused ? "blue" : "#433878",
-                marginBottom: 20,
+                tintColor: focused ? COLORS.active : COLORS.inactive,
+                marginBottom: 14,
               }}
             />
+          ),
+          tabBarLabel: ({ focused }) => (
+            <Text style={{ color: focused ? COLORS.active : COLORS.inactive, fontSize: 12 }}>
+              Record
+            </Text>
           ),
         }}
       />
@@ -179,10 +204,15 @@ const TabNavigator = () => {
               style={{
                 width: 25,
                 height: 25,
-                tintColor: focused ? "blue" : "#433878",
-                marginBottom: 20,
+                tintColor: focused ? COLORS.active : COLORS.inactive,
+                marginBottom: 14,
               }}
             />
+          ),
+          tabBarLabel: ({ focused }) => (
+            <Text style={{ color: focused ? COLORS.active : COLORS.inactive, fontSize: 12 }}>
+              Profile
+            </Text>
           ),
         }}
       />
