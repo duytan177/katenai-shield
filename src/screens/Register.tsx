@@ -14,7 +14,7 @@ import {
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 
-const Login = ({ navigation }: any) => {
+const Register = ({ navigation }: any) => {
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -276,4 +276,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+export default Register;

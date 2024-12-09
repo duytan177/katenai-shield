@@ -48,11 +48,11 @@ const Slide = ({ item }) => (
   </ImageBackground>
 );
 
-const OnboardingScreen = ({ navigation }) => {
+const OnboardingScreen = ({ navigation }: any) => {
   const [currentSlideIndex, setCurrentSlideIndex] = React.useState(0);
   const ref = React.useRef();
 
-  const updateCurrentSlideIndex = (e) => {
+  const updateCurrentSlideIndex = (e: any) => {
     const contentOffsetX = e.nativeEvent.contentOffset.x;
     const currentIndex = Math.round(contentOffsetX / width);
     setCurrentSlideIndex(currentIndex);
@@ -92,7 +92,7 @@ const OnboardingScreen = ({ navigation }) => {
             onPress={() => navigation.navigate("Login")}
           >
             <LinearGradient
-              colors={["#6D5FB2", "#7E60BF"]} 
+              colors={["#6D5FB2", "#7E60BF"]}
               style={styles.gradient}
             >
               <Text

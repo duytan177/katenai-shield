@@ -1,15 +1,18 @@
 import { StyleSheet, View, Text, Pressable } from "react-native";
-import { theme } from "../constants/theme";
-import { hp } from "../helpers/common";
 import React from "react";
+import Header from "../components/Header";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const HomeScreen = () => {
   return (
-    <View>
-      <Pressable>
-        <Text>Tracking</Text>
-      </Pressable>
-    </View>
+    <SafeAreaView>
+      <Header />
+      <View>
+        <Pressable>
+          <Text>Tracking</Text>
+        </Pressable>
+      </View>
+    </SafeAreaView>
   );
 };
 

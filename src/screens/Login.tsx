@@ -73,7 +73,7 @@ const Login = ({ navigation }: any) => {
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("HomeScreen")}
+          onPress={() => navigation.navigate("HomeTabs")}
         >
           <LinearGradient
             colors={["#6D5FB2", "#7E60BF"]}
