@@ -66,7 +66,12 @@ const TabNavigator = () => {
             />
           ),
           tabBarLabel: ({ focused }) => (
-            <Text style={{ color: focused ? COLORS.active : COLORS.inactive, fontSize: 12 }}>
+            <Text
+              style={{
+                color: focused ? COLORS.active : COLORS.inactive,
+                fontSize: 12,
+              }}
+            >
               Track
             </Text>
           ),
@@ -89,7 +94,12 @@ const TabNavigator = () => {
             />
           ),
           tabBarLabel: ({ focused }) => (
-            <Text style={{ color: focused ? COLORS.active : COLORS.inactive, fontSize: 12 }}>
+            <Text
+              style={{
+                color: focused ? COLORS.active : COLORS.inactive,
+                fontSize: 12,
+              }}
+            >
               Fakecall
             </Text>
           ),
@@ -109,7 +119,6 @@ const TabNavigator = () => {
                 left: "50%",
                 transform: [{ translateX: "-50%" }],
                 zIndex: 999,
-                width: 150,
                 height: 150,
                 justifyContent: "center",
                 alignItems: "center",
@@ -120,8 +129,8 @@ const TabNavigator = () => {
                 style={{
                   position: "absolute",
                   backgroundColor: COLORS.white,
-                  width: 100,
-                  height: 100,
+                  width: 95,
+                  height: 95,
                   borderRadius: 100,
                   justifyContent: "center",
                   alignItems: "center",
@@ -132,8 +141,8 @@ const TabNavigator = () => {
                 style={{
                   position: "absolute",
                   backgroundColor: COLORS.sosButton,
-                  width: 85,
-                  height: 85,
+                  width: 80,
+                  height: 80,
                   borderRadius: 100,
                   justifyContent: "center",
                   alignItems: "center",
@@ -144,8 +153,8 @@ const TabNavigator = () => {
                 style={{
                   position: "absolute",
                   backgroundColor: COLORS.sosButtonInner,
-                  width: 70,
-                  height: 70,
+                  width: 65,
+                  height: 65,
                   borderRadius: 100,
                   justifyContent: "center",
                   alignItems: "center",
@@ -164,7 +173,12 @@ const TabNavigator = () => {
             </TouchableOpacity>
           ),
           tabBarLabel: ({ focused }) => (
-            <Text style={{ color: focused ? COLORS.active : COLORS.inactive, fontSize: 12 }}>
+            <Text
+              style={{
+                color: focused ? COLORS.active : COLORS.inactive,
+                fontSize: 12,
+              }}
+            >
               SOS
             </Text>
           ),
@@ -187,7 +201,12 @@ const TabNavigator = () => {
             />
           ),
           tabBarLabel: ({ focused }) => (
-            <Text style={{ color: focused ? COLORS.active : COLORS.inactive, fontSize: 12 }}>
+            <Text
+              style={{
+                color: focused ? COLORS.active : COLORS.inactive,
+                fontSize: 12,
+              }}
+            >
               Record
             </Text>
           ),
@@ -210,7 +229,12 @@ const TabNavigator = () => {
             />
           ),
           tabBarLabel: ({ focused }) => (
-            <Text style={{ color: focused ? COLORS.active : COLORS.inactive, fontSize: 12 }}>
+            <Text
+              style={{
+                color: focused ? COLORS.active : COLORS.inactive,
+                fontSize: 12,
+              }}
+            >
               Profile
             </Text>
           ),
