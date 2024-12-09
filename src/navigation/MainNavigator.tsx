@@ -67,7 +67,13 @@ const MainNavigator = () => {
       <MainStack.Screen name="OnboardingScreen" component={OnboardingScreen} />
       <MainStack.Screen name="Login" component={Login} />
       <MainStack.Screen name="Register" component={Register} />
-
+      <MainStack.Screen
+        name="HomeScreen"
+        component={HomeScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
       {/* Điều hướng vào HomeTabs nếu đã đăng nhập hoặc đã hoàn thành onboarding */}
       <MainStack.Screen
         name="HomeTabs"

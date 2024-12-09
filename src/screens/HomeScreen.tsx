@@ -9,7 +9,7 @@ const HomeScreen = () => {
       <Header />
       <View>
         <Pressable>
-          <Text>Tracking</Text>
+          <Text>Homescreen</Text>
         </Pressable>
       </View>
     </SafeAreaView>
