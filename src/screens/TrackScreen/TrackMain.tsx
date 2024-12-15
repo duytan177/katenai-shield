@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Pressable, Switch } from "react-native";
+import { StyleSheet, View, Text, Pressable, Switch, Image } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import Header from "../../components/Header";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -6,6 +6,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import HeaderBody from "../../components/HeaderBody";
 import MapView, { Marker, Region } from "react-native-maps";
 import * as Location from "expo-location";
+import myAvata from "../../assets/images/FakeCall/avatar1.png";
 
 const TrackMain = () => {
   const mapRef = useRef<MapView | null>(null);
@@ -42,6 +43,20 @@ const TrackMain = () => {
     })();
   }, []);
 
+  const zoomToUserLocation = () => {
+    if (location && mapRef.current) {
+      mapRef.current.animateToRegion(
+        {
+          latitude: location.latitude,
+          longitude: location.longitude,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+        },
+        1000 // Thời gian chuyển động (ms)
+      );
+    }
+  };
+
   return (
     <LinearGradient
       start={{ x: 0, y: 0 }}
@@ -75,10 +90,20 @@ const TrackMain = () => {
                   latitude: location.latitude,
                   longitude: location.longitude,
                 }}
-                title="You are here"
-              />
+              >
+                <View style={styles.bodyAvata}>
+                  <Image
+                    source={myAvata} // Sử dụng biến hình ảnh
+                    style={styles.avatarImage} // Áp dụng style từ styles
+                  />
+                </View>
+              </Marker>
             )}
           </MapView>
+          {/* Nút zoom vào bản thân */}
+          <Pressable style={styles.zoomButton} onPress={zoomToUserLocation}>
+            <Text style={styles.zoomButtonText}>Zoom to Me</Text>
+          </Pressable>
         </View>
       </SafeAreaView>
     </LinearGradient>
@@ -121,6 +146,35 @@ const styles = StyleSheet.create({
     marginRight: 10,
     fontWeight: "bold",
     color: "#333", // Màu chữ
+  },
+  zoomButton: {
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+    backgroundColor: "#007bff",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 30,
+    elevation: 5, // Đổ bóng
+  },
+  zoomButtonText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 10,
+  },
+  bodyAvata: {
+    width: 35, 
+    height: 35,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 25, 
+    backgroundColor: "red",
+    padding: 2, 
+  },
+  avatarImage: {
+    width: 30,
+    height: 30,
+    borderRadius: 15, 
   },
 });
 
