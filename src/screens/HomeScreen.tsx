@@ -38,34 +38,33 @@ const HomeScreen = () => {
 
 const styles = StyleSheet.create({
   cardContainer: {
-    margin: 20,
+    margin: 20, 
   },
   cardSpeaker: {
     width: "100%",
-    height: 155,
     borderRadius: 10,
-    justifyContent: "center",
+    justifyContent: "center", 
     alignItems: "center",
-    padding: 10,
+    // padding: 10,
   },
   container: {
-    flexDirection: "row",
+    flexDirection: "row", 
     alignItems: "center",
     justifyContent: "flex-start",
     width: "100%",
   },
   speakerImage: {
-    width: 100,
-    height: "100%", // Make image take full height of its container
-    resizeMode: "contain", // Maintain aspect ratio
-    marginRight: 10,
+    width: 100, 
+    height: 100, // Adjust based on the desired size
+    resizeMode: "contain",
+    marginRight: 10, // Space between image and text
   },
   textContainer: {
-    flex: 1,
+    flex: 1, // Ensure text container takes up the remaining space
   },
   text: {
-    color: "white",
-    marginBottom: 5,
+    color: "white", // Set text color to white
+    marginBottom: 5, // Add some spacing between text elements
   },
 });
 
