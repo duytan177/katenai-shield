@@ -1,13 +1,4 @@
-import {
-  StyleSheet,
-  View,
-  Text,
-  Pressable,
-  Image,
-  FlatList,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import Header from "../components/Header";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -21,6 +12,7 @@ import record from "../assets/images/HomeView/record.png";
 import safetips from "../assets/images/HomeView/safetips.png";
 import sos from "../assets/images/HomeView/sos.png";
 import trackme from "../assets/images/HomeView/trackme.png";
+import { ScrollView } from "react-native-gesture-handler";
 
 const FeatureItem = ({ title, imageSource }: any) => {
   return (
@@ -47,12 +39,8 @@ const HomeScreen = () => {
     { id: "8", title: "Anonymous Call", imageSource: anocall },
   ];
 
-  const renderItem = ({ item }: any): any => {
-    return <FeatureItem title={item.title} imageSource={item.imageSource} />;
-  };
-
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <Header />
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.cardContainer}>
@@ -86,15 +74,17 @@ const HomeScreen = () => {
           </LinearGradient>
         </View>
 
-        {/* FlatList for Feature Items */}
+        {/* Grid Layout for Feature Items */}
         <View style={styles.featureCard}>
-          <FlatList
-            data={data}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-            numColumns={2} // Mỗi hàng có 2 item
-            contentContainerStyle={styles.featureCardContent}
-          />
+          <View style={styles.grid}>
+            {data.map((item) => (
+              <FeatureItem
+                key={item.id}
+                title={item.title}
+                imageSource={item.imageSource}
+              />
+            ))}
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -103,7 +93,7 @@ const HomeScreen = () => {
 
 const styles = StyleSheet.create({
   scrollContainer: {
-    flexGrow: 1, // Đảm bảo ScrollView sẽ cuộn khi cần
+    flexGrow: 1, // Ensure ScrollView can scroll if content overflows
   },
   cardContainer: {
     margin: 20,
@@ -177,11 +167,13 @@ const styles = StyleSheet.create({
     marginTop: 20,
     paddingHorizontal: 20,
   },
-  featureCardContent: {
+  grid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
     justifyContent: "space-between",
   },
   featureItem: {
-    width: "48%", // Mỗi item chiếm 48% chiều rộng
+    width: "48%", // Each item takes 48% width, 2 items per row
     marginBottom: 15,
     alignItems: "center",
   },
