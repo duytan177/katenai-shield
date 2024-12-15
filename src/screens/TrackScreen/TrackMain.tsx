@@ -7,6 +7,9 @@ import HeaderBody from "../../components/HeaderBody";
 import MapView, { Marker, Region } from "react-native-maps";
 import * as Location from "expo-location";
 import myAvata from "../../assets/images/FakeCall/avatar1.png";
+import house from "../../assets/images/Trackme/house.png";
+import user1 from "../../assets/images/Trackme/user1.png";
+import user2 from "../../assets/images/Trackme/user2.png";
 
 const TrackMain = () => {
   const mapRef = useRef<MapView | null>(null);
@@ -47,13 +50,24 @@ const TrackMain = () => {
     })();
   }, []);
 
-  // Hàm tạo vị trí ngẫu nhiên
+  // Hàm tạo vị trí ngẫu nhiên và gán hình ảnh avatar
   const generateRandomAvatars = (latitude: number, longitude: number) => {
+    const avatars = [
+      house,
+      house,
+      user1,
+      user2,
+    ]; // Danh sách các hình ảnh avatar
+
     let randomAvatars = [];
     for (let i = 0; i < 4; i++) {
       const randomLat = latitude + (Math.random() - 0.5) * 0.05; // Tạo tọa độ ngẫu nhiên xung quanh xa hơn
       const randomLng = longitude + (Math.random() - 0.5) * 0.05; // Tạo tọa độ ngẫu nhiên xung quanh xa hơn
-      randomAvatars.push({ latitude: randomLat, longitude: randomLng });
+      randomAvatars.push({
+        latitude: randomLat,
+        longitude: randomLng,
+        avatarImage: avatars[i], // Gán hình ảnh avatar cho mỗi vị trí ngẫu nhiên
+      });
     }
     setRandomAvatars(randomAvatars);
   };
@@ -115,7 +129,7 @@ const TrackMain = () => {
               </Marker>
             )}
 
-            {/* Các avatar ngẫu nhiên */}
+            {/* Các avatar ngẫu nhiên với hình ảnh khác nhau */}
             {randomAvatars.map((avatar, index) => (
               <Marker
                 key={index}
@@ -126,7 +140,7 @@ const TrackMain = () => {
               >
                 <View style={[styles.bodyAvata, { backgroundColor: "white" }]}>
                   <Image
-                    source={myAvata} // Sử dụng biến hình ảnh
+                    source={avatar.avatarImage} // Sử dụng hình ảnh avatar tùy theo vị trí
                     style={styles.avatarImage} // Áp dụng style từ styles
                   />
                 </View>
