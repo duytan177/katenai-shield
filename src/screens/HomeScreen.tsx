@@ -1,4 +1,11 @@
-import { StyleSheet, View, Text, Pressable, Image } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Pressable,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
 import Header from "../components/Header";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -21,13 +28,24 @@ const HomeScreen = () => {
           style={styles.cardSpeaker}
         >
           <View style={styles.container}>
+            <View style={styles.ovalBackground}></View>
             <Image source={speakerImg} style={styles.speakerImage} />
             <View style={styles.textContainer}>
-              <Text style={styles.text}>Homescreen</Text>
-              <Pressable onPress={handleViewDetails}>
-                <Text style={styles.text}>View detail</Text>
-              </Pressable>
-              <Text style={styles.text}>Look back at previous events.</Text>
+              <Text style={styles.textFirst}>
+                Có một sự kiện của một diễn giả có thể bạn quan tâm
+              </Text>
+              <TouchableOpacity
+                onPress={handleViewDetails}
+                style={styles.button}
+                activeOpacity={0.7}
+              >
+                <Text style={styles.buttonText}>View detail</Text>
+              </TouchableOpacity>
+              <TouchableOpacity>
+                <Text style={styles.textPrevious}>
+                  Look back at previous events.
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
         </LinearGradient>
@@ -38,33 +56,71 @@ const HomeScreen = () => {
 
 const styles = StyleSheet.create({
   cardContainer: {
-    margin: 20, 
+    margin: 20,
   },
   cardSpeaker: {
     width: "100%",
-    borderRadius: 10,
-    justifyContent: "center", 
+    borderRadius: 20,
+    justifyContent: "center",
     alignItems: "center",
-    // padding: 10,
   },
   container: {
-    flexDirection: "row", 
-    alignItems: "center",
+    flexDirection: "row",
+    alignItems: "flex-end",
     justifyContent: "flex-start",
     width: "100%",
+    height: 155,
+    position: "relative",
+  },
+  ovalBackground: {
+    position: "absolute",
+    bottom: -20,
+    left: 20,
+    height: "100%",
+    width: 95,
+    borderRadius: 100,
+    backgroundColor: "#ffffff",
+    zIndex: -1,
   },
   speakerImage: {
-    width: 100, 
-    height: 100, // Adjust based on the desired size
+    height: "92%",
+    width: undefined,
+    aspectRatio: 1,
     resizeMode: "contain",
-    marginRight: 10, // Space between image and text
+    marginRight: -20,
   },
   textContainer: {
-    flex: 1, // Ensure text container takes up the remaining space
+    flex: 1,
+    alignItems: "center",
+    marginRight: 15,
+    justifyContent: "center",
+    minHeight: "90%",
   },
-  text: {
-    color: "white", // Set text color to white
-    marginBottom: 5, // Add some spacing between text elements
+  textFirst: {
+    fontSize: 12,
+    color: "white",
+    textAlign: "center",
+    fontWeight: "700",
+  },
+  textPrevious: {
+    color: "white",
+    fontWeight: "300",
+    textDecorationLine: "underline",
+    fontSize: 12,
+  },
+  button: {
+    backgroundColor: "white",
+    borderRadius: 30,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginVertical: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonText: {
+    color: "#445C66",
+    fontSize: 12,
+    fontWeight: "bold",
   },
 });
 
