@@ -80,7 +80,7 @@ const TabNavigator = () => {
       ></Tab.Screen>
       <Tab.Screen
         name="Track"
-        component={EventsScreen}
+        component={TrackMain}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
@@ -140,9 +140,8 @@ const TabNavigator = () => {
         component={SosMain}
         options={{
           headerShown: false,
-          tabBarButton: (props) => (
+          tabBarButton: () => (
             <TouchableOpacity
-              {...props}
               style={{
                 position: "absolute",
                 bottom: -25,

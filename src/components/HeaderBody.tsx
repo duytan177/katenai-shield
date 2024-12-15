@@ -1,38 +1,45 @@
 import { StyleSheet, View, Text, Pressable, Image } from "react-native";
 import React from "react";
+import { LinearGradient } from "expo-linear-gradient";
 
-const HeaderBody = ({ title, subTitle, iconButtonRight= null }: any) => {
+const HeaderBody = ({ title, subTitle, iconButtonRight = null }: any) => {
   return (
-    <View style={styles.headerBody}>
-      <View style={[styles.topLeft, { flex: iconButtonRight ? 0.8 : 1 }]}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.subtitle}>{subTitle}</Text>
-      </View>
-      {iconButtonRight && (
-        <View style={styles.topRight}>
-          <Pressable
-            style={styles.button}
-            onPress={() => {
-              console.log(11111111111);
-            }}
-          >
-            <Image source={iconButtonRight} style={styles.buttonImage} />
-          </Pressable>
+    <LinearGradient
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1.6 }}
+      colors={["#FFFFFF", "#FFE1FF"]}
+    >
+      <View style={styles.headerBody}>
+        <View style={[styles.topLeft, { flex: iconButtonRight ? 0.8 : 1 }]}>
+          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.subtitle}>{subTitle}</Text>
         </View>
-      )}
-    </View>
+        {iconButtonRight && (
+          <View style={styles.topRight}>
+            <Pressable
+              style={styles.button}
+              onPress={() => {
+                console.log(11111111111);
+              }}
+            >
+              <Image source={iconButtonRight} style={styles.buttonImage} />
+            </Pressable>
+          </View>
+        )}
+      </View>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
   headerBody: {
-    flex: 0.2,
+    // flex: 0.2,
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     paddingVertical: 8,
-    paddingHorizontal: 24,
+    paddingHorizontal: 19,
     borderBottomWidth: 0.2,
   },
 
@@ -52,8 +59,9 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 16,
     color: "#000000",
-    marginVertical: 12,
-    maxWidth: "80%",
+    marginTop: 12,
+    marginBottom: 6,
+    // minWidth: "90%",
   },
   button: {
     backgroundColor: "#433878",
