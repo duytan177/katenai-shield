@@ -22,6 +22,9 @@ const COLORS = {
 };
 import FakeCallScreen from "../screens/FakeCallScreen";
 import EventsScreen from "../screens/EventsScreen";
+import ProfileMain from "../screens/ProfileScreen/ProfileMain";
+import SosMain from "../screens/SosScreen/sosMain";
+import RecordMain from "../screens/RecordScreen/RecordMain";
 
 export type MainStackParamList = {
   TestScreen: any;
@@ -30,6 +33,9 @@ export type MainStackParamList = {
   Register: any;
   HomeScreen: any;
   HomeTabs: any;
+  SosMain: any;
+  ProfileMain: any;
+  RecordMain: any;
 };
 
 const MainStack = createStackNavigator<MainStackParamList>();
@@ -109,7 +115,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name="SOS"
-        component={HomeScreen}
+        component={SosMain}
         options={{
           headerShown: false,
           tabBarButton: (props) => (
@@ -188,7 +194,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name="Record"
-        component={HomeScreen}
+        component={RecordMain}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
@@ -216,7 +222,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={HomeScreen}
+        component={ProfileMain}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
