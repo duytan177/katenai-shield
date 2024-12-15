@@ -110,7 +110,7 @@ const HomeScreen = ({ navigation }: any) => {
       colors={["#FFFFFF", "#FFE1FF"]}
       style={styles.containerLinerGrandient}
     >
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView edges={["top"]} style={{ flex: 1 }}>
         <Header />
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <View style={styles.cardContainer}>

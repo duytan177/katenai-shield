@@ -5,7 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 const SosMain = () => {
   return (
-    <SafeAreaView>
+    <SafeAreaView edges={["top"]}>
       <Header />
       <View>
         <Pressable>
