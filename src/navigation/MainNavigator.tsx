@@ -11,6 +11,7 @@ import fakecall from "../assets/images/fakecall.png";
 import record from "../assets/images/record.png";
 import profile from "../assets/images/profile.png";
 import sosImage from "../assets/images/sos.png";
+import home from "../assets/images/home.png";
 
 // Định nghĩa màu sắc chung
 const COLORS = {
@@ -23,7 +24,7 @@ const COLORS = {
 import FakeCallScreen from "../screens/FakeCallScreen";
 import EventsScreen from "../screens/EventsScreen";
 import ProfileMain from "../screens/ProfileScreen/ProfileMain";
-import SosMain from "../screens/SosScreen/sosMain";
+import SosMain from "../screens/SosScreen/SosMain";
 import RecordMain from "../screens/RecordScreen/RecordMain";
 
 export type MainStackParamList = {
@@ -58,6 +59,34 @@ const TabNavigator = () => {
       }}
     >
       <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Image
+              source={home}
+              style={{
+                width: 23,
+                height: 23,
+                tintColor: focused ? COLORS.active : COLORS.inactive,
+                marginBottom: 14,
+              }}
+            />
+          ),
+          tabBarLabel: ({ focused }) => (
+            <Text
+              style={{
+                color: focused ? COLORS.active : COLORS.inactive,
+                fontSize: 12,
+              }}
+            >
+              Home
+            </Text>
+          ),
+        }}
+      />
+      <Tab.Screen
         name="Track"
         component={EventsScreen}
         options={{
@@ -66,8 +95,8 @@ const TabNavigator = () => {
             <Image
               source={track}
               style={{
-                width: 22,
-                height: 29,
+                width: 19,
+                height: 25,
                 tintColor: focused ? COLORS.active : COLORS.inactive,
                 marginBottom: 14,
               }}
@@ -81,34 +110,6 @@ const TabNavigator = () => {
               }}
             >
               Track
-            </Text>
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="FakeCall"
-        component={FakeCallScreen}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <Image
-              source={fakecall}
-              style={{
-                width: 22,
-                height: 30,
-                tintColor: focused ? COLORS.active : COLORS.inactive,
-                marginBottom: 14,
-              }}
-            />
-          ),
-          tabBarLabel: ({ focused }) => (
-            <Text
-              style={{
-                color: focused ? COLORS.active : COLORS.inactive,
-                fontSize: 12,
-              }}
-            >
-              Fakecall
             </Text>
           ),
         }}
@@ -193,6 +194,35 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
+        name="FakeCall"
+        component={FakeCallScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Image
+              source={fakecall}
+              style={{
+                width: 19,
+                height: 26,
+                tintColor: focused ? COLORS.active : COLORS.inactive,
+                marginBottom: 14,
+              }}
+            />
+          ),
+          tabBarLabel: ({ focused }) => (
+            <Text
+              style={{
+                color: focused ? COLORS.active : COLORS.inactive,
+                fontSize: 12,
+              }}
+            >
+              Fakecall
+            </Text>
+          ),
+        }}
+      />
+
+      <Tab.Screen
         name="Record"
         component={RecordMain}
         options={{
@@ -216,34 +246,6 @@ const TabNavigator = () => {
               }}
             >
               Record
-            </Text>
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Profile"
-        component={ProfileMain}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <Image
-              source={profile}
-              style={{
-                width: 25,
-                height: 25,
-                tintColor: focused ? COLORS.active : COLORS.inactive,
-                marginBottom: 14,
-              }}
-            />
-          ),
-          tabBarLabel: ({ focused }) => (
-            <Text
-              style={{
-                color: focused ? COLORS.active : COLORS.inactive,
-                fontSize: 12,
-              }}
-            >
-              Profile
             </Text>
           ),
         }}
