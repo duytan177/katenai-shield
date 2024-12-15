@@ -50,9 +50,9 @@ const TrackMain = () => {
   // Hàm tạo vị trí ngẫu nhiên
   const generateRandomAvatars = (latitude: number, longitude: number) => {
     let randomAvatars = [];
-    for (let i = 0; i < 3; i++) {
-      const randomLat = latitude + (Math.random() - 0.5) * 0.01; // Tạo tọa độ ngẫu nhiên xung quanh
-      const randomLng = longitude + (Math.random() - 0.5) * 0.01; // Tạo tọa độ ngẫu nhiên xung quanh
+    for (let i = 0; i < 4; i++) {
+      const randomLat = latitude + (Math.random() - 0.5) * 0.05; // Tạo tọa độ ngẫu nhiên xung quanh xa hơn
+      const randomLng = longitude + (Math.random() - 0.5) * 0.05; // Tạo tọa độ ngẫu nhiên xung quanh xa hơn
       randomAvatars.push({ latitude: randomLat, longitude: randomLng });
     }
     setRandomAvatars(randomAvatars);
