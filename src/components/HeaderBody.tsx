@@ -4,7 +4,7 @@ import React from "react";
 const HeaderBody = ({ title, subTitle, iconButtonRight= null }: any) => {
   return (
     <View style={styles.headerBody}>
-      <View style={styles.topLeft}>
+      <View style={[styles.topLeft, { flex: iconButtonRight ? 0.8 : 1 }]}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.subtitle}>{subTitle}</Text>
       </View>
@@ -33,10 +33,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 8,
     paddingHorizontal: 24,
+    borderBottomWidth: 0.2,
   },
 
   topLeft: {
-    flex: 0.8,
+    // flex: 0.8,
   },
   topRight: {
     flex: 0.2,
