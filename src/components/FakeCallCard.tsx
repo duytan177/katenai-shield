@@ -1,7 +1,18 @@
 import React from "react";
 import { StyleSheet, View, Text, Image, Pressable } from "react-native";
 
-const FakeCallCard = ({name, phoneNumber, timeCall}: any) => {
+const avatarMap: { [key: string]: any } = {
+  avatar1: require('../assets/images/FakeCall/avatar1.png'),
+  avatar2: require('../assets/images/FakeCall/avatar2.png'),
+  avatar3: require('../assets/images/FakeCall/avatar3.png'),
+  avatar4: require('../assets/images/FakeCall/avatar2.png'),
+};
+
+const FakeCallCard = ({name, avatar, phoneNumber, timeCall, onCallFake}: any) => {
+
+  const onHandleCallFake = (phoneNumber: string, time: number) => {
+    onCallFake(phoneNumber, name, avatar, time)
+  }
   return (
     <View style={styles.cardContainer}>
       <View style={styles.leftSection}>
@@ -10,7 +21,7 @@ const FakeCallCard = ({name, phoneNumber, timeCall}: any) => {
             <Text style={styles.caller}>Caller detail</Text>
           </View>
           <Image
-            source={require("../assets/images/FakeCall/avatar.png")}
+            source={avatarMap[avatar]}
             style={styles.image}
           />
         </View>
@@ -23,7 +34,7 @@ const FakeCallCard = ({name, phoneNumber, timeCall}: any) => {
 
       <View style={styles.rightSection}>
         <Pressable
-          onPress={() => console.log("Button pressed!")}
+          onPress={() => onHandleCallFake(phoneNumber, timeCall)}
         >
           <Image
             source={require("../assets/images/FakeCall/Call.png")}
