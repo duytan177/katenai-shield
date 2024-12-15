@@ -23,9 +23,9 @@ const FeatureItem = ({ title, imageSource, gradientColors }: any) => {
         colors={gradientColors}
         style={styles.itemGradient}
       >
-        <Image source={imageSource} style={styles.itemImage} />
         <Text style={styles.itemTitle}>{title}</Text>
       </LinearGradient>
+      <Image source={imageSource} style={styles.itemImage} />
     </TouchableOpacity>
   );
 };
@@ -58,7 +58,7 @@ const HomeScreen = () => {
       id: "4",
       title: "SOS",
       imageSource: sos,
-      gradientColors: ["#FF9263", "#CF3000"], // Đổi ngược màu
+      gradientColors: ["#A3EAD0", "#07AA6F"], // Đổi ngược màu
     },
     {
       id: "5",
@@ -82,64 +82,74 @@ const HomeScreen = () => {
       id: "8",
       title: "Anonymous Call",
       imageSource: anocall,
-      gradientColors: ["#A3EAD0", "#07AA6F"], // Đổi ngược màu
+      gradientColors: ["#FF9263", "#CF3000"], // Đổi ngược màu
     },
   ];
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <Header />
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <View style={styles.cardContainer}>
-          <LinearGradient
-            start={{ x: 0.5, y: 2.2 }}
-            end={{ x: 0.9, y: 1 }}
-            colors={["#88B8CC", "#445C66"]}
-            style={styles.cardSpeaker}
-          >
-            <View style={styles.container}>
-              <View style={styles.ovalBackground}></View>
-              <Image source={speakerImg} style={styles.speakerImage} />
-              <View style={styles.textContainer}>
-                <Text style={styles.textFirst}>
-                  Có một sự kiện của một diễn giả có thể bạn quan tâm
-                </Text>
-                <TouchableOpacity
-                  onPress={handleViewDetails}
-                  style={styles.button}
-                  activeOpacity={0.7}
-                >
-                  <Text style={styles.buttonText}>View detail</Text>
-                </TouchableOpacity>
-                <TouchableOpacity>
-                  <Text style={styles.textPrevious}>
-                    Look back at previous events.
+    <LinearGradient
+      start={{ x: 0, y: 0 }}
+      end={{ x: 0, y: 1.8 }}
+      colors={["#FFFFFF", "#FFE1FF"]}
+      style={styles.containerLinerGrandient}
+    >
+      <SafeAreaView style={{ flex: 1 }}>
+        <Header />
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <View style={styles.cardContainer}>
+            <LinearGradient
+              start={{ x: 0.5, y: 2.2 }}
+              end={{ x: 0.9, y: 1 }}
+              colors={["#88B8CC", "#445C66"]}
+              style={styles.cardSpeaker}
+            >
+              <View style={styles.container}>
+                <View style={styles.ovalBackground}></View>
+                <Image source={speakerImg} style={styles.speakerImage} />
+                <View style={styles.textContainer}>
+                  <Text style={styles.textFirst}>
+                    Có một sự kiện của một diễn giả có thể bạn quan tâm
                   </Text>
-                </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={handleViewDetails}
+                    style={styles.button}
+                    activeOpacity={0.7}
+                  >
+                    <Text style={styles.buttonText}>View detail</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity>
+                    <Text style={styles.textPrevious}>
+                      Look back at previous events.
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
-          </LinearGradient>
-        </View>
-
-        {/* Grid Layout for Feature Items */}
-        <View style={styles.featureCard}>
-          <View style={styles.grid}>
-            {data.map((item) => (
-              <FeatureItem
-                key={item.id}
-                title={item.title}
-                imageSource={item.imageSource}
-                gradientColors={item.gradientColors}
-              />
-            ))}
+            </LinearGradient>
           </View>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+
+          {/* Grid Layout for Feature Items */}
+          <View style={styles.featureCard}>
+            <View style={styles.grid}>
+              {data.map((item) => (
+                <FeatureItem
+                  key={item.id}
+                  title={item.title}
+                  imageSource={item.imageSource}
+                  gradientColors={item.gradientColors}
+                />
+              ))}
+            </View>
+          </View>
+        </ScrollView>
+      </SafeAreaView>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
+  containerLinerGrandient: {
+    flex: 1,
+  },
   scrollContainer: {
     flexGrow: 1, // Ensure ScrollView can scroll if content overflows
   },
@@ -212,8 +222,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   featureCard: {
-    marginTop: 20,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
+    marginHorizontal: 10,
   },
   grid: {
     flexDirection: "row",
@@ -221,29 +231,42 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   featureItem: {
-    width: "48%", // Each item takes 48% width, 2 items per row
-    marginBottom: 15,
+    width: "48%",
+    marginBottom: 25,
     alignItems: "center",
+    position: "relative",
   },
   itemGradient: {
     width: "100%",
-    height: 150,
+    height: 100,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
     padding: 10,
+    position: "relative",
+    opacity: 0.8,
   },
   itemImage: {
-    width: "100%",
-    height: 100,
+    position: "absolute",
+    bottom: -20,
+    right: -10,
+    width: 80,
+    height: 80,
     resizeMode: "contain",
+    zIndex: 5,
   },
   itemTitle: {
-    marginTop: 5,
+    position: "absolute",
+    top: 15,
+    left: 15,
     fontSize: 14,
     fontWeight: "600",
-    textAlign: "center",
-    color: "white",
+    color: "#fff",
+    textAlign: "left",
+    zIndex: 1,
+    textShadowColor: "#616161",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 3,
   },
 });
 

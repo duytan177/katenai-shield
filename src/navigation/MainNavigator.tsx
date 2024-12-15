@@ -47,7 +47,7 @@ const TabNavigator = () => {
           paddingHorizontal: 5,
         },
         tabBarItemStyle: {
-          paddingTop: 23,
+          marginTop: 23,
         },
       }}
     >
