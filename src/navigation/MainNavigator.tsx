@@ -26,6 +26,7 @@ import EventsScreen from "../screens/EventScreen/EventsScreen";
 import ProfileMain from "../screens/ProfileScreen/ProfileMain";
 import SosMain from "../screens/SosScreen/SosMain";
 import RecordMain from "../screens/RecordScreen/RecordMain";
+import TrackMain from "../screens/TrackScreen/TrackMain";
 import EventDetailScreen from "../screens/EventScreen/EventDetailScreen";
 
 export type MainStackParamList = {
@@ -38,6 +39,7 @@ export type MainStackParamList = {
   SosMain: any;
   ProfileMain: any;
   RecordMain: any;
+  TrackMain: any;
   EventDetailScreen: any;
 };
 
@@ -65,32 +67,22 @@ const TabNavigator = () => {
         component={HomeScreen}
         options={{
           headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <Image
-              source={home}
-              style={{
-                width: 23,
-                height: 23,
-                tintColor: focused ? COLORS.active : COLORS.inactive,
-                marginBottom: 14,
-              }}
-            />
-          ),
-          tabBarLabel: ({ focused }) => (
-            <Text
-              style={{
-                color: focused ? COLORS.active : COLORS.inactive,
-                fontSize: 12,
-              }}
-            >
-              Home
-            </Text>
-          ),
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: "none" },
         }}
       />
       <Tab.Screen
+        name="TrackMain"
+        component={TrackMain}
+        options={{
+          headerShown: false,
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: "none" },
+        }}
+      ></Tab.Screen>
+      <Tab.Screen
         name="Track"
-        component={EventsScreen}
+        component={TrackMain}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
@@ -116,14 +108,42 @@ const TabNavigator = () => {
           ),
         }}
       />
+
+      <Tab.Screen
+        name="FakeCall"
+        component={FakeCallScreen}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Image
+              source={fakecall}
+              style={{
+                width: 19,
+                height: 26,
+                tintColor: focused ? COLORS.active : COLORS.inactive,
+                marginBottom: 14,
+              }}
+            />
+          ),
+          tabBarLabel: ({ focused }) => (
+            <Text
+              style={{
+                color: focused ? COLORS.active : COLORS.inactive,
+                fontSize: 12,
+              }}
+            >
+              Fakecall
+            </Text>
+          ),
+        }}
+      />
       <Tab.Screen
         name="SOS"
         component={SosMain}
         options={{
           headerShown: false,
-          tabBarButton: (props) => (
+          tabBarButton: () => (
             <TouchableOpacity
-              {...props}
               style={{
                 position: "absolute",
                 bottom: -25,
@@ -196,35 +216,6 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="FakeCall"
-        component={FakeCallScreen}
-        options={{
-          headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <Image
-              source={fakecall}
-              style={{
-                width: 19,
-                height: 26,
-                tintColor: focused ? COLORS.active : COLORS.inactive,
-                marginBottom: 14,
-              }}
-            />
-          ),
-          tabBarLabel: ({ focused }) => (
-            <Text
-              style={{
-                color: focused ? COLORS.active : COLORS.inactive,
-                fontSize: 12,
-              }}
-            >
-              Fakecall
-            </Text>
-          ),
-        }}
-      />
-
-      <Tab.Screen
         name="Record"
         component={RecordMain}
         options={{
@@ -252,6 +243,34 @@ const TabNavigator = () => {
           ),
         }}
       />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileMain}
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <Image
+              source={profile}
+              style={{
+                width: 23,
+                height: 23,
+                tintColor: focused ? COLORS.active : COLORS.inactive,
+                marginBottom: 14,
+              }}
+            />
+          ),
+          tabBarLabel: ({ focused }) => (
+            <Text
+              style={{
+                color: focused ? COLORS.active : COLORS.inactive,
+                fontSize: 12,
+              }}
+            >
+              Profile
+            </Text>
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 };
@@ -262,13 +281,8 @@ const MainNavigator = () => {
       <MainStack.Screen name="OnboardingScreen" component={OnboardingScreen} />
       <MainStack.Screen name="Login" component={Login} />
       <MainStack.Screen name="Register" component={Register} />
-      <MainStack.Screen
-        name="HomeScreen"
-        component={HomeScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
+      <MainStack.Screen name="TrackMain" component={TrackMain} />
+
       <MainStack.Screen
         name="HomeTabs"
         options={{ headerShown: false }}

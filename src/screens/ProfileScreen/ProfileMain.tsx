@@ -5,7 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 const ProfileMain = () => {
   return (
-    <SafeAreaView>
+    <SafeAreaView edges={["top"]}>
       <Header />
       <View>
         <Pressable>

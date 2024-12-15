@@ -72,7 +72,7 @@ const FakeCallScreen = () => {
       colors={["#FFFFFF", "#FFE1FF"]}
       style={styles.containerLinerGrandient}
     >
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView edges={["top"]} edges={["top"]} style={styles.container}>
         <Header title={TITLE_SCREEN} />
         <View style={styles.containerBody}>
           <HeaderBody title={TITLE_SCREEN} subTitle="Share live location with your friend" iconButtonRight={vector}  />

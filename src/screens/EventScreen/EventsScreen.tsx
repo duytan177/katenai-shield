@@ -58,7 +58,7 @@ const EventsScreen = () => {
       colors={["#FFFFFF", "#FFE1FF"]}
       style={styles.containerLinerGrandient}
     >
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView edges={["top"]} edges={["top"]} style={styles.container}>
         <Header title="Events" />
         <View style={styles.containerBody}>
           <HeaderBody

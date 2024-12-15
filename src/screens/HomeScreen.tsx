@@ -14,9 +14,18 @@ import sos from "../assets/images/HomeView/sos.png";
 import trackme from "../assets/images/HomeView/trackme.png";
 import { ScrollView } from "react-native-gesture-handler";
 
-const FeatureItem = ({ title, imageSource, gradientColors }: any) => {
+const FeatureItem = ({
+  navigation,
+  nav,
+  title,
+  imageSource,
+  gradientColors,
+}: any) => {
   return (
-    <TouchableOpacity style={styles.featureItem}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate(nav)} // Sử dụng navigation ở đây
+      style={styles.featureItem}
+    >
       <LinearGradient
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
@@ -30,7 +39,7 @@ const FeatureItem = ({ title, imageSource, gradientColors }: any) => {
   );
 };
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }: any) => {
   const handleViewDetails = () => {
     console.log("Navigating to details...");
   };
@@ -38,48 +47,56 @@ const HomeScreen = () => {
   const data = [
     {
       id: "1",
+      nav: "TrackMain",
       title: "Track me",
       imageSource: trackme,
       gradientColors: ["#FF9A94", "#FD3225"], // Đổi ngược màu
     },
     {
       id: "2",
+      nav: "TrackMain",
       title: "House of Compassion",
       imageSource: house,
       gradientColors: ["#FFC09C", "#FD813B"], // Đổi ngược màu
     },
     {
       id: "3",
+      nav: "TrackMain",
       title: "Fakecall",
       imageSource: fakecall,
       gradientColors: ["#C67BFF", "#9400EA"], // Đổi ngược màu
     },
     {
       id: "4",
+      nav: "TrackMain",
       title: "SOS",
       imageSource: sos,
       gradientColors: ["#A3EAD0", "#07AA6F"], // Đổi ngược màu
     },
     {
       id: "5",
+      nav: "TrackMain",
       title: "Safe Tips",
       imageSource: safetips,
       gradientColors: ["#67D4F9", "#00AAE4"], // Đổi ngược màu
     },
     {
       id: "6",
+      nav: "TrackMain",
       title: "Records",
       imageSource: record,
       gradientColors: ["#FC8D9F", "#E50B16"], // Đổi ngược màu
     },
     {
       id: "7",
+      nav: "TrackMain",
       title: "Blogs",
       imageSource: blogs,
       gradientColors: ["#FFDB5C", "#EAA800"], // Đổi ngược màu
     },
     {
       id: "8",
+      nav: "TrackMain",
       title: "Anonymous Call",
       imageSource: anocall,
       gradientColors: ["#FF9263", "#CF3000"], // Đổi ngược màu
@@ -93,7 +110,7 @@ const HomeScreen = () => {
       colors={["#FFFFFF", "#FFE1FF"]}
       style={styles.containerLinerGrandient}
     >
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView edges={["top"]} style={{ flex: 1 }}>
         <Header />
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <View style={styles.cardContainer}>
@@ -133,6 +150,8 @@ const HomeScreen = () => {
               {data.map((item) => (
                 <FeatureItem
                   key={item.id}
+                  navigation={navigation}
+                  nav={item.nav}
                   title={item.title}
                   imageSource={item.imageSource}
                   gradientColors={item.gradientColors}
