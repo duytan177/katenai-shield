@@ -14,11 +14,18 @@ import sos from "../assets/images/HomeView/sos.png";
 import trackme from "../assets/images/HomeView/trackme.png";
 import { ScrollView } from "react-native-gesture-handler";
 
-const FeatureItem = ({ title, imageSource }: any) => {
+const FeatureItem = ({ title, imageSource, gradientColors }: any) => {
   return (
     <TouchableOpacity style={styles.featureItem}>
-      <Image source={imageSource} style={styles.itemImage} />
-      <Text style={styles.itemTitle}>{title}</Text>
+      <LinearGradient
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
+        colors={gradientColors}
+        style={styles.itemGradient}
+      >
+        <Image source={imageSource} style={styles.itemImage} />
+        <Text style={styles.itemTitle}>{title}</Text>
+      </LinearGradient>
     </TouchableOpacity>
   );
 };
@@ -29,14 +36,54 @@ const HomeScreen = () => {
   };
 
   const data = [
-    { id: "1", title: "Track me", imageSource: trackme },
-    { id: "2", title: "House of Compassion", imageSource: house },
-    { id: "3", title: "Fakecall", imageSource: fakecall },
-    { id: "4", title: "SOS", imageSource: sos },
-    { id: "5", title: "Safe Tips", imageSource: safetips },
-    { id: "6", title: "Records", imageSource: record },
-    { id: "7", title: "Blogs", imageSource: blogs },
-    { id: "8", title: "Anonymous Call", imageSource: anocall },
+    {
+      id: "1",
+      title: "Track me",
+      imageSource: trackme,
+      gradientColors: ["#FF9A94", "#FD3225"], // Đổi ngược màu
+    },
+    {
+      id: "2",
+      title: "House of Compassion",
+      imageSource: house,
+      gradientColors: ["#FFC09C", "#FD813B"], // Đổi ngược màu
+    },
+    {
+      id: "3",
+      title: "Fakecall",
+      imageSource: fakecall,
+      gradientColors: ["#C67BFF", "#9400EA"], // Đổi ngược màu
+    },
+    {
+      id: "4",
+      title: "SOS",
+      imageSource: sos,
+      gradientColors: ["#FF9263", "#CF3000"], // Đổi ngược màu
+    },
+    {
+      id: "5",
+      title: "Safe Tips",
+      imageSource: safetips,
+      gradientColors: ["#67D4F9", "#00AAE4"], // Đổi ngược màu
+    },
+    {
+      id: "6",
+      title: "Records",
+      imageSource: record,
+      gradientColors: ["#FC8D9F", "#E50B16"], // Đổi ngược màu
+    },
+    {
+      id: "7",
+      title: "Blogs",
+      imageSource: blogs,
+      gradientColors: ["#FFDB5C", "#EAA800"], // Đổi ngược màu
+    },
+    {
+      id: "8",
+      title: "Anonymous Call",
+      imageSource: anocall,
+      gradientColors: ["#A3EAD0", "#07AA6F"], // Đổi ngược màu
+    },
   ];
 
   return (
@@ -82,6 +129,7 @@ const HomeScreen = () => {
                 key={item.id}
                 title={item.title}
                 imageSource={item.imageSource}
+                gradientColors={item.gradientColors}
               />
             ))}
           </View>
@@ -177,6 +225,14 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     alignItems: "center",
   },
+  itemGradient: {
+    width: "100%",
+    height: 150,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+    padding: 10,
+  },
   itemImage: {
     width: "100%",
     height: 100,
@@ -187,6 +243,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "600",
     textAlign: "center",
+    color: "white",
   },
 });
 
