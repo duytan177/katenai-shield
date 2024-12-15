@@ -1,40 +1,49 @@
-import { StyleSheet, View, Text, Image } from "react-native";
+import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import avatar3 from "../assets/images/FakeCall/avatar3.png";
 import { Ionicons } from "@expo/vector-icons";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { MainStackParamList } from "../navigation/MainNavigator";
+import EventTimeCard from "./EventTimeCard";
 
 const EventCard = ({ name, avatar, dateTime, status }: any) => {
+  const navigation = useNavigation<NavigationProp<MainStackParamList>>();
   return (
-    <LinearGradient
-      start={{ x: 0.5, y: 2.2 }}
-      end={{ x: 0.9, y: 1 }}
-      colors={["#88B8CC", "#445C66"]}
-      style={styles.card}
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate("EventDetailScreen", {
+          name: name,
+          avatar: avatar,
+          dateTime: dateTime,
+        });
+      }}
+      activeOpacity={0.7}
     >
-      <View style={styles.avatar}>
-        <Image source={avatar} style={styles.image} />
-      </View>
-      <View style={styles.content}>
-        <Text style={styles.name}>{name}</Text>
-        <View style={styles.detail}>
-          <View style={styles.time}>
-            <Ionicons name="calendar-outline" color="#ffffff" size={20} />
-            <View style={styles.textContainer}>
-              <Text style={styles.textTop}>{dateTime.date}</Text>
-              <Text style={styles.textBottom}>{dateTime.time}</Text>
-            </View>
-          </View>
-          {status == "ended" ? (
-              <Text style={styles.textEnded}>{status}</Text>
-          ) : (
-            <View style={styles.status}>
-              <Text style={styles.text}>Coming soon</Text>
-            </View>
-          )}
+      <LinearGradient
+        start={{ x: 0.5, y: 2.2 }}
+        end={{ x: 0.9, y: 1 }}
+        colors={["#88B8CC", "#445C66"]}
+        style={styles.card}
+      >
+        <View style={styles.avatar}>
+          <Image source={avatar} style={styles.image} />
         </View>
-      </View>
-    </LinearGradient>
+        <View style={styles.content}>
+          <Text style={styles.name}>{name}</Text>
+          <View style={styles.detail}>
+            <EventTimeCard dateTime={dateTime} />
+            {status == "ended" ? (
+              <Text style={styles.textEnded}>{status}</Text>
+            ) : (
+              <View style={styles.status}>
+                <Text style={styles.text}>Coming soon</Text>
+              </View>
+            )}
+          </View>
+        </View>
+      </LinearGradient>
+    </TouchableOpacity>
   );
 };
 
@@ -83,25 +92,6 @@ const styles = StyleSheet.create({
   detail: {
     flexDirection: "row",
     justifyContent: "space-between",
-  },
-  time: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  textContainer: {
-    marginLeft: 5,
-  },
-  textTop: {
-    fontSize: 13,
-    color: "#ffffff",
-    textShadowColor: "#616161",
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 3,
-    fontWeight: "bold",
-  },
-  textBottom: {
-    fontSize: 12,
-    color: "#ffffff",
   },
 
   status: {

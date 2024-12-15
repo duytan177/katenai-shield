@@ -22,10 +22,11 @@ const COLORS = {
   white: "#FFFFFF", // Màu trắng
 };
 import FakeCallScreen from "../screens/FakeCallScreen";
-import EventsScreen from "../screens/EventsScreen";
+import EventsScreen from "../screens/EventScreen/EventsScreen";
 import ProfileMain from "../screens/ProfileScreen/ProfileMain";
 import SosMain from "../screens/SosScreen/SosMain";
 import RecordMain from "../screens/RecordScreen/RecordMain";
+import EventDetailScreen from "../screens/EventScreen/EventDetailScreen";
 
 export type MainStackParamList = {
   TestScreen: any;
@@ -37,6 +38,7 @@ export type MainStackParamList = {
   SosMain: any;
   ProfileMain: any;
   RecordMain: any;
+  EventDetailScreen: any;
 };
 
 const MainStack = createStackNavigator<MainStackParamList>();
@@ -271,6 +273,13 @@ const MainNavigator = () => {
         name="HomeTabs"
         options={{ headerShown: false }}
         component={TabNavigator}
+      />
+      <MainStack.Screen
+        name="EventDetailScreen"
+        component={EventDetailScreen}
+        options={{
+          headerShown: false,
+        }}
       />
     </MainStack.Navigator>
   );
