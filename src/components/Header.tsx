@@ -3,7 +3,7 @@ import { StyleSheet, View, Image, TouchableOpacity, Animated } from "react-nativ
 import katenai_text from "../assets/images/katenai_text.png";
 import bell from "../assets/images/bell.png";
 
-const Header = ({title}: any) => {
+const Header = ({title= null}: any) => {
   const [scaleKatenai] = useState(new Animated.Value(1)); 
   const [scaleBell] = useState(new Animated.Value(1)); 
 

@@ -21,6 +21,7 @@ const COLORS = {
   white: "#FFFFFF", // Màu trắng
 };
 import FakeCallScreen from "../screens/FakeCallScreen";
+import EventsScreen from "../screens/EventsScreen";
 
 export type MainStackParamList = {
   TestScreen: any;
@@ -52,7 +53,7 @@ const TabNavigator = () => {
     >
       <Tab.Screen
         name="Track"
-        component={HomeScreen}
+        component={EventsScreen}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused }) => (
