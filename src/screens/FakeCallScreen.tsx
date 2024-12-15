@@ -12,9 +12,10 @@ import Header from "../components/Header";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import FakeCallCard from "../components/FakeCallCard";
+import HeaderBody from "../components/HeaderBody";
 // import RNCallKeep from "react-native-callkeep";
 import { v4 as uuidv4 } from 'uuid';
-
+import vector from "../assets/images/FakeCall/Vector.png"
 const TITLE_SCREEN = "Fake Call";
 
 const FakeCallScreen = () => {
@@ -74,27 +75,7 @@ const FakeCallScreen = () => {
       <SafeAreaView style={styles.container}>
         <Header title={TITLE_SCREEN} />
         <View style={styles.containerBody}>
-          <View style={styles.headerBody}>
-            <View style={styles.topLeft}>
-              <Text style={styles.title}>{TITLE_SCREEN}</Text>
-              <Text style={styles.subtitle}>
-                Share live location with your friend
-              </Text>
-            </View>
-            <View style={styles.topRight}>
-              <Pressable
-                style={styles.button}
-                onPress={() => {
-                  console.log(11111111111);
-                }}
-              >
-                <Image
-                  source={require("../assets/images/FakeCall/Vector.png")}
-                  style={styles.buttonImage}
-                />
-              </Pressable>
-            </View>
-          </View>
+          <HeaderBody title={TITLE_SCREEN} subTitle="Share live location with your friend" iconButtonRight={vector}  />
 
           <ScrollView
             showsVerticalScrollIndicator={false}
@@ -145,54 +126,6 @@ const styles = StyleSheet.create({
   containerBody: {
     flex: 1,
   },
-
-  headerBody: {
-    flex: 0.2,
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingVertical: 8,
-    paddingHorizontal: 24,
-  },
-
-  topLeft: {
-    flex: 0.8,
-  },
-  topRight: {
-    flex: 0.2,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    color: "#000000",
-  },
-  subtitle: {
-    fontSize: 16,
-    color: "#000000",
-    marginVertical: 12,
-    maxWidth: "80%",
-  },
-  button: {
-    backgroundColor: "#433878",
-    width: 80,
-    height: 80,
-    borderRadius: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  buttonImage: {
-    width: 45,
-    height: 45,
-  },
-
   scrollContainer: {
     paddingHorizontal: 12,
     flex: 1,
