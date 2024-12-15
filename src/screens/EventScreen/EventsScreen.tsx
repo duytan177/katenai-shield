@@ -7,14 +7,14 @@ import {
   Image,
 } from "react-native";
 import React from "react";
-import Header from "../components/Header";
+import Header from "../../components/Header";
 import { SafeAreaView } from "react-native-safe-area-context";
-import HeaderBody from "../components/HeaderBody";
+import HeaderBody from "../../components/HeaderBody";
 import { LinearGradient } from "expo-linear-gradient";
-import avatar3 from "../assets/images/FakeCall/avatar3.png";
-import avatar2 from "../assets/images/FakeCall/avatar2.png";
-import avatar1 from "../assets/images/FakeCall/avatar1.png";
-import EventCard from "../components/EventCard";
+import avatar3 from "../../assets/images/FakeCall/avatar3.png";
+import avatar2 from "../../assets/images/FakeCall/avatar2.png";
+import avatar1 from "../../assets/images/FakeCall/avatar1.png";
+import EventCard from "../../components/EventCard";
 
 const events = [
   {
