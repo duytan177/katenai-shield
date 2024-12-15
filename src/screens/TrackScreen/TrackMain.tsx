@@ -13,6 +13,7 @@ const TrackMain = () => {
   const [location, setLocation] = useState<Region | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [is3D, setIs3D] = useState(false); // State để điều chỉnh chế độ 2D/3D
+  const [randomAvatars, setRandomAvatars] = useState<any[]>([]); // Lưu các vị trí ngẫu nhiên cho avatar
 
   useEffect(() => {
     (async () => {
@@ -31,6 +32,9 @@ const TrackMain = () => {
         longitudeDelta: 0.01,
       });
 
+      // Tạo các vị trí ngẫu nhiên quanh bạn
+      generateRandomAvatars(latitude, longitude);
+
       mapRef.current?.animateToRegion(
         {
           latitude,
@@ -42,6 +46,17 @@ const TrackMain = () => {
       );
     })();
   }, []);
+
+  // Hàm tạo vị trí ngẫu nhiên
+  const generateRandomAvatars = (latitude: number, longitude: number) => {
+    let randomAvatars = [];
+    for (let i = 0; i < 3; i++) {
+      const randomLat = latitude + (Math.random() - 0.5) * 0.01; // Tạo tọa độ ngẫu nhiên xung quanh
+      const randomLng = longitude + (Math.random() - 0.5) * 0.01; // Tạo tọa độ ngẫu nhiên xung quanh
+      randomAvatars.push({ latitude: randomLat, longitude: randomLng });
+    }
+    setRandomAvatars(randomAvatars);
+  };
 
   const zoomToUserLocation = () => {
     if (location && mapRef.current) {
@@ -99,6 +114,24 @@ const TrackMain = () => {
                 </View>
               </Marker>
             )}
+
+            {/* Các avatar ngẫu nhiên */}
+            {randomAvatars.map((avatar, index) => (
+              <Marker
+                key={index}
+                coordinate={{
+                  latitude: avatar.latitude,
+                  longitude: avatar.longitude,
+                }}
+              >
+                <View style={[styles.bodyAvata, { backgroundColor: "white" }]}>
+                  <Image
+                    source={myAvata} // Sử dụng biến hình ảnh
+                    style={styles.avatarImage} // Áp dụng style từ styles
+                  />
+                </View>
+              </Marker>
+            ))}
           </MapView>
           {/* Nút zoom vào bản thân */}
           <Pressable style={styles.zoomButton} onPress={zoomToUserLocation}>
@@ -163,18 +196,18 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
   bodyAvata: {
-    width: 35, 
+    width: 35,
     height: 35,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 25, 
+    borderRadius: 25,
     backgroundColor: "red",
-    padding: 2, 
+    padding: 2,
   },
   avatarImage: {
     width: 30,
     height: 30,
-    borderRadius: 15, 
+    borderRadius: 15,
   },
 });
 
