@@ -171,9 +171,22 @@ const TrackMain = ({ navigation }: any) => {
           </MapView>
 
           {/* Nút zoom vào bản thân */}
-          <Pressable style={styles.zoomButton} onPress={zoomToUserLocation}>
+          <TouchableOpacity
+            style={styles.zoomButton}
+            onPress={zoomToUserLocation}
+            activeOpacity={0.7}
+          >
             <MaterialIcons name="my-location" size={30} color="#fff" />
-          </Pressable>
+          </TouchableOpacity>
+
+          <LinearGradient
+            colors={["#FDB145", "#FD9202"]} // Đặt màu gradient từ FDB145 đến FD9202
+            style={styles.trackMeButton} // Áp dụng style cho nút
+          >
+            <TouchableOpacity onPress={zoomToUserLocation}>
+              <Text style={styles.trackMeButtonText}>Track Me</Text>
+            </TouchableOpacity>
+          </LinearGradient>
         </View>
       </SafeAreaView>
     </LinearGradient>
@@ -222,7 +235,7 @@ const styles = StyleSheet.create({
     bottom: 20,
     right: 20,
     backgroundColor: "#007bff",
-    padding: 15,
+    padding: 12,
     borderRadius: 30,
     elevation: 5, // Đổ bóng
   },
@@ -230,6 +243,24 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "bold",
     fontSize: 10,
+  },
+  trackMeButton: {
+    position: "absolute",
+    bottom: 60,
+    left: 0,
+    right: 0,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 30,
+    elevation: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    marginHorizontal: 100,
+  },
+  trackMeButtonText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 16,
   },
   bodyAvata: {
     width: 35,
