@@ -55,24 +55,25 @@ const HouseOfCompassionMain = () => {
                 </Text>
               </View>
             </View>
-            <LinearGradient
-              colors={["#356F9E", "#202754"]} // Đặt màu gradient từ FDB145 đến FD9202
-              style={styles.actionButton} // Áp dụng style cho nút
-            >
-              <TouchableOpacity>
+            <TouchableOpacity>
+              <LinearGradient
+                colors={["#356F9E", "#202754"]}
+                style={styles.actionButton}
+              >
                 <Text style={styles.actionButtonText}>
                   Giúp đỡ người khác bằng ngồi nhà thân yêu của bạn
                 </Text>
-              </TouchableOpacity>
-            </LinearGradient>
-            <LinearGradient
-              colors={["#FDB145", "#FD9202"]} // Đặt màu gradient từ FDB145 đến FD9202
-              style={styles.actionButton} // Áp dụng style cho nút
-            >
-              <TouchableOpacity>
+              </LinearGradient>
+            </TouchableOpacity>
+
+            <TouchableOpacity>
+              <LinearGradient
+                colors={["#FDB145", "#FD9202"]}
+                style={styles.actionButton}
+              >
                 <Text style={styles.actionButtonText}>Tìm sự giúp đỡ</Text>
-              </TouchableOpacity>
-            </LinearGradient>
+              </LinearGradient>
+            </TouchableOpacity>
           </View>
         </ScrollView>
         {/* End of ScrollView */}
@@ -95,7 +96,7 @@ const styles = StyleSheet.create({
     position: "relative",
   },
   scrollContainer: {
-    flex: 1,
+    flexGrow: 1,
   },
   image: {
     width: "90%",
@@ -124,34 +125,33 @@ const styles = StyleSheet.create({
     position: "relative",
     alignItems: "center",
     paddingHorizontal: 20,
-    maxWidth: "95%", // Giới hạn chiều rộng để không bị lệch
+    maxWidth: "95%",
     marginBottom: 20,
   },
   triangle: {
     position: "absolute",
-    top: -20, // Dịch tam giác lên chút để nó sát vào bubble (có thể điều chỉnh thêm)
-    left: "51%", // Đặt tam giác vào giữa
-    marginLeft: -20, // Dịch chuyển sang trái một chút để căn giữa chính xác
+    top: -20,
+    left: "51%",
+    marginLeft: -20,
     width: 0,
     height: 0,
-    // Cấu hình bóng cho tam giác
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
-    borderLeftWidth: 20, // Tăng kích thước của cạnh trái
-    borderRightWidth: 20, // Tăng kích thước của cạnh phải
-    borderBottomWidth: 20, // Tăng kích thước của cạnh đáy
+    borderLeftWidth: 20,
+    borderRightWidth: 20,
+    borderBottomWidth: 20,
     borderStyle: "solid",
     borderLeftColor: "transparent",
     borderRightColor: "transparent",
-    borderBottomColor: "#FFFFFF", // Màu nền của speech bubble
+    borderBottomColor: "#FFFFFF",
   },
   speechBubble: {
     backgroundColor: "#FFFFFF",
     borderRadius: 8,
-    padding: 14, // Tăng padding để có không gian trong speech bubble
-    elevation: 4, // Hiệu ứng bóng cho speech bubble
+    padding: 14,
+    elevation: 4,
     maxWidth: "90%",
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
@@ -175,13 +175,15 @@ const styles = StyleSheet.create({
     elevation: 5,
     justifyContent: "center",
     alignItems: "center",
-    width: 285, 
+    width: 285,
+    height: 70,
     alignSelf: "center",
   },
   actionButtonText: {
     color: "#fff",
     fontWeight: "bold",
     fontSize: 16,
+    textAlign: "center", // Đảm bảo chữ luôn căn giữa
   },
 });
 

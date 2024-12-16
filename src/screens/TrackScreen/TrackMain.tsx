@@ -179,14 +179,17 @@ const TrackMain = ({ navigation }: any) => {
             <MaterialIcons name="my-location" size={30} color="#fff" />
           </TouchableOpacity>
 
-          <LinearGradient
-            colors={["#FDB145", "#FD9202"]} // Đặt màu gradient từ FDB145 đến FD9202
-            style={styles.trackMeButton} // Áp dụng style cho nút
+          <TouchableOpacity
+            onPress={zoomToUserLocation}
+            style={styles.trackMeButton}
           >
-            <TouchableOpacity onPress={zoomToUserLocation}>
+            <LinearGradient
+              colors={["#FDB145", "#FD9202"]}
+              style={styles.trackMeButtonGradient}
+            >
               <Text style={styles.trackMeButtonText}>Track Me</Text>
-            </TouchableOpacity>
-          </LinearGradient>
+            </LinearGradient>
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     </LinearGradient>
@@ -249,13 +252,18 @@ const styles = StyleSheet.create({
     bottom: 60,
     left: 0,
     right: 0,
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 30,
-    elevation: 5,
     justifyContent: "center",
     alignItems: "center",
-    marginHorizontal: 100,
+  },
+  trackMeButtonGradient: {
+    flex: 1,
+    borderRadius: 30,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    elevation: 5,
+    width: 150,
+    justifyContent: "center",
+    alignItems: "center",
   },
   trackMeButtonText: {
     color: "#fff",
