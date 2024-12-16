@@ -19,7 +19,7 @@ import house from "../../assets/images/Trackme/house.png";
 import user1 from "../../assets/images/Trackme/user1.png";
 import user2 from "../../assets/images/Trackme/user2.png";
 
-const TrackMain = () => {
+const TrackMain = ({ navigation }: any) => {
   const mapRef = useRef<MapView | null>(null);
   const [location, setLocation] = useState<Region | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
@@ -132,49 +132,7 @@ const TrackMain = () => {
               </Marker>
             )}
 
-            {/* Các avatar ngẫu nhiên với hình ảnh khác nhau */}
-            {randomAvatars.map(
-              (avatar, index) =>
-                avatar.avatarImage === house && ( // Kiểm tra nếu avatar là nhà (house)
-                  <Marker
-                    key={index}
-                    coordinate={{
-                      latitude: avatar.latitude,
-                      longitude: avatar.longitude,
-                    }}
-                  >
-                    <View
-                      style={[styles.bodyAvata, { backgroundColor: "white" }]}
-                    >
-                      <Image
-                        source={avatar.avatarImage} // Sử dụng hình ảnh avatar tùy theo vị trí
-                        style={styles.avatarImage} // Áp dụng style từ styles
-                      />
-                    </View>
-                    {/* Callout sẽ hiển thị khi nhấn vào marker */}
-                    <Callout style={styles.calloutContainer}>
-                      <Text style={styles.calloutTextHeader}>
-                        House of Compassion
-                      </Text>
-                      <Text style={styles.calloutText}>
-                        179 Phan Dinh Phung
-                      </Text>
-                      <Text style={styles.calloutText}>Ngu Hanh Son</Text>
-                      <Text style={styles.calloutText}>Da Nang, Vietnam</Text>
-                      <TouchableOpacity
-                        style={styles.calloutViewContainer}
-                        onPress={() => {
-                          /* Xử lý sự kiện khi nhấn */
-                        }}
-                      >
-                        <Text style={styles.calloutViewHouse}>
-                          View detail a house ❤️
-                        </Text>
-                      </TouchableOpacity>
-                    </Callout>
-                  </Marker>
-                )
-            )}
+            {/* Render các Marker với Callout */}
             {randomAvatars.map((avatar, index) => (
               <Marker
                 key={index}
@@ -202,7 +160,7 @@ const TrackMain = () => {
                     <TouchableOpacity
                       style={styles.calloutViewContainer}
                       onPress={() => {
-                        /* Xử lý sự kiện khi nhấn */
+                        navigation.navigate("HouseOfCompassionMain");
                       }}
                     >
                       <Text style={styles.calloutViewHouse}>
@@ -291,10 +249,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   calloutContainer: {
-    backgroundColor: "white",
     padding: 5,
-    borderRadius: 10,
-    elevation: 5,
     width: 200,
   },
   calloutTextHeader: {
@@ -310,8 +265,7 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   calloutViewContainer: {
-    paddingVertical: 8,
-    paddingHorizontal: 12,
+    padding: 8,
     borderRadius: 8,
     backgroundColor: "#f0f0f0",
     alignItems: "center",

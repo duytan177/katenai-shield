@@ -54,14 +54,14 @@ const HomeScreen = ({ navigation }: any) => {
     },
     {
       id: "2",
-      nav: "TrackMain",
+      nav: "HouseOfCompassionMain",
       title: "House of Compassion",
       imageSource: house,
       gradientColors: ["#FFC09C", "#FD813B"], // Đổi ngược màu
     },
     {
       id: "3",
-      nav: "TrackMain",
+      nav: "FakeCall",
       title: "Fakecall",
       imageSource: fakecall,
       gradientColors: ["#C67BFF", "#9400EA"], // Đổi ngược màu

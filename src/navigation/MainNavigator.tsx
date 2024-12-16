@@ -28,6 +28,7 @@ import SosMain from "../screens/SosScreen/SosMain";
 import RecordMain from "../screens/RecordScreen/RecordMain";
 import TrackMain from "../screens/TrackScreen/TrackMain";
 import EventDetailScreen from "../screens/EventScreen/EventDetailScreen";
+import HouseOfCompassionMain from "../screens/House of Compassion/HouseOfCompassionMain";
 
 export type MainStackParamList = {
   TestScreen: any;
@@ -41,6 +42,7 @@ export type MainStackParamList = {
   RecordMain: any;
   TrackMain: any;
   EventDetailScreen: any;
+  HouseOfCompassionMain: any;
 };
 
 const MainStack = createStackNavigator<MainStackParamList>();
@@ -75,6 +77,15 @@ const TabNavigator = () => {
       <Tab.Screen
         name="TrackMain"
         component={TrackMain}
+        options={{
+          headerShown: false,
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: "none" },
+        }}
+      ></Tab.Screen>
+      <Tab.Screen
+        name="HouseOfCompassionMain"
+        component={HouseOfCompassionMain}
         options={{
           headerShown: false,
           tabBarButton: () => null,
