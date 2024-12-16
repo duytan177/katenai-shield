@@ -29,6 +29,7 @@ import RecordMain from "../screens/RecordScreen/RecordMain";
 import TrackMain from "../screens/TrackScreen/TrackMain";
 import EventDetailScreen from "../screens/EventScreen/EventDetailScreen";
 import HouseOfCompassionMain from "../screens/House of Compassion/HouseOfCompassionMain";
+import FindHouse from "../screens/House of Compassion/FindHouse";
 
 export type MainStackParamList = {
   TestScreen: any;
@@ -43,6 +44,7 @@ export type MainStackParamList = {
   TrackMain: any;
   EventDetailScreen: any;
   HouseOfCompassionMain: any;
+  FindHouse: any;
 };
 
 const MainStack = createStackNavigator<MainStackParamList>();
@@ -294,6 +296,8 @@ const MainNavigator = () => {
       <MainStack.Screen name="Login" component={Login} />
       <MainStack.Screen name="Register" component={Register} />
       <MainStack.Screen name="TrackMain" component={TrackMain} />
+
+      <MainStack.Screen name="FindHouse" component={FindHouse} />
 
       <MainStack.Screen
         name="HomeTabs"

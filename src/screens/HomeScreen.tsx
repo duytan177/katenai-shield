@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 10,
     position: "relative",
-    opacity: 0.8,
+    opacity: 0.9,
   },
   itemImage: {
     position: "absolute",

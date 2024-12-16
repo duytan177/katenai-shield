@@ -15,7 +15,7 @@ import HeaderBody from "../../components/HeaderBody";
 import hscImg from "../../assets/images/HouseOfCompassion/houseofcompassion.png";
 import { Ionicons } from "@expo/vector-icons";
 
-const HouseOfCompassionMain = () => {
+const HouseOfCompassionMain = ({ navigation }: any) => {
   return (
     <LinearGradient
       start={{ x: 0, y: 0 }}
@@ -55,7 +55,7 @@ const HouseOfCompassionMain = () => {
                 </Text>
               </View>
             </View>
-            <TouchableOpacity>
+            <Pressable onPress={() => console.log("Button 1 Pressed")}>
               <LinearGradient
                 colors={["#356F9E", "#202754"]}
                 style={styles.actionButton}
@@ -64,9 +64,9 @@ const HouseOfCompassionMain = () => {
                   Giúp đỡ người khác bằng ngồi nhà thân yêu của bạn
                 </Text>
               </LinearGradient>
-            </TouchableOpacity>
+            </Pressable>
 
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate("FindHouse")}>
               <LinearGradient
                 colors={["#FDB145", "#FD9202"]}
                 style={styles.actionButton}
