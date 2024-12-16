@@ -114,7 +114,7 @@ const TrackMain = ({ navigation }: any) => {
             style={StyleSheet.absoluteFill}
             showsUserLocation
             showsMyLocationButton
-            mapType={is3D ? "satellite" : "standard"} // Chuyển đổi giữa 2D và 3D
+            mapType={is3D ? "satellite" : "standard"}
           >
             {location && (
               <Marker
@@ -124,10 +124,7 @@ const TrackMain = ({ navigation }: any) => {
                 }}
               >
                 <View style={styles.bodyAvata}>
-                  <Image
-                    source={myAvata} // Sử dụng biến hình ảnh
-                    style={styles.avatarImage} // Áp dụng style từ styles
-                  />
+                  <Image source={myAvata} style={styles.avatarImage} />
                 </View>
               </Marker>
             )}
@@ -143,35 +140,34 @@ const TrackMain = ({ navigation }: any) => {
               >
                 <View style={[styles.bodyAvata, { backgroundColor: "white" }]}>
                   <Image
-                    source={avatar.avatarImage} // Sử dụng hình ảnh avatar tùy theo vị trí
-                    style={styles.avatarImage} // Áp dụng style từ styles
+                    source={avatar.avatarImage}
+                    style={styles.avatarImage}
                   />
                 </View>
 
-                {/* Hiển thị Callout chỉ khi avatar là house */}
+                {/* Callout phải nằm trong Marker */}
                 {avatar.avatarImage === house && (
-                  <Callout style={styles.calloutContainer}>
+                  <Callout
+                    style={styles.calloutContainer}
+                    onPress={() => {
+                      navigation.navigate("HouseOfCompassionMain");
+                    }}
+                  >
                     <Text style={styles.calloutTextHeader}>
                       House of Compassion
                     </Text>
                     <Text style={styles.calloutText}>179 Phan Dinh Phung</Text>
                     <Text style={styles.calloutText}>Ngu Hanh Son</Text>
                     <Text style={styles.calloutText}>Da Nang, Vietnam</Text>
-                    <TouchableOpacity
-                      style={styles.calloutViewContainer}
-                      onPress={() => {
-                        navigation.navigate("HouseOfCompassionMain");
-                      }}
-                    >
-                      <Text style={styles.calloutViewHouse}>
-                        View detail a house ❤️
-                      </Text>
-                    </TouchableOpacity>
+                    <Text style={styles.calloutViewHouse}>
+                      View detail a house ❤️
+                    </Text>
                   </Callout>
                 )}
               </Marker>
             ))}
           </MapView>
+
           {/* Nút zoom vào bản thân */}
           <Pressable style={styles.zoomButton} onPress={zoomToUserLocation}>
             <Text style={styles.zoomButtonText}>Zoom to Me</Text>
@@ -264,17 +260,11 @@ const styles = StyleSheet.create({
     fontWeight: "400",
     marginBottom: 6,
   },
-  calloutViewContainer: {
-    padding: 8,
-    borderRadius: 8,
-    backgroundColor: "#f0f0f0",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   calloutViewHouse: {
     fontSize: 14,
     color: "#007bff",
     fontWeight: "400",
+    marginBottom: 6,
   },
 });
 
