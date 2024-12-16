@@ -1,10 +1,18 @@
-import { StyleSheet, View, Text, Pressable, Switch, Image } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Pressable,
+  Switch,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import Header from "../../components/Header";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import HeaderBody from "../../components/HeaderBody";
-import MapView, { Marker, Region } from "react-native-maps";
+import MapView, { Marker, Callout, Region } from "react-native-maps";
 import * as Location from "expo-location";
 import myAvata from "../../assets/images/FakeCall/avatar1.png";
 import house from "../../assets/images/Trackme/house.png";
@@ -52,12 +60,7 @@ const TrackMain = () => {
 
   // Hàm tạo vị trí ngẫu nhiên và gán hình ảnh avatar
   const generateRandomAvatars = (latitude: number, longitude: number) => {
-    const avatars = [
-      house,
-      house,
-      user1,
-      user2,
-    ]; // Danh sách các hình ảnh avatar
+    const avatars = [house, house, user1, user2]; // Danh sách các hình ảnh avatar
 
     let randomAvatars = [];
     for (let i = 0; i < 4; i++) {
@@ -74,7 +77,7 @@ const TrackMain = () => {
 
   const zoomToUserLocation = () => {
     if (location && mapRef.current) {
-      mapRef.current.animateToRegion(
+      mapRef.current?.animateToRegion(
         {
           latitude: location.latitude,
           longitude: location.longitude,
@@ -130,6 +133,48 @@ const TrackMain = () => {
             )}
 
             {/* Các avatar ngẫu nhiên với hình ảnh khác nhau */}
+            {randomAvatars.map(
+              (avatar, index) =>
+                avatar.avatarImage === house && ( // Kiểm tra nếu avatar là nhà (house)
+                  <Marker
+                    key={index}
+                    coordinate={{
+                      latitude: avatar.latitude,
+                      longitude: avatar.longitude,
+                    }}
+                  >
+                    <View
+                      style={[styles.bodyAvata, { backgroundColor: "white" }]}
+                    >
+                      <Image
+                        source={avatar.avatarImage} // Sử dụng hình ảnh avatar tùy theo vị trí
+                        style={styles.avatarImage} // Áp dụng style từ styles
+                      />
+                    </View>
+                    {/* Callout sẽ hiển thị khi nhấn vào marker */}
+                    <Callout style={styles.calloutContainer}>
+                      <Text style={styles.calloutTextHeader}>
+                        House of Compassion
+                      </Text>
+                      <Text style={styles.calloutText}>
+                        179 Phan Dinh Phung
+                      </Text>
+                      <Text style={styles.calloutText}>Ngu Hanh Son</Text>
+                      <Text style={styles.calloutText}>Da Nang, Vietnam</Text>
+                      <TouchableOpacity
+                        style={styles.calloutViewContainer}
+                        onPress={() => {
+                          /* Xử lý sự kiện khi nhấn */
+                        }}
+                      >
+                        <Text style={styles.calloutViewHouse}>
+                          View detail a house ❤️
+                        </Text>
+                      </TouchableOpacity>
+                    </Callout>
+                  </Marker>
+                )
+            )}
             {randomAvatars.map((avatar, index) => (
               <Marker
                 key={index}
@@ -144,6 +189,28 @@ const TrackMain = () => {
                     style={styles.avatarImage} // Áp dụng style từ styles
                   />
                 </View>
+
+                {/* Hiển thị Callout chỉ khi avatar là house */}
+                {avatar.avatarImage === house && (
+                  <Callout style={styles.calloutContainer}>
+                    <Text style={styles.calloutTextHeader}>
+                      House of Compassion
+                    </Text>
+                    <Text style={styles.calloutText}>179 Phan Dinh Phung</Text>
+                    <Text style={styles.calloutText}>Ngu Hanh Son</Text>
+                    <Text style={styles.calloutText}>Da Nang, Vietnam</Text>
+                    <TouchableOpacity
+                      style={styles.calloutViewContainer}
+                      onPress={() => {
+                        /* Xử lý sự kiện khi nhấn */
+                      }}
+                    >
+                      <Text style={styles.calloutViewHouse}>
+                        View detail a house ❤️
+                      </Text>
+                    </TouchableOpacity>
+                  </Callout>
+                )}
               </Marker>
             ))}
           </MapView>
@@ -222,6 +289,38 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     borderRadius: 15,
+  },
+  calloutContainer: {
+    backgroundColor: "white",
+    padding: 5,
+    borderRadius: 10,
+    elevation: 5,
+    width: 200,
+  },
+  calloutTextHeader: {
+    fontSize: 15,
+    color: "black",
+    fontWeight: "600",
+    marginBottom: 6,
+  },
+  calloutText: {
+    fontSize: 14,
+    color: "black",
+    fontWeight: "400",
+    marginBottom: 6,
+  },
+  calloutViewContainer: {
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+    backgroundColor: "#f0f0f0",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  calloutViewHouse: {
+    fontSize: 14,
+    color: "#007bff",
+    fontWeight: "400",
   },
 });
 
