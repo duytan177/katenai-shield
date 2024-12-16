@@ -1,13 +1,21 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Image, TouchableOpacity, Animated } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Image,
+  TouchableOpacity,
+  Animated,
+} from "react-native";
 import katenai_text from "../assets/images/katenai_text.png";
 import bell from "../assets/images/bell.png";
+import { useNavigation } from "@react-navigation/native"; // Import useNavigation
 
-const Header = ({title= null}: any) => {
-  const [scaleKatenai] = useState(new Animated.Value(1)); 
-  const [scaleBell] = useState(new Animated.Value(1)); 
+const Header = ({ title = null }: any) => {
+  const [scaleKatenai] = useState(new Animated.Value(1));
+  const [scaleBell] = useState(new Animated.Value(1));
 
-  // Hàm xử lý khi nhấn vào hình ảnh Katenai
+  const navigation = useNavigation(); // Hook navigation
+
   const handleKatenaiPressIn = () => {
     Animated.spring(scaleKatenai, {
       toValue: 1.1, // Phóng to lên 1.1 lần
@@ -24,6 +32,11 @@ const Header = ({title= null}: any) => {
       tension: 100,
       useNativeDriver: true,
     }).start();
+  };
+
+  const handleKatenaiPress = () => {
+    // Điều hướng về màn hình HomeTabs (tab mặc định là Home)
+    navigation.navigate("HomeTabs", { screen: "Home" });
   };
 
   // Hàm xử lý khi nhấn vào hình ảnh Bell
@@ -51,6 +64,7 @@ const Header = ({title= null}: any) => {
       <TouchableOpacity
         onPressIn={handleKatenaiPressIn}
         onPressOut={handleKatenaiPressOut}
+        onPress={handleKatenaiPress} // Thêm sự kiện nhấn vào logo để điều hướng
         activeOpacity={0.7}
       >
         <Animated.Image

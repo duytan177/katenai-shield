@@ -49,6 +49,7 @@ const Tab = createBottomTabNavigator();
 const TabNavigator = () => {
   return (
     <Tab.Navigator
+      initialRouteName="Home" // Chỉ định tab mặc định là "Home"
       screenOptions={{
         tabBarStyle: {
           backgroundColor: COLORS.white,
