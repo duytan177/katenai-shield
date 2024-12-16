@@ -59,8 +59,8 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 16,
     color: "#000000",
-    marginTop: 12,
-    marginBottom: 6,
+    marginTop: 3,
+    marginBottom: 3,
     // minWidth: "90%",
   },
   button: {
