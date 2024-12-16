@@ -14,6 +14,8 @@ import { LinearGradient } from "expo-linear-gradient";
 import HeaderBody from "../../components/HeaderBody";
 import MapView, { Marker, Callout, Region } from "react-native-maps";
 import * as Location from "expo-location";
+import { MaterialIcons } from "@expo/vector-icons"; // Thêm icon thư viện MaterialIcons
+
 import myAvata from "../../assets/images/FakeCall/avatar1.png";
 import house from "../../assets/images/Trackme/house.png";
 import user1 from "../../assets/images/Trackme/user1.png";
@@ -170,7 +172,7 @@ const TrackMain = ({ navigation }: any) => {
 
           {/* Nút zoom vào bản thân */}
           <Pressable style={styles.zoomButton} onPress={zoomToUserLocation}>
-            <Text style={styles.zoomButtonText}>Zoom to Me</Text>
+            <MaterialIcons name="my-location" size={30} color="#fff" />
           </Pressable>
         </View>
       </SafeAreaView>
@@ -220,8 +222,7 @@ const styles = StyleSheet.create({
     bottom: 20,
     right: 20,
     backgroundColor: "#007bff",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    padding: 15,
     borderRadius: 30,
     elevation: 5, // Đổ bóng
   },
