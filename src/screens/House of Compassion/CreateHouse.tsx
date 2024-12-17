@@ -10,6 +10,7 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   Alert,
+  TouchableOpacity,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -20,15 +21,16 @@ import { Ionicons } from "@expo/vector-icons";
 
 const CreateHouse = () => {
   const [image, setImage] = useState<any>(null);
+  const [address, setAddress] = useState("");
+  const [description, setDescription] = useState("");
+  const [phone, setPhone] = useState("");
 
   // Function to open image picker
   const pickImage = async () => {
     try {
-      // Yêu cầu quyền truy cập thư viện ảnh
       const permissionResult =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
 
-      // Kiểm tra quyền truy cập
       if (!permissionResult.granted) {
         Alert.alert(
           "Permission",
@@ -37,7 +39,6 @@ const CreateHouse = () => {
         return;
       }
 
-      // Mở thư viện ảnh
       const pickerResult = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
@@ -45,7 +46,6 @@ const CreateHouse = () => {
         quality: 1,
       });
 
-      // Kiểm tra kết quả
       if (!pickerResult.canceled) {
         setImage(pickerResult.assets[0].uri);
       } else {
@@ -58,6 +58,17 @@ const CreateHouse = () => {
         "An error occurred while picking the image. Please try again."
       );
     }
+  };
+
+  const clearAll = () => {
+    setImage(null);
+    setAddress("");
+    setDescription("");
+    setPhone("");
+  };
+
+  const trackHouse = () => {
+    console.log("Track house action");
   };
 
   return (
@@ -110,6 +121,8 @@ const CreateHouse = () => {
                   <TextInput
                     style={styles.input}
                     placeholder="Type your house address."
+                    value={address}
+                    onChangeText={setAddress}
                     autoCapitalize="none"
                   />
                 </View>
@@ -118,12 +131,28 @@ const CreateHouse = () => {
                   <TextInput
                     style={styles.input}
                     placeholder="Type your description."
+                    value={description}
+                    onChangeText={setDescription}
                     autoCapitalize="none"
                   />
                 </View>
                 <View style={styles.inputField}>
                   <Text style={styles.label}>Phone</Text>
-                  <TextInput style={styles.input} placeholder="*********" />
+                  <TextInput
+                    style={styles.input}
+                    placeholder="*********"
+                    value={phone}
+                    onChangeText={setPhone}
+                  />
+                </View>
+
+                <View style={styles.buttonContainer}>
+                  <TouchableOpacity onPress={clearAll} style={styles.clear}>
+                    <Text style={styles.buttonClearText}>Clear All</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity onPress={trackHouse} style={styles.button}>
+                    <Text style={styles.buttonText}>Track House</Text>
+                  </TouchableOpacity>
                 </View>
               </View>
             </View>
@@ -199,6 +228,38 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginBottom: 10,
     backgroundColor: "#FAFAFA",
+  },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 20,
+  },
+  button: {
+    backgroundColor: "#433878",
+    paddingVertical: 12,
+    borderRadius: 5,
+    width: "48%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  clear: {
+    borderRadius: 5,
+    borderColor: "#433878",
+    borderWidth: 1,
+    backgroundColor: "transparent",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "48%",
+  },
+  buttonClearText: {
+    color: "#433878",
+    fontWeight: "500",
+    fontSize: 17,
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "500",
+    fontSize: 17,
   },
 });
 
