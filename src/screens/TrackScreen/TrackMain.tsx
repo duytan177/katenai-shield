@@ -99,7 +99,7 @@ const TrackMain = ({ navigation }: any) => {
       style={styles.containerLinerGrandient}
     >
       <SafeAreaView edges={["top"]} style={styles.container}>
-        <Header />
+        <Header title="Track me" />
         <HeaderBody
           title="Track me"
           subTitle="Share live location with your friend"

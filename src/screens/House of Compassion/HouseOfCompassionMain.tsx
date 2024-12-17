@@ -64,7 +64,9 @@ const HouseOfCompassionMain = ({ navigation }: any) => {
               </LinearGradient>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => console.log("Button 1 Pressed")}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("CreateHouse")}
+            >
               <LinearGradient
                 colors={["#356F9E", "#202754"]}
                 style={styles.actionButton}
