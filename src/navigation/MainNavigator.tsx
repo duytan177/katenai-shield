@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Image, View, TouchableOpacity, Text, Pressable } from "react-native"; // Thêm Text để tùy chỉnh label
+import { Image, View, TouchableOpacity, Text } from "react-native"; 
 import HomeScreen from "../screens/HomeScreen";
 import Login from "../screens/Login";
 import OnboardingScreen from "../screens/OnboardScreen";
@@ -13,7 +13,6 @@ import profile from "../assets/images/profile.png";
 import sosImage from "../assets/images/sos.png";
 import home from "../assets/images/home.png";
 
-// Định nghĩa màu sắc chung
 const COLORS = {
   active: "#B287ED", // Màu khi tab được focus
   inactive: "#433878", // Màu khi tab không được focus
