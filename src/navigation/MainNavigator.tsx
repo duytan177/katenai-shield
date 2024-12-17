@@ -33,7 +33,7 @@ import FindHouse from "../screens/House of Compassion/FindHouse";
 import CreateHouse from "../screens/House of Compassion/CreateHouse";
 import DetailHouse from "../screens/House of Compassion/DetailHouse";
 import SafeTipsMain from "../screens/SafeTipsScreen/SafeTipsMain";
-
+import ProfileDetail from "../screens/ProfileScreen/ProfileDetail";
 export type MainStackParamList = {
   TestScreen: any;
   OnboardingScreen: any;
@@ -50,6 +50,8 @@ export type MainStackParamList = {
   FindHouse: any;
   CreateHouse: any;
   DetailHouse: any;
+  EventsScreen: any;
+  ProfileDetail: any;
 };
 
 const MainStack = createStackNavigator<MainStackParamList>();
@@ -299,6 +301,24 @@ const TabNavigator = () => {
           ),
         }}
       />
+      <Tab.Screen
+        name="EventScreen"
+        component={EventsScreen}
+        options={{
+          headerShown: false,
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: "none" },
+        }}
+      ></Tab.Screen>
+      <Tab.Screen
+        name="ProfileDetail"
+        component={ProfileDetail}
+        options={{
+          headerShown: false,
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: "none" },
+        }}
+      ></Tab.Screen>
     </Tab.Navigator>
   );
 };
