@@ -75,7 +75,7 @@ const HomeScreen = ({ navigation }: any) => {
     },
     {
       id: "5",
-      nav: "TrackMain",
+      nav: "SafeTipsMain",
       title: "Safe Tips",
       imageSource: safetips,
       gradientColors: ["#67D4F9", "#00AAE4"], // Đổi ngược màu

@@ -32,6 +32,7 @@ import HouseOfCompassionMain from "../screens/House of Compassion/HouseOfCompass
 import FindHouse from "../screens/House of Compassion/FindHouse";
 import CreateHouse from "../screens/House of Compassion/CreateHouse";
 import DetailHouse from "../screens/House of Compassion/DetailHouse";
+import SafeTipsMain from "../screens/SafeTipsScreen/SafeTipsMain";
 
 export type MainStackParamList = {
   TestScreen: any;
@@ -92,6 +93,15 @@ const TabNavigator = () => {
       <Tab.Screen
         name="HouseOfCompassionMain"
         component={HouseOfCompassionMain}
+        options={{
+          headerShown: false,
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: "none" },
+        }}
+      ></Tab.Screen>
+      <Tab.Screen
+        name="SafeTipsMain"
+        component={SafeTipsMain}
         options={{
           headerShown: false,
           tabBarButton: () => null,
