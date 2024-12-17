@@ -8,26 +8,27 @@ import {
 } from "react-native";
 import katenai_text from "../assets/images/katenai_text.png";
 import bell from "../assets/images/bell.png";
+import back from "../assets/images/back.png";
 import { useNavigation } from "@react-navigation/native"; // Import useNavigation
 
 const Header = ({ title = null }: any) => {
   const [scaleKatenai] = useState(new Animated.Value(1));
   const [scaleBell] = useState(new Animated.Value(1));
 
-  const navigation = useNavigation(); // Hook navigation
+  const navigation = useNavigation();
 
   const handleKatenaiPressIn = () => {
     Animated.spring(scaleKatenai, {
-      toValue: 1.1, // Phóng to lên 1.1 lần
-      friction: 3, // Độ ma sát, ảnh hưởng đến độ mượt của animation
-      tension: 100, // Độ căng của animation
-      useNativeDriver: true, // Dùng driver gốc để tối ưu hiệu suất
+      toValue: 1.1,
+      friction: 3,
+      tension: 100,
+      useNativeDriver: true,
     }).start();
   };
 
   const handleKatenaiPressOut = () => {
     Animated.spring(scaleKatenai, {
-      toValue: 1, // Thu lại kích thước gốc
+      toValue: 1,
       friction: 3,
       tension: 100,
       useNativeDriver: true,
@@ -35,14 +36,12 @@ const Header = ({ title = null }: any) => {
   };
 
   const handleKatenaiPress = () => {
-    // Điều hướng về màn hình HomeTabs (tab mặc định là Home)
     navigation.navigate("HomeTabs", { screen: "Home" });
   };
 
-  // Hàm xử lý khi nhấn vào hình ảnh Bell
   const handleBellPressIn = () => {
     Animated.spring(scaleBell, {
-      toValue: 1.1, // Phóng to lên 1.1 lần
+      toValue: 1.1,
       friction: 3,
       tension: 100,
       useNativeDriver: true,
@@ -51,7 +50,7 @@ const Header = ({ title = null }: any) => {
 
   const handleBellPressOut = () => {
     Animated.spring(scaleBell, {
-      toValue: 1, // Thu lại kích thước gốc
+      toValue: 1,
       friction: 3,
       tension: 100,
       useNativeDriver: true,
@@ -60,7 +59,6 @@ const Header = ({ title = null }: any) => {
 
   return (
     <View style={styles.header}>
-      {/* TouchableOpacity cho hình ảnh Katenai */}
       <TouchableOpacity
         onPressIn={handleKatenaiPressIn}
         onPressOut={handleKatenaiPressOut}
@@ -72,12 +70,11 @@ const Header = ({ title = null }: any) => {
           style={{
             width: 100,
             height: 40,
-            transform: [{ scale: scaleKatenai }], // Áp dụng animation scale
+            transform: [{ scale: scaleKatenai }],
           }}
         />
       </TouchableOpacity>
 
-      {/* TouchableOpacity cho hình ảnh Bell */}
       <TouchableOpacity
         onPressIn={handleBellPressIn}
         onPressOut={handleBellPressOut}
@@ -88,7 +85,7 @@ const Header = ({ title = null }: any) => {
           style={{
             width: 27,
             height: 30,
-            transform: [{ scale: scaleBell }], // Áp dụng animation scale
+            transform: [{ scale: scaleBell }],
           }}
         />
       </TouchableOpacity>

@@ -24,7 +24,7 @@ const HouseOfCompassionMain = ({ navigation }: any) => {
       style={styles.containerLinerGrandient}
     >
       <SafeAreaView edges={["top"]} style={styles.container}>
-        <Header />
+        <Header  />
         {/* Wrap everything in ScrollView */}
         <HeaderBody title="House of Compassion" subTitle="A home for all" />
         <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -55,16 +55,6 @@ const HouseOfCompassionMain = ({ navigation }: any) => {
                 </Text>
               </View>
             </View>
-            <Pressable onPress={() => console.log("Button 1 Pressed")}>
-              <LinearGradient
-                colors={["#356F9E", "#202754"]}
-                style={styles.actionButton}
-              >
-                <Text style={styles.actionButtonText}>
-                  Giúp đỡ người khác bằng ngồi nhà thân yêu của bạn
-                </Text>
-              </LinearGradient>
-            </Pressable>
 
             <TouchableOpacity onPress={() => navigation.navigate("FindHouse")}>
               <LinearGradient
@@ -74,9 +64,19 @@ const HouseOfCompassionMain = ({ navigation }: any) => {
                 <Text style={styles.actionButtonText}>Tìm sự giúp đỡ</Text>
               </LinearGradient>
             </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => console.log("Button 1 Pressed")}>
+              <LinearGradient
+                colors={["#356F9E", "#202754"]}
+                style={styles.actionButton}
+              >
+                <Text style={styles.actionButtonText}>
+                  Giúp đỡ người khác bằng ngồi nhà thân yêu của bạn
+                </Text>
+              </LinearGradient>
+            </TouchableOpacity>
           </View>
         </ScrollView>
-        {/* End of ScrollView */}
       </SafeAreaView>
     </LinearGradient>
   );
