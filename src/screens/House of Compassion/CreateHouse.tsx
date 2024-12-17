@@ -11,6 +11,7 @@ import {
   ScrollView,
   Alert,
   TouchableOpacity,
+  Modal,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -18,12 +19,16 @@ import Header from "../../components/Header";
 import HeaderBody from "../../components/HeaderBody";
 import * as ImagePicker from "expo-image-picker";
 import { Ionicons } from "@expo/vector-icons";
+import bravo from "../../assets/images/bravo.png"; // Import your bravo image here
 
 const CreateHouse = () => {
   const [image, setImage] = useState<any>(null);
   const [address, setAddress] = useState("");
   const [description, setDescription] = useState("");
   const [phone, setPhone] = useState("");
+  
+  // State to handle modal visibility
+  const [modalVisible, setModalVisible] = useState(false);
 
   // Function to open image picker
   const pickImage = async () => {
@@ -67,8 +72,16 @@ const CreateHouse = () => {
     setPhone("");
   };
 
+  // Function to handle tracking house action and show modal
   const trackHouse = () => {
     console.log("Track house action");
+    // Show the modal
+    setModalVisible(true);
+  };
+
+  // Close modal
+  const closeModal = () => {
+    setModalVisible(false);
   };
 
   return (
@@ -158,6 +171,29 @@ const CreateHouse = () => {
             </View>
           </ScrollView>
         </KeyboardAvoidingView>
+
+        {/* Modal to show the success message */}
+        <Modal
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={closeModal}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              {/* Bravo Image above the text */}
+              <Image
+                source={bravo}
+                style={styles.modalImage}
+                resizeMode="contain"
+              />
+              <Text style={styles.modalText}>THANKS FOR YOUR HOUSE</Text>
+              <TouchableOpacity onPress={closeModal} style={styles.modalButton}>
+                <Text style={styles.modalButtonText}>Close</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
       </SafeAreaView>
     </LinearGradient>
   );
@@ -260,6 +296,42 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "500",
     fontSize: 17,
+  },
+  
+  // Modal styles
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)", // semi-transparent background
+  },
+  modalContent: {
+    width: 320,
+    padding: 20,
+    backgroundColor: "white",
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  modalImage: {
+    width: 100,
+    height: 100,
+    marginBottom: 15,
+  },
+  modalText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginBottom: 15,
+  },
+  modalButton: {
+    backgroundColor: "#433878",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+  },
+  modalButtonText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "500",
   },
 });
 
