@@ -10,7 +10,10 @@ import EventTimeCard from "./EventTimeCard";
 const HousesCard = ({ name, avatar }: any) => {
   const navigation = useNavigation<NavigationProp<MainStackParamList>>();
   return (
-    <TouchableOpacity onPress={() => {}} activeOpacity={0.7}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate("DetailHouse")}
+      activeOpacity={0.7}
+    >
       <LinearGradient
         start={{ x: 0.5, y: 2.2 }}
         end={{ x: 0.9, y: 1 }}

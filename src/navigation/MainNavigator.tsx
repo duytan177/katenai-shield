@@ -31,6 +31,7 @@ import EventDetailScreen from "../screens/EventScreen/EventDetailScreen";
 import HouseOfCompassionMain from "../screens/House of Compassion/HouseOfCompassionMain";
 import FindHouse from "../screens/House of Compassion/FindHouse";
 import CreateHouse from "../screens/House of Compassion/CreateHouse";
+import DetailHouse from "../screens/House of Compassion/DetailHouse";
 
 export type MainStackParamList = {
   TestScreen: any;
@@ -47,6 +48,7 @@ export type MainStackParamList = {
   HouseOfCompassionMain: any;
   FindHouse: any;
   CreateHouse: any;
+  DetailHouse: any;
 };
 
 const MainStack = createStackNavigator<MainStackParamList>();
@@ -300,6 +302,7 @@ const MainNavigator = () => {
       <MainStack.Screen name="TrackMain" component={TrackMain} />
       <MainStack.Screen name="FindHouse" component={FindHouse} />
       <MainStack.Screen name="CreateHouse" component={CreateHouse} />
+      <MainStack.Screen name="DetailHouse" component={DetailHouse} />
 
       <MainStack.Screen
         name="HomeTabs"
