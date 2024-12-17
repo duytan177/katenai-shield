@@ -13,6 +13,7 @@ import safetips from "../assets/images/HomeView/safetips.png";
 import sos from "../assets/images/HomeView/sos.png";
 import trackme from "../assets/images/HomeView/trackme.png";
 import { ScrollView } from "react-native-gesture-handler";
+import avatar3 from "../assets/images/FakeCall/avatar3.png";
 
 const FeatureItem = ({
   navigation,
@@ -40,8 +41,21 @@ const FeatureItem = ({
 };
 
 const HomeScreen = ({ navigation }: any) => {
+  const eventDetail = {
+    name: "Richard Johnson",
+    avatar: avatar3,
+    dateTime: { date: "02 May 2025", time: "08:00 AM" },
+  };
+  const handleViewEventList = () => {
+    navigation.navigate("EventScreen");
+  };
+
   const handleViewDetails = () => {
-    console.log("Navigating to details...");
+    navigation.navigate("EventDetailScreen", {
+      name: eventDetail.name,
+      avatar: eventDetail.avatar,
+      dateTime: eventDetail.dateTime,
+    });
   };
 
   const data = [
@@ -134,7 +148,7 @@ const HomeScreen = ({ navigation }: any) => {
                   >
                     <Text style={styles.buttonText}>View detail</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity>
+                  <TouchableOpacity onPress={handleViewEventList}>
                     <Text style={styles.textPrevious}>
                       Look back at previous events.
                     </Text>

@@ -50,6 +50,7 @@ export type MainStackParamList = {
   FindHouse: any;
   CreateHouse: any;
   DetailHouse: any;
+  EventsScreen: any
 };
 
 const MainStack = createStackNavigator<MainStackParamList>();
@@ -299,6 +300,15 @@ const TabNavigator = () => {
           ),
         }}
       />
+      <Tab.Screen
+        name="EventScreen"
+        component={EventsScreen}
+        options={{
+          headerShown: false,
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: "none" },
+        }}
+      ></Tab.Screen>
     </Tab.Navigator>
   );
 };
