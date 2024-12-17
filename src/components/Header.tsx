@@ -72,7 +72,7 @@ const Header = ({ title = null }: any) => {
               style={{
                 width: 25,
                 height: 25,
-                marginHorizontal: 5,
+                marginHorizontal: 4,
                 resizeMode: "contain",
 
                 transform: [{ scale: scaleKatenai }],
