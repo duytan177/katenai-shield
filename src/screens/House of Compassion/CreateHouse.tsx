@@ -1,20 +1,65 @@
+import React, { useState } from "react";
 import {
   StyleSheet,
   View,
   Text,
   Pressable,
-  ScrollView,
-  Image,
   TextInput,
+  Image,
+  Platform,
+  KeyboardAvoidingView,
+  ScrollView,
+  Alert,
 } from "react-native";
-import React from "react";
-import Header from "../../components/Header";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
+import { SafeAreaView } from "react-native-safe-area-context";
+import Header from "../../components/Header";
 import HeaderBody from "../../components/HeaderBody";
-import upload from "../../assets/images/HouseOfCompassion/upload.png";
+import * as ImagePicker from "expo-image-picker";
+import { Ionicons } from "@expo/vector-icons";
 
 const CreateHouse = () => {
+  const [image, setImage] = useState<any>(null);
+
+  // Function to open image picker
+  const pickImage = async () => {
+    try {
+      // Yêu cầu quyền truy cập thư viện ảnh
+      const permissionResult =
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+      // Kiểm tra quyền truy cập
+      if (!permissionResult.granted) {
+        Alert.alert(
+          "Permission",
+          "Permission to access media library is required!"
+        );
+        return;
+      }
+
+      // Mở thư viện ảnh
+      const pickerResult = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+
+      // Kiểm tra kết quả
+      if (!pickerResult.canceled) {
+        setImage(pickerResult.assets[0].uri);
+      } else {
+        console.log("User canceled image picker");
+      }
+    } catch (error) {
+      console.error("Error picking image: ", error);
+      Alert.alert(
+        "Error",
+        "An error occurred while picking the image. Please try again."
+      );
+    }
+  };
+
   return (
     <LinearGradient
       start={{ x: 0, y: 0 }}
@@ -28,39 +73,62 @@ const CreateHouse = () => {
           title="House of Compassion"
           subTitle="Creating housing for everyone"
         />
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
-          <View style={styles.containerBody}>
-            <View style={styles.containerImg}>
-              <Image source={upload} style={styles.image} resizeMode="cover" />
-            </View>
 
-            <View style={styles.formContainer}>
-              <View style={styles.inputField}>
-                <Text style={styles.label}>Address</Text>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Type your house address."
-                  autoCapitalize="none"
-                />
+        {/* Wrap the entire content inside KeyboardAvoidingView */}
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={styles.container}
+        >
+          <ScrollView
+            contentContainerStyle={styles.scrollContainer}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+          >
+            <View style={styles.containerBody}>
+              <View style={styles.containerImg}>
+                {/* Image selection functionality */}
+                <Pressable onPress={pickImage} style={styles.uploadButton}>
+                  {image ? (
+                    <Image
+                      source={{ uri: image }}
+                      style={styles.image}
+                      resizeMode="cover"
+                    />
+                  ) : (
+                    <Ionicons
+                      name="cloud-upload-outline"
+                      size={50}
+                      color="#6F6F6F"
+                    />
+                  )}
+                </Pressable>
               </View>
-              <View style={styles.inputField}>
-                <Text style={styles.label}>Description</Text>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Type your description."
-                  autoCapitalize="none"
-                />
-              </View>
-              <View style={styles.inputField}>
-                <Text style={styles.label}>Phone</Text>
-                <TextInput
-                  style={styles.input}
-                  placeholder="*********"
-                />
+
+              <View style={styles.formContainer}>
+                <View style={styles.inputField}>
+                  <Text style={styles.label}>Address</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Type your house address."
+                    autoCapitalize="none"
+                  />
+                </View>
+                <View style={styles.inputField}>
+                  <Text style={styles.label}>Description</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Type your description."
+                    autoCapitalize="none"
+                  />
+                </View>
+                <View style={styles.inputField}>
+                  <Text style={styles.label}>Phone</Text>
+                  <TextInput style={styles.input} placeholder="*********" />
+                </View>
               </View>
             </View>
-          </View>
-        </ScrollView>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </LinearGradient>
   );
@@ -91,13 +159,18 @@ const styles = StyleSheet.create({
     backgroundColor: "#D9D9D9",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 20,
   },
   image: {
     width: "100%",
     height: "100%",
-    borderRadius: 30,
+    borderRadius: 20,
     padding: 20,
+  },
+  uploadButton: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    height: "100%",
   },
   formContainer: {
     backgroundColor: "white",
