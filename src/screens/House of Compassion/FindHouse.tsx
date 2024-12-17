@@ -52,7 +52,7 @@ const FindHouse = ({ navigation }: any) => {
       style={styles.containerLinerGrandient}
     >
       <SafeAreaView edges={["top"]} style={styles.container}>
-        <Header />
+        <Header title="List Houses" />
         <HeaderBody
           title="House of Compassion"
           subTitle="You can contact the houses nearest to you"
@@ -111,8 +111,8 @@ const styles = StyleSheet.create({
   },
   houseItems: {
     marginHorizontal: 20,
-    marginVertical: 20
-  }
+    marginVertical: 20,
+  },
 });
 
 export default FindHouse;

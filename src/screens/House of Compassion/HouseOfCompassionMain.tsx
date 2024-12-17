@@ -24,8 +24,7 @@ const HouseOfCompassionMain = ({ navigation }: any) => {
       style={styles.containerLinerGrandient}
     >
       <SafeAreaView edges={["top"]} style={styles.container}>
-        <Header  />
-        {/* Wrap everything in ScrollView */}
+        <Header title="House" />
         <HeaderBody title="House of Compassion" subTitle="A home for all" />
         <ScrollView contentContainerStyle={styles.scrollContainer}>
           <View style={styles.containerBody}>

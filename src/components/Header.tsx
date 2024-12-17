@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   Animated,
+  Text,
 } from "react-native";
 import katenai_text from "../assets/images/katenai_text.png";
 import bell from "../assets/images/bell.png";
@@ -57,23 +58,49 @@ const Header = ({ title = null }: any) => {
     }).start();
   };
 
+  const handleBackPress = () => {
+    navigation.goBack();
+  };
+
   return (
     <View style={styles.header}>
-      <TouchableOpacity
-        onPressIn={handleKatenaiPressIn}
-        onPressOut={handleKatenaiPressOut}
-        onPress={handleKatenaiPress} // Thêm sự kiện nhấn vào logo để điều hướng
-        activeOpacity={0.7}
-      >
-        <Animated.Image
-          source={katenai_text}
-          style={{
-            width: 100,
-            height: 40,
-            transform: [{ scale: scaleKatenai }],
-          }}
-        />
-      </TouchableOpacity>
+      {title ? (
+        <>
+          <TouchableOpacity onPress={handleBackPress} activeOpacity={0.7}>
+            <Animated.Image
+              source={back}
+              style={{
+                width: 25,
+                height: 25,
+                marginHorizontal: 5,
+                resizeMode: "contain",
+
+                transform: [{ scale: scaleKatenai }],
+              }}
+            />
+          </TouchableOpacity>
+
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>{title}</Text>
+          </View>
+        </>
+      ) : (
+        <TouchableOpacity
+          onPressIn={handleKatenaiPressIn}
+          onPressOut={handleKatenaiPressOut}
+          onPress={handleKatenaiPress} // Thêm sự kiện nhấn vào logo để điều hướng
+          activeOpacity={0.7}
+        >
+          <Animated.Image
+            source={katenai_text}
+            style={{
+              width: 100,
+              height: 40,
+              transform: [{ scale: scaleKatenai }],
+            }}
+          />
+        </TouchableOpacity>
+      )}
 
       <TouchableOpacity
         onPressIn={handleBellPressIn}
@@ -104,6 +131,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     borderBottomWidth: 1,
     borderBlockColor: "#7E60BF",
+  },
+  titleContainer: {
+    flex: 1, // Chiếm hết không gian còn lại giữa các phần tử
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#433878", // Bạn có thể thay đổi màu của title tại đây
+    textAlign: "center", // Đảm bảo chữ được căn giữa
   },
 });
 
