@@ -82,7 +82,7 @@ const HomeScreen = ({ navigation }: any) => {
     },
     {
       id: "4",
-      nav: "TrackMain",
+      nav: "SosMain",
       title: "SOS",
       imageSource: sos,
       gradientColors: ["#A3EAD0", "#07AA6F"], // Đổi ngược màu

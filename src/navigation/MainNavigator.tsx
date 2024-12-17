@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Image, View, TouchableOpacity, Text } from "react-native"; // Thêm Text để tùy chỉnh label
+import { Image, View, TouchableOpacity, Text, Pressable } from "react-native"; // Thêm Text để tùy chỉnh label
 import HomeScreen from "../screens/HomeScreen";
 import Login from "../screens/Login";
 import OnboardingScreen from "../screens/OnboardScreen";
@@ -111,6 +111,15 @@ const TabNavigator = () => {
         }}
       ></Tab.Screen>
       <Tab.Screen
+        name="SosMain"
+        component={SosMain}
+        options={{
+          headerShown: false,
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: "none" },
+        }}
+      ></Tab.Screen>
+      <Tab.Screen
         name="Track"
         component={TrackMain}
         options={{
@@ -172,8 +181,9 @@ const TabNavigator = () => {
         component={SosMain}
         options={{
           headerShown: false,
-          tabBarButton: () => (
+          tabBarButton: (props) => (
             <TouchableOpacity
+              {...props}
               style={{
                 position: "absolute",
                 bottom: -25,
@@ -333,6 +343,7 @@ const MainNavigator = () => {
       <MainStack.Screen name="FindHouse" component={FindHouse} />
       <MainStack.Screen name="CreateHouse" component={CreateHouse} />
       <MainStack.Screen name="DetailHouse" component={DetailHouse} />
+      <MainStack.Screen name="SosMain" component={SosMain} />
 
       <MainStack.Screen
         name="HomeTabs"
