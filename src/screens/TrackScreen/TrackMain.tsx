@@ -12,7 +12,7 @@ import Header from "../../components/Header";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import HeaderBody from "../../components/HeaderBody";
-import MapView, { Marker, Callout, Region } from "react-native-maps";
+import MapView, { Marker, Callout, Region, Polyline } from "react-native-maps";
 import * as Location from "expo-location";
 import { MaterialIcons } from "@expo/vector-icons"; // Thêm icon thư viện MaterialIcons
 
@@ -168,6 +168,20 @@ const TrackMain = ({ navigation }: any) => {
                 )}
               </Marker>
             ))}
+
+            {/* Vẽ đường nối từ vị trí người dùng tới các avatar ngẫu nhiên */}
+            {location &&
+              randomAvatars.map((avatar, index) => (
+                <Polyline
+                  key={index}
+                  coordinates={[
+                    { latitude: location.latitude, longitude: location.longitude },
+                    { latitude: avatar.latitude, longitude: avatar.longitude },
+                  ]}
+                  strokeColor="red"
+                  strokeWidth={3}
+                />
+              ))}
           </MapView>
 
           {/* Nút zoom vào bản thân */}
