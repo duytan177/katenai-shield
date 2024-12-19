@@ -34,6 +34,7 @@ import CreateHouse from "../screens/House of Compassion/CreateHouse";
 import DetailHouse from "../screens/House of Compassion/DetailHouse";
 import SafeTipsMain from "../screens/SafeTipsScreen/SafeTipsMain";
 import ProfileDetail from "../screens/ProfileScreen/ProfileDetail";
+import SosMapHelp from "../screens/SosScreen/SosMapHelp";
 export type MainStackParamList = {
   TestScreen: any;
   OnboardingScreen: any;
@@ -53,6 +54,8 @@ export type MainStackParamList = {
   EventsScreen: any;
   ProfileDetail: any;
   SosSending: any;
+  SosMapHelp: any;
+  SosMapHelpStack: any
 };
 
 const MainStack = createStackNavigator<MainStackParamList>();
@@ -339,6 +342,15 @@ const TabNavigator = () => {
           tabBarItemStyle: { display: "none" },
         }}
       ></Tab.Screen>
+      <Tab.Screen
+        name="SosMapHelp"
+        component={SosMapHelp}
+        options={{
+          headerShown: false,
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: "none" },
+        }}
+      ></Tab.Screen>
     </Tab.Navigator>
   );
 };
@@ -354,6 +366,7 @@ const MainNavigator = () => {
       <MainStack.Screen name="CreateHouse" component={CreateHouse} />
       <MainStack.Screen name="DetailHouse" component={DetailHouse} />
       <MainStack.Screen name="SosMain" component={SosMain} />
+      <MainStack.Screen name="SosMapHelpStack" component={SosMapHelp} />
 
       <MainStack.Screen
         name="HomeTabs"

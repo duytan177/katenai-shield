@@ -38,6 +38,7 @@ const SosMain = ({ route }: any) => {
 
   const closeModalSendLocal = () => {
     setModalVisibleSendLocal(false);
+    navigation.navigate("SosMapHelp")
   };
   return (
     <SafeAreaView edges={["top"]} style={styles.container}>
@@ -110,13 +111,15 @@ const SosMain = ({ route }: any) => {
         <Text style={styles.subTitle}>0988743531</Text>
       </View>
 
-      <SosNotiModal
-        isModalVisible={isModalVisible}
-        closeModal={closeModal}
-        title={"Please wait...."}
-        subTitle={"We are trying to locate you...."}
-        imageTitle={sending}
-      />
+      {!isModalVisibleSendLocal && (
+        <SosNotiModal
+          isModalVisible={isModalVisible}
+          closeModal={closeModal}
+          title={"Please wait...."}
+          subTitle={"We are trying to locate you...."}
+          imageTitle={sending}
+        />
+      )}
       <SosNotiModal
         isModalVisible={isModalVisibleSendLocal}
         closeModal={closeModalSendLocal}
