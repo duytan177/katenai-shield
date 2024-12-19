@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Image, View, TouchableOpacity, Text } from "react-native"; 
+import { Image, View, TouchableOpacity, Text } from "react-native";
 import HomeScreen from "../screens/HomeScreen";
 import Login from "../screens/Login";
 import OnboardingScreen from "../screens/OnboardScreen";
@@ -12,8 +12,9 @@ import record from "../assets/images/record.png";
 import profile from "../assets/images/profile.png";
 import sosImage from "../assets/images/sos.png";
 import home from "../assets/images/home.png";
+import SosSending from "../screens/SosScreen/SosSending";
 
-const COLORS = {
+export const COLORS = {
   active: "#B287ED", // Màu khi tab được focus
   inactive: "#433878", // Màu khi tab không được focus
   sosButton: "#A9C0FF", // Màu nút SOS
@@ -33,6 +34,7 @@ import CreateHouse from "../screens/House of Compassion/CreateHouse";
 import DetailHouse from "../screens/House of Compassion/DetailHouse";
 import SafeTipsMain from "../screens/SafeTipsScreen/SafeTipsMain";
 import ProfileDetail from "../screens/ProfileScreen/ProfileDetail";
+import SosMapHelp from "../screens/SosScreen/SosMapHelp";
 export type MainStackParamList = {
   TestScreen: any;
   OnboardingScreen: any;
@@ -51,6 +53,9 @@ export type MainStackParamList = {
   DetailHouse: any;
   EventsScreen: any;
   ProfileDetail: any;
+  SosSending: any;
+  SosMapHelp: any;
+  SosMapHelpStack: any
 };
 
 const MainStack = createStackNavigator<MainStackParamList>();
@@ -328,6 +333,24 @@ const TabNavigator = () => {
           tabBarItemStyle: { display: "none" },
         }}
       ></Tab.Screen>
+      <Tab.Screen
+        name="SosSending"
+        component={SosSending}
+        options={{
+          headerShown: false,
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: "none" },
+        }}
+      ></Tab.Screen>
+      <Tab.Screen
+        name="SosMapHelp"
+        component={SosMapHelp}
+        options={{
+          headerShown: false,
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: "none" },
+        }}
+      ></Tab.Screen>
     </Tab.Navigator>
   );
 };
@@ -343,6 +366,7 @@ const MainNavigator = () => {
       <MainStack.Screen name="CreateHouse" component={CreateHouse} />
       <MainStack.Screen name="DetailHouse" component={DetailHouse} />
       <MainStack.Screen name="SosMain" component={SosMain} />
+      <MainStack.Screen name="SosMapHelpStack" component={SosMapHelp} />
 
       <MainStack.Screen
         name="HomeTabs"
