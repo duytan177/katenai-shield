@@ -35,6 +35,7 @@ import DetailHouse from "../screens/House of Compassion/DetailHouse";
 import SafeTipsMain from "../screens/SafeTipsScreen/SafeTipsMain";
 import ProfileDetail from "../screens/ProfileScreen/ProfileDetail";
 import SosMapHelp from "../screens/SosScreen/SosMapHelp";
+import SosAlertSafeCode from "../screens/SosScreen/SosAlertSafeCode";
 export type MainStackParamList = {
   TestScreen: any;
   OnboardingScreen: any;
@@ -55,7 +56,8 @@ export type MainStackParamList = {
   ProfileDetail: any;
   SosSending: any;
   SosMapHelp: any;
-  SosMapHelpStack: any
+  SosMapHelpStack: any;
+  SosAlertSafeCode: any;
 };
 
 const MainStack = createStackNavigator<MainStackParamList>();
@@ -345,6 +347,15 @@ const TabNavigator = () => {
       <Tab.Screen
         name="SosMapHelp"
         component={SosMapHelp}
+        options={{
+          headerShown: false,
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: "none" },
+        }}
+      ></Tab.Screen>
+      <Tab.Screen
+        name="SosAlertSafeCode"
+        component={SosAlertSafeCode}
         options={{
           headerShown: false,
           tabBarButton: () => null,

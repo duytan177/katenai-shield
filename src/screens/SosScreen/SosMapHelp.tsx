@@ -22,6 +22,8 @@ import user1 from "../../assets/images/Trackme/user1.png";
 import user2 from "../../assets/images/Trackme/user2.png";
 import notiHelp from "../../assets/images/Sos/notiHelp.png";
 import directions from "../../assets/images/Sos/directions.png";
+import SosNotiModal from "../../components/SosNotiModal";
+import SOSHelp from "../../assets/images/Sos/SOSHelp.png";
 
 const TITLE_SCREEN = "SOS Alert";
 const SosMapHelp = ({ navigation, route }: any) => {
@@ -34,7 +36,11 @@ const SosMapHelp = ({ navigation, route }: any) => {
   const [is3D, setIs3D] = useState(false); // State để điều chỉnh chế độ 2D/3D
   const [randomAvatars, setRandomAvatars] = useState<any[]>([]); // Lưu các vị trí ngẫu nhiên cho avatar
   const [invisibleHelp, setInvisibleHelp] = useState<Boolean>(invisibleFlg);
-
+  const [findHelp, setFindHelp] = useState<any>(false);
+  const [modalFindHelp, setModalFindHelp] = useState< any>(false);
+  const closeModalFindHelp = () => {
+    setModalFindHelp(false);
+  };
   useEffect(() => {
     (async () => {
       const { status } = await Location.requestForegroundPermissionsAsync();
@@ -119,6 +125,21 @@ const SosMapHelp = ({ navigation, route }: any) => {
     });
   };
 
+
+  const onHandleFindHelp = () => {
+    setFindHelp(true);
+    setTimeout(() => {
+      setModalFindHelp(true)
+    }, 3000);
+  };
+
+  useEffect(() => {
+    if (modalFindHelp && findHelp){
+      setTimeout(() => {
+        setModalFindHelp(false)
+      }, 2000);
+    }
+  }, [findHelp, modalFindHelp]);
   return (
     <LinearGradient
       start={{ x: 0, y: 0 }}
@@ -156,20 +177,20 @@ const SosMapHelp = ({ navigation, route }: any) => {
           <MapView
             ref={mapRef}
             style={StyleSheet.absoluteFill}
-            showsUserLocation
+            showsUserLocation={!findHelp}
             showsMyLocationButton
             mapType={is3D ? "satellite" : "standard"}
           >
             {location && (
               <Marker
                 coordinate={{
-                  latitude: location.latitude,
-                  longitude: location.longitude,
+                  latitude: findHelp ? randomAvatars[0].latitude - 0.0005 :location.latitude ,
+                  longitude: findHelp ? randomAvatars[0].longitude :location.longitude,
                 }}
               >
-                <View style={styles.bodyAvata}>
+                <TouchableOpacity onPress={onHandleFindHelp} style={styles.bodyAvata}>
                   <Image source={myAvata} style={styles.avatarImage} />
-                </View>
+                </TouchableOpacity>
               </Marker>
             )}
 
@@ -213,7 +234,7 @@ const SosMapHelp = ({ navigation, route }: any) => {
             ))}
 
             {/* Vẽ đường nối từ vị trí người dùng tới các avatar ngẫu nhiên */}
-            {location &&
+            {!findHelp && invisibleHelp && location &&
               randomAvatars.map((avatar, index) => (
                 <Polyline
                   key={index}
@@ -257,13 +278,21 @@ const SosMapHelp = ({ navigation, route }: any) => {
         )}
 
         {invisibleHelp && (
-          <View style={styles.modalSafeCode}>
+          <TouchableOpacity style={styles.modalSafeCode}>
               <View style={styles.inforDetailSafeCode}>
                 <Text style={styles.modalMessageSafeCode}>Safe Code </Text>
                 <Text style={[styles.modalMessageSafeCode]}>8527</Text>
               </View>
-            </View>
+            </TouchableOpacity>
         )}
+
+        <SosNotiModal
+                isModalVisible={modalFindHelp}
+                closeModal={closeModalFindHelp}
+                title={""}
+                subTitle={"If it seems like your friend is near, keep your device in SOS mode until your friend comes to your rescue"}
+                imageTitle={SOSHelp}
+        />
       </SafeAreaView>
     </LinearGradient>
   );
