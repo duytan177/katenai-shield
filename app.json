@@ -24,6 +24,17 @@
       "favicon": "./assets/favicon.png"
     },
     "newArchEnabled": true,
-    "development": false
+    "development": false,
+    "notification": {
+      "ios": {
+        "supportsRemoteNotificationBackgroundMode": true
+      }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "937ffb7b-85fd-4567-9c79-2e5c9dfdc82d"
+      }
+    },
+    "owner": "duytan177"
   }
 }

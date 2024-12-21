@@ -208,11 +208,13 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginVertical: 10,
     color: "#1A2530",
+    textAlign: "center",
   },
   subInstructionText: {
     fontSize: 14,
     marginBottom: 10,
     color: "#1A2530",
+    textAlign: "center",
   },
   safeCodeContainer: {
     flexDirection: "row",

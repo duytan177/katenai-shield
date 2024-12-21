@@ -6,6 +6,7 @@ import {
   Switch,
   Image,
   TouchableOpacity,
+  Linking,
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import Header from "../../components/Header";
@@ -24,6 +25,12 @@ import notiHelp from "../../assets/images/Sos/notiHelp.png";
 import directions from "../../assets/images/Sos/directions.png";
 import SosNotiModal from "../../components/SosNotiModal";
 import SOSHelp from "../../assets/images/Sos/SOSHelp.png";
+import {
+  configurePushNotifications,
+  sendPushNotificationHandler,
+  setNotificationHandler,
+} from "../../helpers/pushNotifications";
+import * as Notifications from "expo-notifications";
 
 const TITLE_SCREEN = "SOS Alert";
 const SosMapHelp = ({ navigation, route }: any) => {
@@ -37,7 +44,54 @@ const SosMapHelp = ({ navigation, route }: any) => {
   const [randomAvatars, setRandomAvatars] = useState<any[]>([]); // Lưu các vị trí ngẫu nhiên cho avatar
   const [invisibleHelp, setInvisibleHelp] = useState<Boolean>(invisibleFlg);
   const [findHelp, setFindHelp] = useState<any>(false);
-  const [modalFindHelp, setModalFindHelp] = useState< any>(false);
+  const [modalFindHelp, setModalFindHelp] = useState<any>(false);
+
+  useEffect(() => {
+    const pushNotifications = async () => {
+      try {
+        setNotificationHandler();
+
+        // Lấy token thiết bị
+        const pushToken = await configurePushNotifications();
+        console.log("Expo Push Token: ", pushToken);
+
+        if (!pushToken) {
+          console.log("Không thể nhận token thông báo đẩy.");
+          return;
+        }
+
+        // Gửi thông báo
+        const data = {
+          title: "Katenai Shield",
+          content: `HELP TÀI !! IT’S AN EMERGENCY!!
+  Your friend needs SOS assistance.
+  Please reach ASAP to the location below: https://maps.google.com/?q=${location?.longitude}.${location?.latitude}`,
+          image: user1, // Đảm bảo 'user1' là một URL hợp lệ hoặc xử lý logic ảnh tại đây
+        };
+
+        sendPushNotificationHandler(pushToken, data);
+      } catch (error) {
+        console.error("Có lỗi xảy ra:", error);
+      }
+    };
+
+    if (!invisibleFlg) {
+      pushNotifications();
+    }
+
+    const subscription = Notifications.addNotificationResponseReceivedListener(
+      (response) => {
+        Linking.openURL(
+          `https://maps.google.com/?q=${location?.longitude}.${location?.latitude}`
+        );
+      }
+    );
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
+
   const closeModalFindHelp = () => {
     setModalFindHelp(false);
   };
@@ -125,27 +179,26 @@ const SosMapHelp = ({ navigation, route }: any) => {
     });
   };
 
-
   const onHandleFindHelp = () => {
     setFindHelp(true);
     setTimeout(() => {
-      setModalFindHelp(true)
+      setModalFindHelp(true);
     }, 3000);
   };
 
   useEffect(() => {
-    if (modalFindHelp && findHelp){
+    if (modalFindHelp && findHelp) {
       setTimeout(() => {
-        setModalFindHelp(false)
+        setModalFindHelp(false);
       }, 2000);
     }
   }, [findHelp, modalFindHelp]);
 
   const onHandleSafeCode = () => {
     navigation.navigate("HomeTabs", {
-      screen: "SosAlertSafeCode"
-    })
-  }
+      screen: "SosAlertSafeCode",
+    });
+  };
   return (
     <LinearGradient
       start={{ x: 0, y: 0 }}
@@ -190,11 +243,18 @@ const SosMapHelp = ({ navigation, route }: any) => {
             {location && (
               <Marker
                 coordinate={{
-                  latitude: findHelp ? randomAvatars[0].latitude - 0.0005 :location.latitude ,
-                  longitude: findHelp ? randomAvatars[0].longitude :location.longitude,
+                  latitude: findHelp
+                    ? randomAvatars[0].latitude - 0.0005
+                    : location.latitude,
+                  longitude: findHelp
+                    ? randomAvatars[0].longitude
+                    : location.longitude,
                 }}
               >
-                <TouchableOpacity onPress={onHandleFindHelp} style={styles.bodyAvata}>
+                <TouchableOpacity
+                  onPress={onHandleFindHelp}
+                  style={styles.bodyAvata}
+                >
                   <Image source={myAvata} style={styles.avatarImage} />
                 </TouchableOpacity>
               </Marker>
@@ -240,7 +300,9 @@ const SosMapHelp = ({ navigation, route }: any) => {
             ))}
 
             {/* Vẽ đường nối từ vị trí người dùng tới các avatar ngẫu nhiên */}
-            {!findHelp && invisibleHelp && location &&
+            {!findHelp &&
+              invisibleHelp &&
+              location &&
               randomAvatars.map((avatar, index) => (
                 <Polyline
                   key={index}
@@ -284,20 +346,25 @@ const SosMapHelp = ({ navigation, route }: any) => {
         )}
 
         {invisibleHelp && (
-          <TouchableOpacity onPress={onHandleSafeCode} style={styles.modalSafeCode}>
-              <View style={styles.inforDetailSafeCode}>
-                <Text style={styles.modalMessageSafeCode}>Safe Code </Text>
-                <Text style={[styles.modalMessageSafeCode]}>8527</Text>
-              </View>
-            </TouchableOpacity>
+          <TouchableOpacity
+            onPress={onHandleSafeCode}
+            style={styles.modalSafeCode}
+          >
+            <View style={styles.inforDetailSafeCode}>
+              <Text style={styles.modalMessageSafeCode}>Safe Code </Text>
+              <Text style={[styles.modalMessageSafeCode]}>8527</Text>
+            </View>
+          </TouchableOpacity>
         )}
 
         <SosNotiModal
-                isModalVisible={modalFindHelp}
-                closeModal={closeModalFindHelp}
-                title={""}
-                subTitle={"If it seems like your friend is near, keep your device in SOS mode until your friend comes to your rescue"}
-                imageTitle={SOSHelp}
+          isModalVisible={modalFindHelp}
+          closeModal={closeModalFindHelp}
+          title={""}
+          subTitle={
+            "If it seems like your friend is near, keep your device in SOS mode until your friend comes to your rescue"
+          }
+          imageTitle={SOSHelp}
         />
       </SafeAreaView>
     </LinearGradient>

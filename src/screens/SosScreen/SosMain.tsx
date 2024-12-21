@@ -42,26 +42,23 @@ const SosMain = ({ route }: any) => {
   };
 
   useEffect(() => {
-    if (!isModalVisible){
-      if (isModalVisibleSendLocal){
+    if (!isModalVisible) {
+      if (isModalVisibleSendLocal) {
         setTimeout(() => {
           setModalVisibleSendLocal(false);
-          navigation.navigate("SosMapHelp")
+          navigation.navigate("SosMapHelp");
         }, 2000);
       }
-  
     }
 
-    if (!isModalVisibleSendLocal){
+    if (!isModalVisibleSendLocal) {
       if (isModalVisible) {
         setTimeout(() => {
-          setModalVisible(false)
-          setModalVisibleSendLocal(true)
+          setModalVisible(false);
+          setModalVisibleSendLocal(true);
         }, 2000);
       }
     }
-
-  
   }, [isModalVisible, isModalVisibleSendLocal]);
   return (
     <SafeAreaView edges={["top"]} style={styles.container}>
@@ -170,7 +167,7 @@ const styles = StyleSheet.create({
   textContainer: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   title: {
     fontSize: 20,
