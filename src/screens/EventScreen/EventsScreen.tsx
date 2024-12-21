@@ -31,7 +31,7 @@ const events = [
     name: "Bob Brown",
     avatar: avatar1,
     dateTime: { date: "20 July 2024", time: "02:00 PM" },
-    status: "ended"
+    status: "Ended"
   },
   {
     name: "Richard Johnson",
@@ -47,7 +47,7 @@ const events = [
     name: "Bob Brown",
     avatar: avatar1,
     dateTime: { date: "20 July 2024", time: "02:00 PM" },
-    status: "ended"
+    status: "Ended"
   }
 ];
 const EventsScreen = () => {

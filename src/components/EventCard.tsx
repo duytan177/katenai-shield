@@ -33,7 +33,7 @@ const EventCard = ({ name, avatar, dateTime, status }: any) => {
           <Text style={styles.name}>{name}</Text>
           <View style={styles.detail}>
             <EventTimeCard dateTime={dateTime} />
-            {status == "ended" ? (
+            {status == "Ended" ? (
               <Text style={styles.textEnded}>{status}</Text>
             ) : (
               <View style={styles.status}>
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "bold",
     marginTop: 15,
-    color: "#F22D2D", // Màu chữ cho Coming soon
+    color: "#f75252", // Màu chữ cho Coming soon
   },
 });
 
