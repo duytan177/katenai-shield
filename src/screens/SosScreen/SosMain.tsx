@@ -38,7 +38,7 @@ const SosMain = ({ route }: any) => {
 
   const closeModalSendLocal = () => {
     setModalVisibleSendLocal(false);
-    navigation.navigate("SosMapHelp")
+    navigation.navigate("SosMapHelp");
   };
   return (
     <SafeAreaView edges={["top"]} style={styles.container}>
@@ -106,9 +106,11 @@ const SosMain = ({ route }: any) => {
             }}
           />
         </TouchableOpacity>
-        <Text style={styles.title}>Helpline phone number</Text>
-        <Text style={styles.subTitle}>0795874652</Text>
-        <Text style={styles.subTitle}>0988743531</Text>
+        <View style={styles.textContainer}>
+          <Text style={styles.title}>Helpline phone number</Text>
+          <Text style={styles.subTitle}>0795874652</Text>
+          <Text style={styles.subTitle}>0988743531</Text>
+        </View>
       </View>
 
       {!isModalVisibleSendLocal && (
@@ -138,9 +140,14 @@ const styles = StyleSheet.create({
   bodySos: {
     flex: 1,
     flexDirection: "column",
-    marginTop: 30,
+    marginTop: 10,
     justifyContent: "flex-start",
     alignItems: "center",
+  },
+  textContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
   },
   title: {
     fontSize: 20,
