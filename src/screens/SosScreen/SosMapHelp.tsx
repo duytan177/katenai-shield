@@ -140,6 +140,12 @@ const SosMapHelp = ({ navigation, route }: any) => {
       }, 2000);
     }
   }, [findHelp, modalFindHelp]);
+
+  const onHandleSafeCode = () => {
+    navigation.navigate("HomeTabs", {
+      screen: "SosAlertSafeCode"
+    })
+  }
   return (
     <LinearGradient
       start={{ x: 0, y: 0 }}
@@ -278,7 +284,7 @@ const SosMapHelp = ({ navigation, route }: any) => {
         )}
 
         {invisibleHelp && (
-          <TouchableOpacity style={styles.modalSafeCode}>
+          <TouchableOpacity onPress={onHandleSafeCode} style={styles.modalSafeCode}>
               <View style={styles.inforDetailSafeCode}>
                 <Text style={styles.modalMessageSafeCode}>Safe Code </Text>
                 <Text style={[styles.modalMessageSafeCode]}>8527</Text>
