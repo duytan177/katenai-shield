@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Image, View, TouchableOpacity, Text } from "react-native";
+import { Image, View, TouchableOpacity, Text, Alert } from "react-native";
 import HomeScreen from "../screens/HomeScreen";
 import Login from "../screens/Login";
 import OnboardingScreen from "../screens/OnboardScreen";
@@ -36,8 +36,13 @@ import SafeTipsMain from "../screens/SafeTipsScreen/SafeTipsMain";
 import ProfileDetail from "../screens/ProfileScreen/ProfileDetail";
 import SosMapHelp from "../screens/SosScreen/SosMapHelp";
 import SosAlertSafeCode from "../screens/SosScreen/SosAlertSafeCode";
-import ShakeEvent from 'react-native-shake';
-
+import { Accelerometer } from "expo-sensors";
+import {
+  NavigationProp,
+  RouteProp,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 
 export type MainStackParamList = {
   TestScreen: any;
@@ -370,18 +375,46 @@ const TabNavigator = () => {
 };
 
 const MainNavigator = () => {
+  const [subscription, setSubscription] = useState<any>(null);
+  const [data, setData] = useState({ x: 0, y: 0, z: 0 });
+  const navigation = useNavigation<NavigationProp<MainStackParamList>>();
   useEffect(() => {
-    // Đăng ký sự kiện lắc điện thoại
-    const shakeSubscription = ShakeEvent.addListener('shake', () => {
-      // Thực hiện hành động khi lắc điện thoại
-      Alert.alert('Lắc điện thoại', 'Bạn đã lắc điện thoại!');
-    });
+    // Lắng nghe thay đổi của Accelerometer
+    const subscribe = () => {
+      setSubscription(
+        Accelerometer.addListener((accelerometerData) => {
+          setData(accelerometerData);
+        })
+      );
+      Accelerometer.setUpdateInterval(100); // Cập nhật mỗi 100ms
+    };
 
-    // Dọn dẹp sự kiện khi component unmount
+    subscribe();
+
     return () => {
-      shakeSubscription.remove();
+      // Dừng lắng nghe khi component unmount
+      subscription && subscription.remove();
+      setSubscription(null);
     };
   }, []);
+
+  useEffect(() => {
+    const { x, y, z } = data;
+    const acceleration = Math.sqrt(x * x + y * y + z * z);
+    if (acceleration > 5) {
+      const nameScreen = navigation.getCurrentRoute().name;
+
+      switch (nameScreen) {
+        case "OnboardingScreen":
+        case "Login":
+        case "Register":
+          break;
+        default:
+          navigation.navigate("SosMain");
+          break;
+      }
+    }
+  }, [data]);
   return (
     <MainStack.Navigator screenOptions={{ headerShown: false }}>
       <MainStack.Screen name="OnboardingScreen" component={OnboardingScreen} />
@@ -391,7 +424,7 @@ const MainNavigator = () => {
       <MainStack.Screen name="FindHouse" component={FindHouse} />
       <MainStack.Screen name="CreateHouse" component={CreateHouse} />
       <MainStack.Screen name="DetailHouse" component={DetailHouse} />
-      <MainStack.Screen name="SosMain" component={SosMain} />
+      {/* <MainStack.Screen name="SosMain" component={SosMain} /> */}
       <MainStack.Screen name="SosMapHelpStack" component={SosMapHelp} />
 
       <MainStack.Screen
