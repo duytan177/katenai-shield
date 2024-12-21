@@ -10,6 +10,7 @@ import {
   TextStyle,
   TouchableOpacity,
   ScrollView,
+  Platform,
 } from "react-native";
 import React, { useState, useRef } from "react";
 import Header from "../../components/Header";
@@ -78,48 +79,55 @@ const SosAlertSafeCode = () => {
           title={"SOS Alert"}
           subTitle="Contact with your friend to perform this operation"
         />
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          style={{ flex: 1, marginBottom: 20 }}
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          style={styles.keyboardAvoiding}
         >
-          <View style={styles.circleContainer}>
-            <View style={styles.circleOuter} />
-            <View style={styles.circleMiddle} />
-            <View style={styles.circleInner}>
-              <Image source={SOSNoti} style={styles.sosImage} />
+          <ScrollView
+            contentContainerStyle={styles.scrollViewContentContainer}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+            style={{ flex: 1, marginBottom: 20 }}
+          >
+            <View style={styles.circleContainer}>
+              <View style={styles.circleOuter} />
+              <View style={styles.circleMiddle} />
+              <View style={styles.circleInner}>
+                <Image source={SOSNoti} style={styles.sosImage} />
+              </View>
             </View>
-          </View>
 
-          <Text style={styles.titleSOSContact}>
-            Your SOS Contact has been notified!
-          </Text>
-          <View style={styles.bodyInputOTP}>
-            <KeyboardAvoidingView
-              behavior="padding"
+            <Text style={styles.titleSOSContact}>
+              Your SOS Contact has been notified!
+            </Text>
+            <View style={styles.bodyInputOTP}>
+              {/* <KeyboardAvoidingView
+              behavior={Platform.OS === "ios" ? "padding" : "padding"}
               style={styles.keyboardAvoiding}
-            >
+            > */}
               <Text style={styles.instructionText}>Enter Safe OTP </Text>
               <Text style={styles.subInstructionText}>
                 Enter the Safe OTP sent to your SOS Contacts
               </Text>
 
               {renderSafeCodeInput()}
-            </KeyboardAvoidingView>
+              {/* </KeyboardAvoidingView> */}
 
-            <Text style={styles.bottomInstructionText}>
-              To stop the SOS, enter the Safe OTP sent to your SOS Contacts
-            </Text>
+              <Text style={styles.bottomInstructionText}>
+                To stop the SOS, enter the Safe OTP sent to your SOS Contacts
+              </Text>
 
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity style={styles.resendButton}>
-                <Text style={styles.buttonText}>Resend</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.okayButton}>
-                <Text style={styles.buttonText}>Okay</Text>
-              </TouchableOpacity>
+              <View style={styles.buttonContainer}>
+                <TouchableOpacity style={styles.resendButton}>
+                  <Text style={styles.buttonText}>Resend</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.okayButton}>
+                  <Text style={styles.buttonText}>Okay</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        </ScrollView>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </SafeAreaView>
     </LinearGradient>
   );
@@ -187,7 +195,13 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   keyboardAvoiding: {
+    flex: 1,
     alignItems: "center",
+    justifyContent: "flex-end",
+  },
+  scrollViewContentContainer: {
+    flexGrow: 1,
+    justifyContent: "center",
   },
   instructionText: {
     fontSize: 18,
