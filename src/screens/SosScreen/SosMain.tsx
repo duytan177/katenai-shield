@@ -40,6 +40,29 @@ const SosMain = ({ route }: any) => {
     setModalVisibleSendLocal(false);
     navigation.navigate("SosMapHelp")
   };
+
+  useEffect(() => {
+    if (!isModalVisible){
+      if (isModalVisibleSendLocal){
+        setTimeout(() => {
+          setModalVisibleSendLocal(false);
+          navigation.navigate("SosMapHelp")
+        }, 2000);
+      }
+  
+    }
+
+    if (!isModalVisibleSendLocal){
+      if (isModalVisible) {
+        setTimeout(() => {
+          setModalVisible(false)
+          setModalVisibleSendLocal(true)
+        }, 2000);
+      }
+    }
+
+  
+  }, [isModalVisible, isModalVisibleSendLocal]);
   return (
     <SafeAreaView edges={["top"]} style={styles.container}>
       <Header title={TITLE_SCREEN} />
