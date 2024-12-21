@@ -72,7 +72,7 @@ const HouseOfCompassionMain = ({ navigation }: any) => {
                 style={styles.actionButton}
               >
                 <Text style={styles.actionButtonText}>
-                  Giúp đỡ người khác bằng ngồi nhà thân yêu của bạn
+                  Giúp đỡ người khác bằng ngôi nhà thân yêu của bạn
                 </Text>
               </LinearGradient>
             </TouchableOpacity>
