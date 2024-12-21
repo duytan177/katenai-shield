@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Image, View, TouchableOpacity, Text } from "react-native";
@@ -35,6 +35,10 @@ import DetailHouse from "../screens/House of Compassion/DetailHouse";
 import SafeTipsMain from "../screens/SafeTipsScreen/SafeTipsMain";
 import ProfileDetail from "../screens/ProfileScreen/ProfileDetail";
 import SosMapHelp from "../screens/SosScreen/SosMapHelp";
+import SosAlertSafeCode from "../screens/SosScreen/SosAlertSafeCode";
+import ShakeEvent from 'react-native-shake';
+
+
 export type MainStackParamList = {
   TestScreen: any;
   OnboardingScreen: any;
@@ -55,7 +59,8 @@ export type MainStackParamList = {
   ProfileDetail: any;
   SosSending: any;
   SosMapHelp: any;
-  SosMapHelpStack: any
+  SosMapHelpStack: any;
+  SosAlertSafeCode: any;
 };
 
 const MainStack = createStackNavigator<MainStackParamList>();
@@ -351,11 +356,32 @@ const TabNavigator = () => {
           tabBarItemStyle: { display: "none" },
         }}
       ></Tab.Screen>
+      <Tab.Screen
+        name="SosAlertSafeCode"
+        component={SosAlertSafeCode}
+        options={{
+          headerShown: false,
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: "none" },
+        }}
+      ></Tab.Screen>
     </Tab.Navigator>
   );
 };
 
 const MainNavigator = () => {
+  useEffect(() => {
+    // Đăng ký sự kiện lắc điện thoại
+    const shakeSubscription = ShakeEvent.addListener('shake', () => {
+      // Thực hiện hành động khi lắc điện thoại
+      Alert.alert('Lắc điện thoại', 'Bạn đã lắc điện thoại!');
+    });
+
+    // Dọn dẹp sự kiện khi component unmount
+    return () => {
+      shakeSubscription.remove();
+    };
+  }, []);
   return (
     <MainStack.Navigator screenOptions={{ headerShown: false }}>
       <MainStack.Screen name="OnboardingScreen" component={OnboardingScreen} />
