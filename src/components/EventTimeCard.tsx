@@ -23,12 +23,12 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   textTop: {
-    fontSize: 13,
+    fontSize: 12,
     color: "#ffffff",
-    textShadowColor: "#616161",
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 3,
-    fontWeight: "bold",
+    // textShadowColor: "#616161",
+    // textShadowOffset: { width: 1, height: 1 },
+    // textShadowRadius: 3,
+    fontWeight: "600",
   },
   textBottom: {
     fontSize: 12,

@@ -152,7 +152,7 @@ const TrackMain = ({ navigation }: any) => {
                   <Callout
                     style={styles.calloutContainer}
                     onPress={() => {
-                      navigation.navigate("HouseOfCompassionMain");
+                      navigation.navigate("DetailHouse");
                     }}
                   >
                     <Text style={styles.calloutTextHeader}>
