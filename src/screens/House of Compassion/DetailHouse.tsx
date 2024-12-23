@@ -14,7 +14,7 @@ import HeaderBody from "../../components/HeaderBody";
 import detailhouse from "../../assets/images/HouseOfCompassion/detailhouse.png";
 import heart from "../../assets/images/HouseOfCompassion/heart.png";
 import UserCard from "../../components/UserCard";
-import avatar1 from "../../assets/images/FakeCall/avatar1.png";
+import avatar3 from "../../assets/images/FakeCall/avatar3.png";
 
 const DetailHouse = ({ navigation }: any) => {
   return (
@@ -71,7 +71,7 @@ const DetailHouse = ({ navigation }: any) => {
             <View style={{ flex: 1, width: "95%", marginTop: 5 }}>
               <UserCard
                 name={"Nam Tran Hoang"}
-                avatar={avatar1}
+                avatar={avatar3}
                 des={"Creator"}
               />
             </View>
