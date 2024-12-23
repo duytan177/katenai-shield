@@ -1,5 +1,5 @@
 import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Header from "../../components/Header";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
@@ -17,47 +17,53 @@ import sendingSuccess from "../../assets/images/Sos/sendingSuccess.png";
 
 const TITLE_SCREEN = "SOS";
 const SosMain = ({ route }: any) => {
-  const modalSendingFlg = route.params?.modalSendingFlg; // Lấy tham số từ route
+  const modalSendingFlg = !!route.params?.modalSendingFlg; // Lấy tham số từ route
   const navigation = useNavigation<NavigationProp<MainStackParamList>>();
   const [isModalVisible, setModalVisible] = useState(modalSendingFlg); // Điều khiển trạng thái modal
   const [isModalVisibleSendLocal, setModalVisibleSendLocal] = useState(false); // Điều khiển trạng thái modal
+  const [timerModal1, setTimerModal1] = useState<any>(false);
+  const [timerModal2, setTimerModal2] = useState<any>(false);
 
   const onHandleSos = () => {
     navigation.navigate("SosSending");
   };
 
   useFocusEffect(
-    React.useCallback(() => {
+    useCallback(() => {
       setModalVisible(modalSendingFlg);
     }, [])
   );
   const closeModal = () => {
     setModalVisible(false);
     setModalVisibleSendLocal(true);
+    clearTimeout(timerModal1);
+
   };
 
   const closeModalSendLocal = () => {
     setModalVisibleSendLocal(false);
+    clearTimeout(timerModal2);
+
     navigation.navigate("SosMapHelp");
   };
 
   useEffect(() => {
     if (!isModalVisible){
       if (isModalVisibleSendLocal){
-        setTimeout(() => {
+        setTimerModal1(setTimeout(() => {
           setModalVisibleSendLocal(false);
           navigation.navigate("SosMapHelp")
-        }, 2000);
+        }, 2000));
       }
   
     }
 
     if (!isModalVisibleSendLocal){
       if (isModalVisible) {
-        setTimeout(() => {
+        setTimerModal2(setTimeout(() => {
           setModalVisible(false)
           setModalVisibleSendLocal(true)
-        }, 2000);
+        }, 2000));
       }
     }
 
