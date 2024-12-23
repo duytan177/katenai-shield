@@ -8,16 +8,11 @@ const avatarMap: { [key: string]: any } = {
   avatar4: require("../assets/images/FakeCall/avatar2.png"),
 };
 
-const FakeCallCard = ({
-  name,
-  avatar,
-  phoneNumber,
-  timeCall,
-  onCallFake,
-}: any) => {
+const FakeCallCard = ({ name, avatar, phoneNumber, timeCall, onCallFake }: any) => {
   const onHandleCallFake = (phoneNumber: string, time: number) => {
     onCallFake(phoneNumber, name, avatar, time);
   };
+
   return (
     <View style={styles.cardContainer}>
       <View style={styles.leftSection}>
@@ -28,16 +23,10 @@ const FakeCallCard = ({
           <Image source={avatarMap[avatar]} style={styles.image} />
         </View>
         <View style={styles.contentDetail}>
-          <Text>
-            • <Text style={styles.name}>{name}</Text>
-          </Text>
-          <Text style={styles.numberPhone}>• {phoneNumber}</Text>
-          <Text>
-            •{" "}
-            <Text style={styles.detail}>
-              After <Text style={styles.boldText}>{timeCall}</Text> the call
-              will be made.
-            </Text>
+          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.numberPhone}>{phoneNumber}</Text>
+          <Text style={styles.detail}>
+            After <Text style={styles.boldText}>{timeCall}</Text> seconds the call will be made.
           </Text>
         </View>
       </View>
@@ -84,12 +73,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   caller: {
-    fontSize: 15,
+    fontSize: 16,
   },
   image: {
     width: 80,
     height: 80,
-    borderRadius: "100%",
+    borderRadius: 40, // Sửa thành số để tạo hình tròn
   },
   contentDetail: {
     flex: 1,
@@ -100,36 +89,20 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   numberPhone: {},
-  detail: {
-    fontSize: 12,
-  },
+  detail: {},
   rightSection: {
     flex: 0.3,
     padding: 10,
     justifyContent: "center",
     alignItems: "center", // Center the button
   },
-  button: {
-    backgroundColor: "#007AFF",
-    paddingVertical: 12,
-    width: "80%",
-    borderRadius: 5,
-    alignItems: "center",
+  buttonCall: {
+    width: 90,
+    height: 90,
+    borderRadius: 45, // Sửa thành số để tạo hình tròn
   },
-  buttonText: {
-    color: "#fff",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-
   boldText: {
     fontWeight: "bold",
-  },
-
-  buttonCall: {
-    width: 80,
-    height: 80,
-    borderRadius: "100%",
   },
 });
 

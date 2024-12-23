@@ -1,26 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Image, View, TouchableOpacity, Text, Alert } from "react-native";
+import { Image, View, TouchableOpacity, Text } from "react-native";
+import { Accelerometer } from "expo-sensors";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+
 import HomeScreen from "../screens/HomeScreen";
 import Login from "../screens/Login";
 import OnboardingScreen from "../screens/OnboardScreen";
 import Register from "../screens/Register";
-import track from "../assets/images/track.png";
-import fakecall from "../assets/images/fakecall.png";
-import record from "../assets/images/record.png";
-import profile from "../assets/images/profile.png";
-import sosImage from "../assets/images/sos.png";
-import home from "../assets/images/home.png";
 import SosSending from "../screens/SosScreen/SosSending";
-
-export const COLORS = {
-  active: "#B287ED", // Màu khi tab được focus
-  inactive: "#433878", // Màu khi tab không được focus
-  sosButton: "#A9C0FF", // Màu nút SOS
-  sosButtonInner: "#A590FB", // Màu lớp trong của nút SOS
-  white: "#FFFFFF", // Màu trắng
-};
 import FakeCallScreen from "../screens/FakeCallScreen";
 import EventsScreen from "../screens/EventScreen/EventsScreen";
 import ProfileMain from "../screens/ProfileScreen/ProfileMain";
@@ -36,13 +25,25 @@ import SafeTipsMain from "../screens/SafeTipsScreen/SafeTipsMain";
 import ProfileDetail from "../screens/ProfileScreen/ProfileDetail";
 import SosMapHelp from "../screens/SosScreen/SosMapHelp";
 import SosAlertSafeCode from "../screens/SosScreen/SosAlertSafeCode";
-import { Accelerometer } from "expo-sensors";
-import {
-  NavigationProp,
-  RouteProp,
-  useNavigation,
-  useRoute,
-} from "@react-navigation/native";
+import ActiveCall from "../screens/ActiveCallScreen";
+import CallHistory from "../screens/CallHistoryScreen";
+import Record from "../screens/Record";
+
+
+import track from "../assets/images/track.png";
+import fakecall from "../assets/images/fakecall.png";
+import record from "../assets/images/record.png";
+import profile from "../assets/images/profile.png";
+import sosImage from "../assets/images/sos.png";
+import CallScreen from "../screens/CallScreen";
+import AnonymousCall from "../components/AnonymousCall"
+export const COLORS = {
+  active: "#B287ED",
+  inactive: "#433878",
+  sosButton: "#A9C0FF",
+  sosButtonInner: "#A590FB",
+  white: "#FFFFFF",
+};
 
 export type MainStackParamList = {
   TestScreen: any;
@@ -66,6 +67,10 @@ export type MainStackParamList = {
   SosMapHelp: any;
   SosMapHelpStack: any;
   SosAlertSafeCode: any;
+  CallScreen: any;
+  AnonymousCall:any;
+  ActiveCall:any;
+  CallHistory:any;
 };
 
 const MainStack = createStackNavigator<MainStackParamList>();
@@ -74,7 +79,7 @@ const Tab = createBottomTabNavigator();
 const TabNavigator = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Home" // Chỉ định tab mặc định là "Home"
+      initialRouteName="Home"
       screenOptions={{
         tabBarStyle: {
           backgroundColor: COLORS.white,
@@ -97,42 +102,6 @@ const TabNavigator = () => {
           tabBarItemStyle: { display: "none" },
         }}
       />
-      <Tab.Screen
-        name="TrackMain"
-        component={TrackMain}
-        options={{
-          headerShown: false,
-          tabBarButton: () => null,
-          tabBarItemStyle: { display: "none" },
-        }}
-      ></Tab.Screen>
-      <Tab.Screen
-        name="HouseOfCompassionMain"
-        component={HouseOfCompassionMain}
-        options={{
-          headerShown: false,
-          tabBarButton: () => null,
-          tabBarItemStyle: { display: "none" },
-        }}
-      ></Tab.Screen>
-      <Tab.Screen
-        name="SafeTipsMain"
-        component={SafeTipsMain}
-        options={{
-          headerShown: false,
-          tabBarButton: () => null,
-          tabBarItemStyle: { display: "none" },
-        }}
-      ></Tab.Screen>
-      <Tab.Screen
-        name="SosMain"
-        component={SosMain}
-        options={{
-          headerShown: false,
-          tabBarButton: () => null,
-          tabBarItemStyle: { display: "none" },
-        }}
-      ></Tab.Screen>
       <Tab.Screen
         name="Track"
         component={TrackMain}
@@ -161,7 +130,6 @@ const TabNavigator = () => {
           ),
         }}
       />
-
       <Tab.Screen
         name="FakeCall"
         component={FakeCallScreen}
@@ -209,7 +177,6 @@ const TabNavigator = () => {
                 alignItems: "center",
               }}
             >
-              {/* Ba lớp hình tròn */}
               <View
                 style={{
                   position: "absolute",
@@ -248,12 +215,7 @@ const TabNavigator = () => {
               />
               <Image
                 source={sosImage}
-                style={{
-                  width: 50,
-                  height: 22,
-                  zIndex: 4,
-                  tintColor: undefined,
-                }}
+                style={{ width: 50, height: 22, zIndex: 4 }}
               />
             </TouchableOpacity>
           ),
@@ -325,51 +287,6 @@ const TabNavigator = () => {
           ),
         }}
       />
-      <Tab.Screen
-        name="EventScreen"
-        component={EventsScreen}
-        options={{
-          headerShown: false,
-          tabBarButton: () => null,
-          tabBarItemStyle: { display: "none" },
-        }}
-      ></Tab.Screen>
-      <Tab.Screen
-        name="ProfileDetail"
-        component={ProfileDetail}
-        options={{
-          headerShown: false,
-          tabBarButton: () => null,
-          tabBarItemStyle: { display: "none" },
-        }}
-      ></Tab.Screen>
-      <Tab.Screen
-        name="SosSending"
-        component={SosSending}
-        options={{
-          headerShown: false,
-          tabBarButton: () => null,
-          tabBarItemStyle: { display: "none" },
-        }}
-      ></Tab.Screen>
-      <Tab.Screen
-        name="SosMapHelp"
-        component={SosMapHelp}
-        options={{
-          headerShown: false,
-          tabBarButton: () => null,
-          tabBarItemStyle: { display: "none" },
-        }}
-      ></Tab.Screen>
-      <Tab.Screen
-        name="SosAlertSafeCode"
-        component={SosAlertSafeCode}
-        options={{
-          headerShown: false,
-          tabBarButton: () => null,
-          tabBarItemStyle: { display: "none" },
-        }}
-      ></Tab.Screen>
     </Tab.Navigator>
   );
 };
@@ -378,21 +295,20 @@ const MainNavigator = () => {
   const [subscription, setSubscription] = useState<any>(null);
   const [data, setData] = useState({ x: 0, y: 0, z: 0 });
   const navigation = useNavigation<NavigationProp<MainStackParamList>>();
+
   useEffect(() => {
-    // Lắng nghe thay đổi của Accelerometer
     const subscribe = () => {
       setSubscription(
         Accelerometer.addListener((accelerometerData) => {
           setData(accelerometerData);
         })
       );
-      Accelerometer.setUpdateInterval(100); // Cập nhật mỗi 100ms
+      Accelerometer.setUpdateInterval(100);
     };
 
     subscribe();
 
     return () => {
-      // Dừng lắng nghe khi component unmount
       subscription && subscription.remove();
       setSubscription(null);
     };
@@ -402,7 +318,7 @@ const MainNavigator = () => {
     const { x, y, z } = data;
     const acceleration = Math.sqrt(x * x + y * y + z * z);
     if (acceleration > 5) {
-      const nameScreen = navigation.getCurrentRoute().name;
+      const nameScreen = navigation.getCurrentRoute()?.name;
 
       switch (nameScreen) {
         case "OnboardingScreen":
@@ -415,6 +331,7 @@ const MainNavigator = () => {
       }
     }
   }, [data]);
+
   return (
     <MainStack.Navigator screenOptions={{ headerShown: false }}>
       <MainStack.Screen name="OnboardingScreen" component={OnboardingScreen} />
@@ -426,6 +343,14 @@ const MainNavigator = () => {
       <MainStack.Screen name="DetailHouse" component={DetailHouse} />
       {/* <MainStack.Screen name="SosMain" component={SosMain} /> */}
       <MainStack.Screen name="SosMapHelpStack" component={SosMapHelp} />
+      <MainStack.Screen name="CallScreen" component={CallScreen} />
+      <MainStack.Screen name="AnonymousCall" component={AnonymousCall} />
+      <MainStack.Screen name="CallHistory" component={CallHistory} />
+      <MainStack.Screen name="ActiveCall" component={ActiveCall} />
+      <MainStack.Screen name="RecordMain" component={RecordMain} />
+
+
+
 
       <MainStack.Screen
         name="HomeTabs"

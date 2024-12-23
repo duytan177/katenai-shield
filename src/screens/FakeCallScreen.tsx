@@ -1,68 +1,69 @@
+import React, { useEffect, useRef } from "react";
 import {
   StyleSheet,
   View,
-  Text,
-  Pressable,
-  Image,
   ScrollView,
-  // PermissionsAndroid,
+  Platform,
 } from "react-native";
-import React from "react";
-import Header from "../components/Header";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
-import FakeCallCard from "../components/FakeCallCard";
+import * as Notifications from "expo-notifications";
+import { useNavigation } from "@react-navigation/native";
+import Header from "../components/Header";
 import HeaderBody from "../components/HeaderBody";
-// import RNCallKeep from "react-native-callkeep";
-import { v4 as uuidv4 } from 'uuid';
-import vector from "../assets/images/FakeCall/Vector.png"
+import FakeCallCard from "../components/FakeCallCard";
+import vector from "../assets/images/FakeCall/Vector.png";
+
 const TITLE_SCREEN = "Fake Call";
 
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
+
 const FakeCallScreen = () => {
-  const setupCallKeep = async () => {
-    // const options = {
-    //   ios: {
-    //     appName: "Fake Call App",
-    //   },
-    //   android: {
-    //     alertTitle: "Permissions required",
-    //     alertDescription:
-    //       "This app requires phone permissions to simulate calls",
-    //     cancelButton: "Cancel",
-    //     okButton: "OK",
-    //     imageName: "phone_account_icon",
-    //     additionalPermissions: [
-    //       PermissionsAndroid.PERMISSIONS.READ_PHONE_STATE,
-    //       PermissionsAndroid.PERMISSIONS.CALL_PHONE,
-    //     ],
-    //     foregroundService: {
-    //       channelId: "com.fakecallapp",
-    //       channelName: "Fake Call Service",
-    //       notificationTitle: "Fake Call Running",
-    //       notificationIcon: "ic_launcher", // Replace with your app's resource icon name
-    //     },
-    //   },
-    // };
+  const timeoutRef = useRef<number | null>(null);
+  const navigation = useNavigation();
 
-    // try {
-    //   await RNCallKeep.setup(options);
-    // } catch (err) {
-    //   console.error("CallKeep setup error:", err);
-    // }
-  };
+  useEffect(() => {
+    if (Platform.OS === "android") {
+      Notifications.setNotificationChannelAsync("incoming-calls", {
+        name: "Incoming Calls",
+        importance: Notifications.AndroidImportance.HIGH,
+        sound: null,
+      });
+    }
 
-  const onCallFake = async (phoneNumber: string, name: string, avatar: string, time: number,) => {
-    console.log(111111111111111111111)
-    await setupCallKeep();
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
+
+  const onCallFake = (
+    phoneNumber: string,
+    name: string,
+    avatar: string,
+    time: number
+  ) => {
+    Notifications.scheduleNotificationAsync({
+      content: {
+        title: `Cuộc gọi đến từ ${name}`,
+        body: `Số điện thoại: ${phoneNumber}`,
+        data: { phoneNumber, name, avatar },
+      },
+      trigger: null,
+    });
+
     setTimeout(() => {
-      // RNCallKeep.displayIncomingCall(
-      //   uuidv4(), // Unique call UUID
-      //   phoneNumber, // Phone number to display
-      //   name, // Caller name
-      //   "generic", // Call type
-      //   false // Indicate this is a video call (true or false)
-      // );  
-    }, time* 1000);
+      navigation.navigate("CallScreen", {
+        phoneNumber,
+        name,
+        avatar,
+      });
+    }, time * 1000);
   };
 
   return (
@@ -75,8 +76,11 @@ const FakeCallScreen = () => {
       <SafeAreaView edges={["top"]} style={styles.container}>
         <Header title={TITLE_SCREEN} />
         <View style={styles.containerBody}>
-          <HeaderBody title={TITLE_SCREEN} subTitle="Share live location with your friend" iconButtonRight={vector}  />
-
+          <HeaderBody
+            title={TITLE_SCREEN}
+            subTitle="Simulate a fake incoming call for fun!"
+            iconButtonRight={vector}
+          />
           <ScrollView
             showsVerticalScrollIndicator={false}
             style={styles.scrollContainer}
@@ -85,28 +89,28 @@ const FakeCallScreen = () => {
               name="Duy Tan"
               avatar="avatar1"
               phoneNumber="0795794821"
-              timeCall="5 seconds"
+              timeCall={5}
               onCallFake={onCallFake}
             />
             <FakeCallCard
               name="Hoang Nam"
               avatar="avatar2"
               phoneNumber="0795793579"
-              timeCall="60 seconds"
+              timeCall={10}
               onCallFake={onCallFake}
             />
             <FakeCallCard
               name="Anh Tai"
               avatar="avatar3"
-              phoneNumber="0999999999"
-              timeCall="20 seconds"
+              phoneNumber="0915202294"
+              timeCall={20}
               onCallFake={onCallFake}
             />
             <FakeCallCard
               name="Minh Nhat"
               avatar="avatar2"
-              phoneNumber="0888888888"
-              timeCall="30 seconds"
+              phoneNumber="0954214242"
+              timeCall={30}
               onCallFake={onCallFake}
             />
           </ScrollView>
