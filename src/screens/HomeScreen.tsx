@@ -15,6 +15,7 @@ import trackme from "../assets/images/HomeView/trackme.png";
 import { ScrollView } from "react-native-gesture-handler";
 import avatar3 from "../assets/images/FakeCall/avatar3.png";
 
+
 const FeatureItem = ({
   navigation,
   nav,
@@ -24,7 +25,7 @@ const FeatureItem = ({
 }: any) => {
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate(nav)} // Sử dụng navigation ở đây
+      onPress={() => {navigation.navigate(nav)}} // Sử dụng navigation ở đây
       style={styles.featureItem}
     >
       <LinearGradient
@@ -82,7 +83,7 @@ const HomeScreen = ({ navigation }: any) => {
     },
     {
       id: "4",
-      nav: "SosMain",
+      nav: "SOS",
       title: "SOS",
       imageSource: sos,
       gradientColors: ["#A3EAD0", "#07AA6F"], // Đổi ngược màu

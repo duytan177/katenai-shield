@@ -12,6 +12,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { LinearGradient } from "expo-linear-gradient";
 import { Audio } from "expo-av";
 import Header from "../components/Header";
+import { RecordingOptionsPresets } from "expo-av/build/Audio";
 
 const TITLE_SCREEN = "Anonymous Recording";
 
@@ -19,7 +20,7 @@ const RecordScreen = () => {
   const [otp, setOtp] = useState(["", "", "", ""]);
   const [isOtpCorrect, setIsOtpCorrect] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
-  const [recording, setRecording] = useState<Audio.Recording | null>(null);
+  const [recording, setRecording] = useState<any>(null);
 
   const correctOtp = ["1", "2", "3", "4"];
 
@@ -37,19 +38,19 @@ const RecordScreen = () => {
 
   const startRecording = async () => {
     try {
+
       const permission = await Audio.requestPermissionsAsync();
       if (!permission.granted) {
         Alert.alert("Permission Denied", "You need to grant audio recording permission.");
         return;
       }
-
-      const { recording } = await Audio.Recording.createAsync(
-        Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
+      const recording = await Audio.Recording.createAsync(
+        RecordingOptionsPresets.LOW_QUALITY
       );
       setRecording(recording);
       setIsRecording(true);
-    } catch (error) {
-      Alert.alert("Error", "Could not start recording.");
+    } catch (error:any) {
+      Alert.alert(error);
     }
   };
 
@@ -84,14 +85,14 @@ const RecordScreen = () => {
                 key={index}
                 style={[styles.otpInput, isOtpCorrect ? styles.correct : styles.incorrect]}
                 keyboardType="number-pad"
-                maxLength={1}
+                maxLength={1}  
                 value={digit}
                 onChangeText={(value) => handleOtpChange(value, index)}
               />
             ))}
           </View>
           {isOtpCorrect ? (
-            <TouchableOpacity style={styles.agreeButton} onPress={startRecording}>
+            <TouchableOpacity style={styles.agreeButton} onPress={() => startRecording}>
               <Text style={styles.buttonText}>{isRecording ? "Recording..." : "Start Record"}</Text>
             </TouchableOpacity>
           ) : (

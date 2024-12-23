@@ -10,9 +10,8 @@ import {
   FlatList,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { LinearGradient } from "expo-linear-gradient";
 import { Audio } from "expo-av";
-import Header from "../../components/Header";
+import { RecordingOptionsPresets } from "expo-av/build/Audio";
 
 const TITLE_SCREEN = "Anonymous Recording";
 
@@ -20,11 +19,12 @@ const RecordMain = () => {
   const [pin, setPin] = useState(["", "", "", ""]);
   const [isOtpCorrect, setIsOtpCorrect] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
-  const [recording, setRecording] = useState<Audio.Recording | null>(null);
+  const [recording, setRecording] = useState<any>(null);
   const [recordHistory, setRecordHistory] = useState<string[]>([]);
   const [isHistoryModalVisible, setIsHistoryModalVisible] = useState(false);
-
   const correctPin = "1234";
+  const [isPlaying, setIsPlaying] = useState(false); // Trạng thái Play/Pause
+  const [sound, setSound] = useState<Audio.Sound | null>(null); // Đối tượng  const correctPin = "1234";
   const inputRefs = useRef<(TextInput | null)[]>([]);
 
   const handlePinChange = (value: string, index: number) => {
@@ -51,18 +51,30 @@ const RecordMain = () => {
 
   const startRecording = async () => {
     try {
+      // Set audio mode for recording
+      await Audio.setAudioModeAsync({
+        allowsRecordingIOS: true,
+        playsInSilentModeIOS: true,
+        staysActiveInBackground: true, // Giữ hoạt động khi ứng dụng chuyển sang nền
+      });
+      // Request permissions
       const permission = await Audio.requestPermissionsAsync();
       if (!permission.granted) {
-        Alert.alert("Permission Denied", "You need to grant audio recording permission.");
+        Alert.alert(
+          "Permission Denied",
+          "You need to grant audio recording permission."
+        );
         return;
       }
 
+      // Start recording
       const { recording } = await Audio.Recording.createAsync(
-        Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
+        RecordingOptionsPresets.HIGH_QUALITY // Option for better quality, adjust as needed
       );
       setRecording(recording);
       setIsRecording(true);
     } catch (error) {
+      console.log(error);
       Alert.alert("Error", "Could not start recording.");
     }
   };
@@ -83,94 +95,126 @@ const RecordMain = () => {
 
   const playRecording = async (uri: string) => {
     try {
-      const sound = new Audio.Sound();
-      await sound.loadAsync({ uri });
-      await sound.playAsync();
+      if (isPlaying) {
+        // Nếu đang phát, tạm dừng bản ghi
+        await sound?.pauseAsync();
+        setIsPlaying(false);
+      } else {
+        // Nếu không, phát bản ghi
+        const { sound: newSound } = await Audio.Sound.createAsync({ uri });
+        await newSound.setVolumeAsync(1.0);
+        await newSound.playAsync();
+        setSound(newSound);
+        setIsPlaying(true);
+
+        // Xử lý khi âm thanh kết thúc
+        newSound.setOnPlaybackStatusUpdate((status: any) => {
+          if (status.didJustFinish) {
+            setIsPlaying(false); // Đặt lại trạng thái khi phát xong
+          }
+        });
+      }
     } catch (error) {
       Alert.alert("Error", "Could not play the recording.");
     }
   };
 
-  const renderHistoryItem = ({ item, index }: { item: string; index: number }) => (
+  const renderHistoryItem = ({
+    item,
+    index,
+  }: {
+    item: string;
+    index: number;
+  }) => (
     <View style={styles.historyItem}>
       <Text style={styles.historyText}>Recording {index + 1}</Text>
-      <TouchableOpacity style={styles.playButton} onPress={() => playRecording(item)}>
-        <Text style={styles.buttonText}>Play</Text>
+      <TouchableOpacity
+        style={styles.playButton}
+        onPress={() => playRecording(item)}
+      >
+        <Text style={styles.buttonText}>
+          {isPlaying ? "Stop" : "Play"}
+          {/* Thay đổi chữ dựa trên trạng thái */}
+        </Text>
       </TouchableOpacity>
     </View>
   );
 
   return (
-    
-      <SafeAreaView style={styles.container}>
-        <Header title={TITLE_SCREEN} />
-        <View style={styles.containerBody}>
-          <Text style={styles.title}>Enter Your PIN</Text>
-          <View style={styles.pinContainer}>
-            {pin.map((value, index) => (
-              <TextInput
-                key={index}
-                style={[styles.pinInput, value ? styles.correct : styles.incorrect]}
-                keyboardType="number-pad"
-                maxLength={1}
-                value={value}
-                onChangeText={(text) => handlePinChange(text, index)}
-                ref={(ref) => (inputRefs.current[index] = ref)}
-              />
-            ))}
-          </View>
-          {!isOtpCorrect && pin.some((p) => p) && (
-            <Text style={styles.errorText}>Incorrect PIN. Please try again.</Text>
-          )}
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.cancelButton} onPress={clearPin}>
-              <Text style={styles.buttonText}>Cancel</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.recordButton, { opacity: isOtpCorrect ? 1 : 0.5 }]}
-              disabled={!isOtpCorrect}
-              onPress={isRecording ? stopRecording : startRecording}
-            >
-              <Text style={styles.buttonText}>
-                {isRecording ? "Stop Recording" : "Start Recording"}
-              </Text>
-            </TouchableOpacity>
-          </View>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.containerBody}>
+        <Text style={styles.title}>Enter Your PIN</Text>
+        <View style={styles.pinContainer}>
+          {pin.map((value, index) => (
+            <TextInput
+              key={index}
+              style={[
+                styles.pinInput,
+                value ? styles.correct : styles.incorrect,
+              ]}
+              keyboardType="number-pad"
+              maxLength={1}
+              value={value}
+              onChangeText={(text) => handlePinChange(text, index)}
+              ref={(ref) => (inputRefs.current[index] = ref)}
+            />
+          ))}
+        </View>
+        {!isOtpCorrect && pin.some((p) => p) && (
+          <Text style={styles.errorText}>Incorrect PIN. Please try again.</Text>
+        )}
+        <View style={styles.buttonContainer}>
           <TouchableOpacity
-            style={styles.historyButton}
-            onPress={() => setIsHistoryModalVisible(true)}
+            style={[styles.cancelButton, isRecording && { opacity: 0.5 }]}
+            disabled={isRecording}
+            onPress={clearPin}
           >
-            <Text style={styles.buttonText}>View History</Text>
+            <Text style={[styles.buttonText]}>Cancel</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.recordButton, { opacity: isOtpCorrect ? 1 : 0.5 }]}
+            disabled={!isOtpCorrect}
+            onPress={isRecording ? stopRecording : startRecording}
+          >
+            <Text style={styles.buttonText}>
+              {isRecording ? "Stop Recording" : "Start Recording"}
+            </Text>
           </TouchableOpacity>
         </View>
+        <TouchableOpacity
+          style={styles.historyButton}
+          onPress={() => setIsHistoryModalVisible(true)}
+        >
+          <Text style={styles.buttonText}>View History</Text>
+        </TouchableOpacity>
+      </View>
 
-        {/* Modal for Recording History */}
-        <Modal visible={isHistoryModalVisible} animationType="slide">
-          <SafeAreaView style={styles.modalContainer}>
-            <Text style={styles.modalTitle}>Recording History</Text>
-            <FlatList
-              data={recordHistory}
-              renderItem={renderHistoryItem}
-              keyExtractor={(item, index) => `${item}-${index}`}
-            />
-            <TouchableOpacity
-              style={styles.closeButton}
-              onPress={() => setIsHistoryModalVisible(false)}
-            >
-              <Text style={styles.buttonText}>Close</Text>
-            </TouchableOpacity>
-          </SafeAreaView>
-        </Modal>
-      </SafeAreaView>
+      {/* Modal for Recording History */}
+      <Modal visible={isHistoryModalVisible} animationType="slide">
+        <SafeAreaView style={styles.modalContainer}>
+          <Text style={styles.modalTitle}>Recording History</Text>
+          <FlatList
+            data={recordHistory}
+            renderItem={renderHistoryItem}
+            keyExtractor={(item, index) => `${item}-${index}`}
+          />
+          <TouchableOpacity
+            style={styles.closeButton}
+            onPress={() => setIsHistoryModalVisible(false)}
+          >
+            <Text style={styles.buttonText}>Close</Text>
+          </TouchableOpacity>
+        </SafeAreaView>
+      </Modal>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  containerGradient: {
-    flex: 1,
-  },
   container: {
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   containerBody: {
     flex: 1,
@@ -238,6 +282,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#ecf0f1",
     padding: 20,
+    marginTop: 30
   },
   modalTitle: {
     fontSize: 20,
