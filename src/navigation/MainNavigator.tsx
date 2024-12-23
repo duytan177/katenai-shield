@@ -79,7 +79,7 @@ const Tab = createBottomTabNavigator();
 const TabNavigator = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="Home" // Chỉ định tab mặc định là "Home"
       screenOptions={{
         tabBarStyle: {
           backgroundColor: COLORS.white,
@@ -102,6 +102,42 @@ const TabNavigator = () => {
           tabBarItemStyle: { display: "none" },
         }}
       />
+      <Tab.Screen
+        name="TrackMain"
+        component={TrackMain}
+        options={{
+          headerShown: false,
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: "none" },
+        }}
+      ></Tab.Screen>
+      <Tab.Screen
+        name="HouseOfCompassionMain"
+        component={HouseOfCompassionMain}
+        options={{
+          headerShown: false,
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: "none" },
+        }}
+      ></Tab.Screen>
+      <Tab.Screen
+        name="SafeTipsMain"
+        component={SafeTipsMain}
+        options={{
+          headerShown: false,
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: "none" },
+        }}
+      ></Tab.Screen>
+      <Tab.Screen
+        name="SosMain"
+        component={SosMain}
+        options={{
+          headerShown: false,
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: "none" },
+        }}
+      ></Tab.Screen>
       <Tab.Screen
         name="Track"
         component={TrackMain}
@@ -130,6 +166,7 @@ const TabNavigator = () => {
           ),
         }}
       />
+
       <Tab.Screen
         name="FakeCall"
         component={FakeCallScreen}
@@ -177,6 +214,7 @@ const TabNavigator = () => {
                 alignItems: "center",
               }}
             >
+              {/* Ba lớp hình tròn */}
               <View
                 style={{
                   position: "absolute",
@@ -215,7 +253,12 @@ const TabNavigator = () => {
               />
               <Image
                 source={sosImage}
-                style={{ width: 50, height: 22, zIndex: 4 }}
+                style={{
+                  width: 50,
+                  height: 22,
+                  zIndex: 4,
+                  tintColor: undefined,
+                }}
               />
             </TouchableOpacity>
           ),
@@ -287,6 +330,51 @@ const TabNavigator = () => {
           ),
         }}
       />
+      <Tab.Screen
+        name="EventScreen"
+        component={EventsScreen}
+        options={{
+          headerShown: false,
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: "none" },
+        }}
+      ></Tab.Screen>
+      <Tab.Screen
+        name="ProfileDetail"
+        component={ProfileDetail}
+        options={{
+          headerShown: false,
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: "none" },
+        }}
+      ></Tab.Screen>
+      <Tab.Screen
+        name="SosSending"
+        component={SosSending}
+        options={{
+          headerShown: false,
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: "none" },
+        }}
+      ></Tab.Screen>
+      <Tab.Screen
+        name="SosMapHelp"
+        component={SosMapHelp}
+        options={{
+          headerShown: false,
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: "none" },
+        }}
+      ></Tab.Screen>
+      <Tab.Screen
+        name="SosAlertSafeCode"
+        component={SosAlertSafeCode}
+        options={{
+          headerShown: false,
+          tabBarButton: () => null,
+          tabBarItemStyle: { display: "none" },
+        }}
+      ></Tab.Screen>
     </Tab.Navigator>
   );
 };
@@ -343,6 +431,8 @@ const MainNavigator = () => {
       <MainStack.Screen name="DetailHouse" component={DetailHouse} />
       {/* <MainStack.Screen name="SosMain" component={SosMain} /> */}
       <MainStack.Screen name="SosMapHelpStack" component={SosMapHelp} />
+
+
       <MainStack.Screen name="CallScreen" component={CallScreen} />
       <MainStack.Screen name="AnonymousCall" component={AnonymousCall} />
       <MainStack.Screen name="CallHistory" component={CallHistory} />
