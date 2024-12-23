@@ -96,7 +96,7 @@ const HomeScreen = ({ navigation }: any) => {
     },
     {
       id: "6",
-      nav: "TrackMain",
+      nav: "RecordMain",
       title: "Records",
       imageSource: record,
       gradientColors: ["#FC8D9F", "#E50B16"], // Đổi ngược màu
@@ -110,7 +110,7 @@ const HomeScreen = ({ navigation }: any) => {
     },
     {
       id: "8",
-      nav: "TrackMain",
+      nav: "AnonymousCall",
       title: "Anonymous Call",
       imageSource: anocall,
       gradientColors: ["#FF9263", "#CF3000"], // Đổi ngược màu

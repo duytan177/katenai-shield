@@ -12,7 +12,7 @@ import bell from "../assets/images/bell.png";
 import back from "../assets/images/back.png";
 import { useNavigation } from "@react-navigation/native"; // Import useNavigation
 
-const Header = ({ title = null }: any) => {
+const Header = ({ title, onPress }: any) => {
   const [scaleKatenai] = useState(new Animated.Value(1));
   const [scaleBell] = useState(new Animated.Value(1));
 
@@ -118,6 +118,7 @@ const Header = ({ title = null }: any) => {
       </TouchableOpacity>
     </View>
   );
+
 };
 
 const styles = StyleSheet.create({
