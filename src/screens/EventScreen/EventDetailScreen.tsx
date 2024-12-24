@@ -62,7 +62,7 @@ const EventDetailScreen = ({ route }: any) => {
               <Text style={styles.link}>105 Tran Dai Nghia</Text>
             </LinearGradient>
             <LinearGradient colors={["#3E5F81", "#2796F0"]} style={styles.card}>
-              <Text style={styles.form}>Offline</Text>
+              <Text style={styles.form}>Online</Text>
               <Text style={styles.link}>google.meet.com</Text>
             </LinearGradient>
           </View>

@@ -29,14 +29,13 @@ import ActiveCall from "../screens/ActiveCallScreen";
 import CallHistory from "../screens/CallHistoryScreen";
 import Record from "../screens/Record";
 
-
 import track from "../assets/images/track.png";
 import fakecall from "../assets/images/fakecall.png";
 import record from "../assets/images/record.png";
 import profile from "../assets/images/profile.png";
 import sosImage from "../assets/images/sos.png";
 import CallScreen from "../screens/CallScreen";
-import AnonymousCall from "../components/AnonymousCall"
+import AnonymousCall from "../components/AnonymousCall";
 export const COLORS = {
   active: "#B287ED",
   inactive: "#433878",
@@ -68,9 +67,9 @@ export type MainStackParamList = {
   SosMapHelpStack: any;
   SosAlertSafeCode: any;
   CallScreen: any;
-  AnonymousCall:any;
-  ActiveCall:any;
-  CallHistory:any;
+  AnonymousCall: any;
+  ActiveCall: any;
+  CallHistory: any;
 };
 
 const MainStack = createStackNavigator<MainStackParamList>();
@@ -414,7 +413,9 @@ const MainNavigator = () => {
         case "Register":
           break;
         default:
-          navigation.navigate("SosMain");
+          navigation.navigate("HomeTabs", {
+            screen: "SOS",
+          });
           break;
       }
     }
@@ -432,15 +433,11 @@ const MainNavigator = () => {
       {/* <MainStack.Screen name="SosMain" component={SosMain} /> */}
       <MainStack.Screen name="SosMapHelpStack" component={SosMapHelp} />
 
-
       <MainStack.Screen name="CallScreen" component={CallScreen} />
       <MainStack.Screen name="AnonymousCall" component={AnonymousCall} />
       <MainStack.Screen name="CallHistory" component={CallHistory} />
       <MainStack.Screen name="ActiveCall" component={ActiveCall} />
       <MainStack.Screen name="RecordMain" component={RecordMain} />
-
-
-
 
       <MainStack.Screen
         name="HomeTabs"
